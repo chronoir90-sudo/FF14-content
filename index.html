@@ -183,8 +183,8 @@ video{
 }
 </style>
 </head>
-<body>
 
+<body>
 <header>
   <div>
     <b class="logo">Eorzea Pocket</b>
@@ -260,6 +260,7 @@ video{
       </article>
     </div>
   </section>
+
   <section id="market" class="tab">
     <div class="grid two">
       <article class="card">
@@ -271,6 +272,27 @@ video{
         </div>
         <p id="marketStatus" class="small"></p>
         <div id="suggestedItems"></div>
+
+        <h3>自動発掘候補</h3>
+        <div class="row">
+          <button id="autoDiscover" class="primary">高く売れる候補を自動発掘</button>
+          <button id="toggleOnlyDoable">できるものだけ</button>
+        </div>
+        <div id="discoveryList"></div>
+
+        <h3>監視アイテム追加</h3>
+        <div class="formgrid">
+          <input id="watchName" placeholder="アイテム名 例: 銀鉱">
+          <input id="watchId" type="number" placeholder="ItemID 例: 5113">
+          <input id="watchJob" placeholder="必要ジョブ 例: 採掘師">
+          <input id="watchLevel" type="number" placeholder="必要Lv 例: 25">
+        </div>
+        <select id="watchType">
+          <option value="gather">採集</option>
+          <option value="craft">製作</option>
+          <option value="other">その他</option>
+        </select>
+        <button id="addWatchItem">監視アイテムに追加</button>
 
         <h3>手入力/OCRデモ</h3>
         <textarea id="marketText"></textarea>
@@ -447,7 +469,7 @@ let spots = JSON.parse(localStorage.getItem("ep_spots") || "null") || [
 
 let selected = spots[0];
 
-let items = [
+let baseItems = [
   {
     item: "銀鉱",
     itemId: 5113,
@@ -506,7 +528,10 @@ let items = [
   }
 ];
 
+let customWatchItems = JSON.parse(localStorage.getItem("ep_custom_watch_items") || "[]");
+let items = baseItems.concat(customWatchItems);
 let marketFresh = false;
+let onlyDoableDiscovery = true;
 
 function $(id) {
   return document.getElementById(id);
@@ -535,7 +560,8 @@ function saveAll() {
   localStorage.setItem("ep_profile", JSON.stringify(profile));
   localStorage.setItem("ep_spots", JSON.stringify(spots));
 }
-  function init() {
+
+function init() {
   stages.forEach(stage => {
     $("progress").innerHTML += `<option value="${stage[0]}">${stage[1]}</option>`;
   });
@@ -585,8 +611,12 @@ function bind() {
   $("walkGacha").onclick = walkGacha;
   $("spotSearch").oninput = renderSpots;
   $("addSpot").onclick = addSpot;
-  $("analyzeMarket").onclick = analyzeMarket;
+
   $("fetchMarket").onclick = fetchMarket;
+  $("analyzeMarket").onclick = analyzeMarket;
+  $("autoDiscover").onclick = autoDiscover;
+  $("toggleOnlyDoable").onclick = toggleOnlyDoable;
+  $("addWatchItem").onclick = addWatchItem;
 
   $("clearMarketCache").onclick = () => {
     localStorage.removeItem("ep_market_cache");
@@ -594,6 +624,7 @@ function bind() {
     items.forEach(item => item.api = null);
     $("marketStatus").textContent = "相場キャッシュを削除しました";
     renderMarket();
+    renderDiscovery();
   };
 
   $("copyQr").onclick = () => navigator.clipboard?.writeText($("qrValue").value);
@@ -812,6 +843,123 @@ function marketCard(item) {
   `;
 }
 
+function discoveryScore(item) {
+  const price = item.worldPrice || 0;
+  const saleVelocity = item.api?.saleVelocity || 0;
+  const totalQty = item.api?.totalQty ?? 9999;
+  const doableBonus = item.doable ? 50 : -40;
+
+  let priceScore = 0;
+  if (price >= 10000) priceScore = 35;
+  else if (price >= 3000) priceScore = 25;
+  else if (price >= 1000) priceScore = 18;
+  else if (price >= 200) priceScore = 10;
+  else priceScore = 4;
+
+  const velocityScore = Math.min(35, saleVelocity * 6);
+
+  let scarcityScore = 0;
+  if (totalQty <= 20) scarcityScore = 20;
+  else if (totalQty <= 80) scarcityScore = 12;
+  else if (totalQty <= 200) scarcityScore = 6;
+
+  return doableBonus + priceScore + velocityScore + scarcityScore;
+}
+
+function renderDiscovery() {
+  if (!$("discoveryList")) return;
+
+  const ranked = marketSorted()
+    .map(item => ({
+      ...item,
+      discoveryScore: discoveryScore(item)
+    }))
+    .filter(item => {
+      if (onlyDoableDiscovery) return item.doable;
+      return true;
+    })
+    .sort((a, b) => b.discoveryScore - a.discoveryScore)
+    .slice(0, 8);
+
+  $("discoveryList").innerHTML = ranked.map(item => `
+    <div class="item ${item.doable ? "ok" : "lock"}">
+      <b>${item.doable ? "🔓" : "🔒"} ${item.item}</b>
+      <div class="small">
+        ${item.job} Lv${item.requiredLevel}〜 /
+        発掘スコア ${Math.round(item.discoveryScore)}
+      </div>
+      <div>${item.worldPrice ? item.worldPrice.toLocaleString() + " gil" : "価格未取得"}</div>
+      ${
+        item.api
+          ? `<div class="small">
+              最安 ${item.api.minPrice?.toLocaleString() || "-"} /
+              在庫 ${item.api.totalQty || 0} /
+              販売 ${item.api.saleVelocity?.toFixed(1) || 0}/日
+            </div>`
+          : `<div class="small">まだ実相場未取得</div>`
+      }
+      <p>${item.memo}</p>
+      <span class="badge">${item.doable ? "今日の候補" : "Lv不足"}</span>
+    </div>
+  `).join("") || '<p class="small">発掘候補がありません。</p>';
+}
+
+async function autoDiscover() {
+  if (!marketFresh) {
+    await fetchMarket();
+  }
+  renderDiscovery();
+}
+
+function toggleOnlyDoable() {
+  onlyDoableDiscovery = !onlyDoableDiscovery;
+  $("toggleOnlyDoable").textContent = onlyDoableDiscovery
+    ? "できるものだけ"
+    : "全候補表示";
+  renderDiscovery();
+}
+
+function addWatchItem() {
+  const name = $("watchName").value.trim();
+  const itemId = Number($("watchId").value);
+  const job = $("watchJob").value.trim() || "未設定";
+  const requiredLevel = Number($("watchLevel").value) || 0;
+  const type = $("watchType").value || "other";
+
+  if (!name || !itemId) {
+    alert("アイテム名とItemIDは必須です。");
+    return;
+  }
+
+  const newItem = {
+    item: name,
+    itemId,
+    type,
+    job,
+    requiredLevel,
+    worldPrice: 0,
+    velocity: "未取得",
+    advice: "自動判定",
+    memo: "ユーザー追加の監視アイテム"
+  };
+
+  items.push(newItem);
+  customWatchItems.push(newItem);
+
+  localStorage.setItem("ep_custom_watch_items", JSON.stringify(customWatchItems));
+
+  $("watchName").value = "";
+  $("watchId").value = "";
+  $("watchJob").value = "";
+  $("watchLevel").value = "";
+
+  marketFresh = false;
+  $("marketStatus").textContent = "監視アイテムを追加しました。相場取得を押してください。";
+
+  renderMarket();
+  renderDiscovery();
+}
+
 function analyzeMarket() {
   const rows = $("marketText").value
     .split(/\n|,/)
@@ -872,6 +1020,7 @@ async function fetchMarket() {
     $("marketStatus").textContent = "取得成功: " + new Date().toLocaleString();
 
     renderMarket();
+    renderDiscovery();
   } catch (error) {
     $("marketStatus").innerHTML =
       `<span class="warn">取得失敗: ${error.message}。GitHub Pages上/HTTPSで再試行、または手入力を使ってください。</span>`;
@@ -1062,6 +1211,7 @@ async function startCamera() {
 function renderAll() {
   renderSpots();
   renderMarket();
+  renderDiscovery();
   renderDaily();
   renderQr();
 }
