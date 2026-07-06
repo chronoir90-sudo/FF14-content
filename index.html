@@ -5,844 +5,396 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Eorzea Pocket</title>
 <style>
-:root{
-  --bg:#050814;
-  --card:#0f172a;
-  --card2:#07111f;
-  --line:#263244;
-  --text:#eef2ff;
-  --muted:#94a3b8;
-  --sky:#38bdf8;
-  --ok:#34d399;
-  --warn:#fbbf24;
-}
+:root{--bg:#050814;--card:#0f172a;--line:#263244;--text:#eef2ff;--muted:#94a3b8;--sky:#38bdf8;--ok:#34d399;--warn:#fbbf24}
 *{box-sizing:border-box}
-body{
-  margin:0;
-  background:linear-gradient(#07111f,#050814);
-  color:var(--text);
-  font-family:system-ui,-apple-system,"Segoe UI",sans-serif;
-}
-header{
-  max-width:1160px;
-  margin:auto;
-  padding:18px;
-  display:flex;
-  justify-content:space-between;
-  gap:14px;
-  align-items:center;
-}
-h1{margin:.1em 0;font-size:26px}
-h2{margin-top:0}
-p{color:var(--muted)}
-.logo{color:var(--sky);font-weight:900}
-button{
-  border:0;
-  border-radius:16px;
-  background:#1f2937;
-  color:white;
-  padding:11px 14px;
-  font-weight:800;
-  cursor:pointer;
-}
-button:hover{filter:brightness(1.12)}
-.primary,header button{background:#0284c7}
-nav{
-  position:sticky;
-  top:0;
-  z-index:9;
-  max-width:1160px;
-  margin:auto;
-  display:grid;
-  grid-template-columns:repeat(5,1fr);
-  gap:8px;
-  background:#050814dd;
-  padding:8px;
-  backdrop-filter:blur(10px);
-}
-nav button.active{background:#0284c7}
-.tab{
-  display:none;
-  max-width:1160px;
-  margin:auto;
-  padding:14px;
-}
+body{margi*:0;background:linear-gradient(#071*1f,#050814);color:var(--text);font*family:system-ui,-apple-system,"Se*oe UI",sans-serif}
+header{max-widt*:1160px;margin:auto;padding:18px;d*splay:flex;justify-content:space-b*tween;gap:14px;align-items:center}*h1{margin:.1em 0;font-size:26px}
+h*{margin-top:0}
+p{color:var(--muted*}
+.logo{color:var(--sky);font-weig*t:900}
+button{border:0;border-radi*s:16px;background:#1f2937;color:wh*te;padding:11px 14px;font-weight:8*0;cursor:pointer}
+button:hover{fil*er:brightness(1.12)}
+.primary,head*r button{background:#0284c7}
+.dang*r{background:#3f1d2b;color:#fecdd3*
+nav{position:sticky;top:0;z-index*9;max-width:1160px;margin:auto;dis*lay:grid;grid-template-columns:rep*at(5,1fr);gap:8px;background:#0508*4dd;padding:8px;backdrop-filter:bl*r(10px)}
+nav button.active{backgro*nd:#0284c7}
+.tab{display:none;max-*idth:1160px;margin:auto;padding:14*x}
 .tab.active{display:block}
-.grid{display:grid;gap:14px}
-.two{grid-template-columns:1fr 1.1fr}
-.card{
-  border:1px solid var(--line);
-  background:#0f172acc;
-  border-radius:28px;
-  padding:16px;
-  box-shadow:0 20px 50px #0008;
-}
-input,select,textarea{
-  width:100%;
-  border:1px solid #334155;
-  border-radius:16px;
-  background:#07111f;
-  color:var(--text);
-  padding:11px;
-  margin:5px 0 10px;
-}
-textarea{min-height:110px}
-.formgrid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:8px;
-}
-.check{
-  display:flex;
-  gap:8px;
-  align-items:center;
-}
+.gri*{display:grid;gap:14px}
+.two{grid-*emplate-columns:1fr 1.1fr}
+.card{b*rder:1px solid var(--line);backgro*nd:#0f172acc;border-radius:28px;pa*ding:16px;box-shadow:0 20px 50px #*008}
+input,select,textarea{width:1*0%;border:1px solid #334155;border*radius:16px;background:#07111f;col*r:var(--text);padding:11px;margin:*px 0 10px}
+textarea{min-height:110*x}
+.formgrid{display:grid;grid-tem*late-columns:1fr 1fr;gap:8px}
+.che*k{display:flex;gap:8px;align-items*center}
 .check input{width:auto}
-.item,.spot,.task,.job{
-  border:1px solid var(--line);
-  background:#07111f;
-  border-radius:22px;
-  padding:12px;
-  margin:8px 0;
-}
+.*tem,.spot,.task,.job{border:1px so*id var(--line);background:#07111f;*order-radius:22px;padding:12px;mar*in:8px 0}
 .spot{cursor:pointer}
-.ok{border-color:#15803d;background:#052e22}
+.o*{border-color:#15803d;background:#*52e22}
 .lock{opacity:.72}
-.small{font-size:12px;color:var(--muted)}
-.warn{color:var(--warn)}
-.badge{
-  display:inline-block;
-  border-radius:999px;
-  background:#0c4a6e;
-  color:#bae6fd;
-  padding:4px 8px;
-  font-size:12px;
-  margin:3px;
-}
-.chips button{
-  font-size:12px;
-  padding:6px 9px;
-  margin:3px;
-  background:#1e293b;
-}
-.job{
-  display:grid;
-  grid-template-columns:1fr 70px 48px;
-  gap:8px;
-  align-items:center;
-}
+.small{f*nt-size:12px;color:var(--muted)}
+.*arn{color:var(--warn)}
+.badge{disp*ay:inline-block;border-radius:999p*;background:#0c4a6e;color:#bae6fd;*adding:4px 8px;font-size:12px;marg*n:3px}
+.chips{display:flex;flex-wr*p:wrap;gap:6px;margin:8px 0}
+.chip* button{font-size:12px;padding:7px*10px;background:#1e293b}
+.chips bu*ton.active{background:#0284c7}
+.jo*{display:grid;grid-template-column*:1fr 70px 48px;gap:8px;align-items*center}
 .job input{margin:0}
-.job .del{
-  background:#3f1d2b;
-  color:#fecdd3;
-}
-.addjob{
-  display:grid;
-  grid-template-columns:1fr 78px 74px;
-  gap:8px;
-}
-.summary{
-  font-size:28px;
-  font-weight:900;
-  background:#052e22;
-  border-radius:24px;
-  padding:16px;
-}
-.row{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:8px;
-}
-.qr{
-  display:grid;
-  grid-template-columns:repeat(21,1fr);
-  gap:1px;
-  background:white;
-  border-radius:16px;
-  padding:12px;
-  max-width:300px;
-  margin:auto;
-}
-.qr div{aspect-ratio:1}
-.black{background:#020617}
-.white{background:white}
-video{
-  width:100%;
-  aspect-ratio:16/9;
-  background:#020617;
-  border-radius:20px;
-}
-.saved{font-size:12px;color:var(--ok)}
-@media(max-width:800px){
+.addj*b{display:grid;grid-template-colum*s:1fr 78px 74px;gap:8px}
+.summary{*ont-size:28px;font-weight:900;back*round:#052e22;border-radius:24px;p*dding:16px}
+.row{display:grid;grid*template-columns:1fr 1fr;gap:8px}
+*qr{display:grid;grid-template-colu*ns:repeat(21,1fr);gap:1px;backgrou*d:white;border-radius:16px;padding*12px;max-width:300px;margin:auto}
+*qr div{aspect-ratio:1}
+.black{back*round:#020617}
+.white{background:w*ite}
+video{width:100%;aspect-ratio*16/9;background:#020617;border-rad*us:20px}
+.saved{font-size:12px;col*r:var(--ok)}
+@media(max-width:800p*){
   header{display:block}
-  .two,.formgrid{grid-template-columns:1fr}
-  .addjob{grid-template-columns:1fr 70px}
-  .addjob button{grid-column:1/3}
-  nav button{font-size:12px;padding:9px 4px}
-  .row{grid-template-columns:1fr}
+  .two,*formgrid{grid-template-columns:1fr*
+  .addjob{grid-template-columns:1*r 70px}
+  .addjob button{grid-colu*n:1/3}
+  nav button{font-size:12px*padding:9px 4px}
+  .row{grid-templ*te-columns:1fr}
 }
 </style>
-</head>
+</head>*<body>
 
-<body>
 <header>
   <div>
-    <b class="logo">Eorzea Pocket</b>
-    <h1>FF14スマホ便利ツール</h1>
-    <p>自分情報・進行度別SS散歩・Universalis実相場・今日やること・QR共有</p>
-  </div>
-  <button id="walkGacha">散歩ガチャ</button>
+    <b cl*ss="logo">Eorzea Pocket</b>
+    <h*>FF14スマホ便利ツール</h1>
+    <p>自分情報・SS散*・Universalis実相場・自動発掘・監視アイテム管理</p>
+* </div>
+  <button id="walkGacha">散*ガチャ</button>
 </header>
 
 <nav>
-  <button data-tab="profile" class="active">自分</button>
-  <button data-tab="spot">散歩</button>
-  <button data-tab="market">金策</button>
-  <button data-tab="daily">今日</button>
-  <button data-tab="qr">QR</button>
-</nav>
+  <b*tton data-tab="profile" class="act*ve">自分</button>
+  <button data-tab*"spot">散歩</button>
+  <button data-*ab="market">金策</button>
+  <button *ata-tab="daily">今日</button>
+  <but*on data-tab="qr">QR</button>
+</nav*
 
 <main>
-  <section id="profile" class="tab active">
-    <div class="grid two">
-      <article class="card">
-        <h2>自分の情報</h2>
-        <div class="formgrid">
-          <label>キャラ名<input id="character"></label>
-          <label>ワールド<input id="world"></label>
-          <label>DC<input id="dc"></label>
-          <label>所持ギル<input id="gil" type="number"></label>
-          <label>軍票<input id="companySeals" type="number"></label>
-          <label>ベンチャー<input id="ventures" type="number"></label>
-        </div>
-        <label>メイン進行度<select id="progress"></select></label>
-        <label class="check">
-          <input id="hideLockedSpots" type="checkbox">
-          行けない散歩スポットを隠す
-        </label>
-        <button id="saveProfile" class="primary">この端末に保存</button>
-        <span id="saveStatus" class="saved"></span>
-      </article>
+<section id="profile" cla*s="tab active">
+  <div class="grid*two">
+    <article class="card">
+ *    <h2>自分の情報</h2>
+      <div clas*="formgrid">
+        <label>キャラ名<i*put id="character"></label>
+      * <label>ワールド<input id="world"></la*el>
+        <label>DC<input id="dc*></label>
+        <label>所持ギル<inpu* id="gil" type="number"></label>
+ *      <label>軍票<input id="companyS*als" type="number"></label>
+      * <label>ベンチャー<input id="ventures" *ype="number"></label>
+      </div>*      <label>メイン進行度<select id="pro*ress"></select></label>
+      <lab*l class="check"><input id="hideLoc*edSpots" type="checkbox">行けない散歩スポッ*を隠す</label>
+      <button id="save*rofile" class="primary">この端末に保存</b*tton>
+      <span id="saveStatus" *lass="saved"></span>
+    </article*
 
-      <article class="card">
-        <h2>ジョブ/クラスLv</h2>
-        <div class="addjob">
-          <input id="newJobName" placeholder="例: ピクトマンサー / 木工師">
-          <input id="newJobLevel" type="number" min="0" max="100" value="1">
-          <button id="addJob">追加</button>
-        </div>
-        <div id="quickJobs" class="chips"></div>
-        <div id="jobList"></div>
-      </article>
-    </div>
-  </section>
+    <article class="card">
+     *<h2>ジョブ/クラスLv</h2>
+      <div clas*="addjob">
+        <input id="newJ*bName" placeholder="例: ピクトマンサー / 木*師">
+        <input id="newJobLevel* type="number" min="0" max="100" v*lue="1">
+        <button id="addJo*">追加</button>
+      </div>
+      <*iv id="quickJobs" class="chips"></*iv>
+      <div id="jobList"></div>*    </article>
+  </div>
+</section>*
+<section id="spot" class="tab">
+ *<div class="grid two">
+    <articl* class="card">
+      <h2 id="spotT*tle">エオルゼア散歩</h2>
+      <input id=*spotSearch" placeholder="夜景、雪、クガネ…*>
+      <div id="spotList"></div>
+*   </article>
 
-  <section id="spot" class="tab">
-    <div class="grid two">
-      <article class="card">
-        <h2 id="spotTitle">エオルゼア散歩</h2>
-        <input id="spotSearch" placeholder="夜景、雪、クガネ…">
-        <div id="spotList"></div>
-      </article>
+    <article class=*card">
+      <h2>選択中スポット</h2>
+    * <div id="spotDetail"></div>
+     *<h3>スポット追加</h3>
+      <input id="s*otName" placeholder="スポット名">
+     *<div class="formgrid">
+        <in*ut id="spotArea" placeholder="エリア"*
+        <input id="spotCoord" pla*eholder="座標 X: Y:">
+      </div>
+ *    <input id="spotTags" placehold*r="タグ 例: 夜景 海 夕焼け">
+      <button *d="addSpot" class="primary">現在の進行度*追加</button>
+    </article>
+  </div*
+</section>
 
-      <article class="card">
-        <h2>選択中スポット</h2>
-        <div id="spotDetail"></div>
+<section id="market" *lass="tab">
+  <div class="grid two*>
+    <article class="card">
+     *<h2>マケボ監視 / 今日売るべきもの</h2>
+      <p*id="marketSub"></p>
 
-        <h3>スポット追加</h3>
-        <input id="spotName" placeholder="スポット名">
-        <div class="formgrid">
-          <input id="spotArea" placeholder="エリア">
-          <input id="spotCoord" placeholder="座標 X: Y:">
-        </div>
-        <input id="spotTags" placeholder="タグ 例: 夜景 海 夕焼け">
-        <button id="addSpot" class="primary">現在の進行度で追加</button>
-      </article>
-    </div>
-  </section>
+      <div cl*ss="row">
+        <button id="fetc*Market" class="primary">Universali*実相場を取得</button>
+        <button id*"clearMarketCache">相場キャッシュ削除</butt*n>
+      </div>
+      <p id="marke*Status" class="small"></p>
 
-  <section id="market" class="tab">
-    <div class="grid two">
-      <article class="card">
-        <h2>マケボ監視 / 今日売るべきもの</h2>
-        <p id="marketSub"></p>
-        <div class="row">
-          <button id="fetchMarket" class="primary">Universalis実相場を取得</button>
-          <button id="clearMarketCache">相場キャッシュ削除</button>
-        </div>
-        <p id="marketStatus" class="small"></p>
-        <div id="suggestedItems"></div>
+      *h3>カテゴリ</h3>
+      <div id="catego*yFilters" class="chips"></div>
 
-        <h3>自動発掘候補</h3>
-        <div class="row">
-          <button id="autoDiscover" class="primary">高く売れる候補を自動発掘</button>
-          <button id="toggleOnlyDoable">できるものだけ</button>
-        </div>
-        <div id="discoveryList"></div>
+  *   <h3>今日売るべきもの</h3>
+      <div id*"suggestedItems"></div>
 
-        <h3>監視アイテム追加</h3>
-        <div class="formgrid">
-          <input id="watchName" placeholder="アイテム名 例: 銀鉱">
-          <input id="watchId" type="number" placeholder="ItemID 例: 5113">
-          <input id="watchJob" placeholder="必要ジョブ 例: 採掘師">
-          <input id="watchLevel" type="number" placeholder="必要Lv 例: 25">
-        </div>
-        <select id="watchType">
-          <option value="gather">採集</option>
-          <option value="craft">製作</option>
-          <option value="other">その他</option>
-        </select>
-        <button id="addWatchItem">監視アイテムに追加</button>
+      <h3*自動発掘候補</h3>
+      <div class="row"*
+        <button id="autoDiscover"*class="primary">高く売れる候補を自動発掘</butt*n>
+        <button id="toggleOnlyD*able">できるものだけ</button>
+      </div*
+      <div id="discoveryList"></d*v>
 
-        <h3>手入力/OCRデモ</h3>
-        <textarea id="marketText"></textarea>
-        <button id="analyzeMarket">価格を整理</button>
-      </article>
+      <h3>監視アイテム追加</h3>
+      *div class="formgrid">
+        <inp*t id="watchName" placeholder="アイテム* 例: 銀鉱">
+        <input id="watchI*" type="number" placeholder="ItemI* 例: 5113">
+        <input id="watc*Job" placeholder="必要ジョブ 例: 採掘師">
+ *      <input id="watchLevel" type=*number" placeholder="必要Lv 例: 25">
+*     </div>
+      <select id="watc*Type">
+        <option value="gath*r">採集</option>
+        <option val*e="craft">製作</option>
+        <opt*on value="shard">シャード/クリスタル</optio*>
+        <option value="future">将*用</option>
+        <option value="*ther">その他</option>
+      </select>*      <button id="addWatchItem">監視*イテムに追加</button>
 
-      <article class="card">
-        <h2>監視候補</h2>
-        <div id="marketList"></div>
-      </article>
-    </div>
-  </section>
+      <h3>手入力/OCR*モ</h3>
+      <textarea id="marketT*xt"></textarea>
+      <button id="*nalyzeMarket">価格を整理</button>
+    <*article>
 
-  <section id="daily" class="tab">
-    <div class="grid two">
-      <article class="card">
-        <h2>今日やること</h2>
-        <div id="taskSummary" class="summary"></div>
-        <div id="tasks"></div>
-      </article>
+    <article class="card*>
+      <h2>監視候補管理</h2>
+      <p c*ass="small">ユーザー追加アイテムは削除できます。標準候補*削除不可。</p>
+      <div id="watchMana*er"></div>
 
-      <article class="card">
-        <h2>今日のおすすめ進行</h2>
-        <div id="plans"></div>
-      </article>
-    </div>
-  </section>
+      <h2>監視候補</h2>
+  *   <div id="marketList"></div>
+   *</article>
+  </div>
+</section>
 
-  <section id="qr" class="tab">
-    <div class="grid two">
-      <article class="card">
-        <h2>QR Hub</h2>
-        <div id="qrBox" class="qr"></div>
-        <textarea id="qrValue"></textarea>
-        <div class="row">
-          <button id="copyQr">コピー</button>
-          <button id="readQr">読み込み</button>
-        </div>
-      </article>
-
-      <article class="card">
-        <h2>カメラQR読み取りデモ</h2>
-        <video id="video" playsinline autoplay muted></video>
-        <button id="cameraBtn" class="primary">カメラ起動</button>
-        <p id="scanLog"></p>
-        <button id="spotQr">選択中スポットをQR化</button>
-      </article>
-    </div>
-  </section>
+<s*ction id="daily" class="tab">
+  <d*v class="grid two">
+    <article c*ass="card">
+      <h2>今日やること</h2>
+*     <div id="taskSummary" class="*ummary"></div>
+      <div id="task*"></div>
+    </article>
+    <artic*e class="card">
+      <h2>今日のおすすめ進*</h2>
+      <div id="plans"></div>*    </article>
+  </div>
+</section>*
+<section id="qr" class="tab">
+  <*iv class="grid two">
+    <article *lass="card">
+      <h2>QR Hub</h2>*      <div id="qrBox" class="qr"><*div>
+      <textarea id="qrValue">*/textarea>
+      <div class="row">*        <button id="copyQr">コピー</b*tton>
+        <button id="readQr">*み込み</button>
+      </div>
+    </ar*icle>
+    <article class="card">
+ *    <h2>カメラQR読み取りデモ</h2>
+      <vi*eo id="video" playsinline autoplay*muted></video>
+      <button id="c*meraBtn" class="primary">カメラ起動</bu*ton>
+      <p id="scanLog"></p>
+  *   <button id="spotQr">選択中スポットをQR化*/button>
+    </article>
+  </div>
+<*section>
 </main>
 
 <script>
-const stages = [
-  ["arr", "新生", 1],
-  ["hw", "蒼天", 2],
-  ["sb", "紅蓮", 3],
-  ["shb", "漆黒", 4],
-  ["ew", "暁月", 5],
-  ["dt", "黄金", 6]
+const s*ages=[["arr","新生",1],["hw","蒼天",2],["sb","紅蓮",3],["shb","漆黒",4],["ew","暁月",5],["dt","黄金",6]];
+
+const sta*dardJobs=[
+"ナイト","戦士","暗黒騎士","ガンブレイカー","白魔道士","学者","占星術師","賢者",
+"モンク","竜騎士","忍者","侍","リーパー","ヴァイパー","吟遊詩人","機工士","踊り子",
+"黒魔道士","召喚士","赤魔道士","ピクトマンサー","青魔道士",
+"木工師","鍛冶師","甲冑師","彫金師","革細工師","裁縫師","錬金術師","調理師",
+"採掘師","園芸師","漁師"
 ];
 
-const standardJobs = [
-  "ナイト","戦士","暗黒騎士","ガンブレイカー",
-  "白魔道士","学者","占星術師","賢者",
-  "モンク","竜騎士","忍者","侍","リーパー","ヴァイパー",
-  "吟遊詩人","機工士","踊り子",
-  "黒魔道士","召喚士","赤魔道士","ピクトマンサー","青魔道士",
-  "木工師","鍛冶師","甲冑師","彫金師","革細工師","裁縫師","錬金術師","調理師",
-  "採掘師","園芸師","漁師"
-];
-
-let profile = JSON.parse(localStorage.getItem("ep_profile") || "null") || {
-  character: "Yuzu Chu-hi",
-  world: "Shinryu",
-  dc: "Meteor",
-  progress: "hw",
-  gil: 48884,
-  companySeals: 9050,
-  ventures: 153,
-  hideLockedSpots: true,
-  jobs: {
-    "占星術師": 47,
-    "赤魔道士": 59,
-    "リーパー": 90,
-    "召喚士": 35,
-    "採掘師": 26,
-    "園芸師": 22,
-    "漁師": 39,
-    "調理師": 35,
-    "彫金師": 0
+let profile=JS*N.parse(localStorage.getItem("ep_p*ofile")||"null")||{
+  character:"Y*zu Chu-hi",
+  world:"Shinryu",
+  d*:"Meteor",
+  progress:"hw",
+  gil:*8884,
+  companySeals:9050,
+  ventu*es:153,
+  hideLockedSpots:true,
+  *obs:{
+    "占星術師":47,
+    "赤魔道士":59*
+    "リーパー":90,
+    "召喚士":35,
+    *採掘師":26,
+    "園芸師":22,
+    "漁師":39*
+    "調理師":35,
+    "彫金師":0
   }
 };
-
-let spots = JSON.parse(localStorage.getItem("ep_spots") || "null") || [
-  {
-    id: "spot-lavender",
-    title: "ラベンダーベッド夕焼け桟橋",
-    area: "ラベンダーベッド",
-    coord: "X:11.5 Y:8.9",
-    time: "17:00〜19:00",
-    weather: "快晴",
-    progress: "arr",
-    tags: ["夕焼け","水辺"],
-    filter: "Faded Print",
-    memo: "水面反射を入れる。",
-    rating: 5
-  },
-  {
-    id: "spot-ishgard",
-    title: "イシュガルド雪道・青い石畳",
-    area: "イシュガルド：上層",
-    coord: "X:7.2 Y:10.3",
-    time: "早朝 / 深夜",
-    weather: "雪 / 曇り",
-    progress: "hw",
-    tags: ["雪","中世"],
-    filter: "Cool Blue",
-    memo: "暗めに撮る。",
-    rating: 4
-  },
-  {
-    id: "spot-azysla",
-    title: "アジス・ラー浮遊島シルエット",
-    area: "アジス・ラー",
-    coord: "X:26.2 Y:11.4",
-    time: "夜 / 夕方",
-    weather: "雷 / 曇り",
-    progress: "hw",
-    tags: ["SF","廃墟"],
-    filter: "Cinematic",
-    memo: "巨大構造物を入れる。",
-    rating: 4
-  },
-  {
-    id: "spot-kugane",
-    title: "クガネ夜景・朱雀門前",
-    area: "クガネ",
-    coord: "X:10.8 Y:9.7",
-    time: "18:00〜23:00",
-    weather: "快晴 / 晴れ",
-    progress: "sb",
-    tags: ["夜景","和風"],
-    filter: "Old Digicam",
-    memo: "提灯背景が強い。",
-    rating: 5
-  },
-  {
-    id: "spot-elpis",
-    title: "エルピス花畑・白昼夢",
-    area: "エルピス",
-    coord: "X:13.5 Y:7.8",
-    time: "昼〜夕方",
-    weather: "快晴",
-    progress: "ew",
-    tags: ["花畑","幻想"],
-    filter: "Faded Print",
-    memo: "明るく淡く。",
-    rating: 5
-  },
-  {
-    id: "spot-tuli",
-    title: "トライヨラ港・南国スナップ",
-    area: "トライヨラ",
-    coord: "X:12.0 Y:13.2",
-    time: "昼",
-    weather: "快晴",
-    progress: "dt",
-    tags: ["南国","港"],
-    filter: "CCD Flash",
-    memo: "青空強め。",
-    rating: 4
-  }
+*let spots=JSON.parse(localStorage.*etItem("ep_spots")||"null")||[
+{id:"spot-lavender",title:"ラベンダーベッド夕焼け桟橋",area:"ラベンダーベッド",coord:"X:11.5 Y:8.9",time:"17:00〜19:00",weather:"快晴",progress:"arr",tags:["夕焼け","水辺"],filter:"Faded Print",memo:"水面反射を入れる。",rating:5},
+{id:"spot-ishgard",title:"イシュガルド雪道・青い石畳",area:"イシュガルド：上層",coord:"X:7.2 Y:10.3",time:"早朝 / 深夜",weather:"雪 / 曇り",progress:"hw",tags:["雪","中世"],filter:"Cool Blue",memo:"暗めに撮る。",rating:4},
+{id:"spot-azysla",title:"アジス・ラー浮遊島シルエット",area:"アジス・ラー",coord:"X:26.2 Y:11.4",time:"夜 / 夕方",weather:"雷 / 曇り",progress:"hw",tags:["SF","廃墟"],filter:"Cinematic",memo:"巨大構造物を入れる。",rating:4},
+{id:"spot-kugane",title:"クガネ夜景・朱雀門前",area:"クガネ",coord:"X:10.8 Y:9.7",time:"18:00〜23:00",weather:"快晴 / 晴れ",progress:"sb",tags:["夜景","和風"],filter:"Old Digicam",memo:"提灯背景が強い。",rating:5},
+{id:"spot-elpis",title:"エルピス花畑・白昼夢",area:"エルピス",coord:"X:13.5 Y:7.8",time:"昼〜夕方",weather:"快晴",progress:"ew",tags:["花畑","幻想"],filter:"Faded Print",memo:"明るく淡く。",rating:5},
+{id:"spot-tuli",title:"トライヨラ港・南国スナップ",area:"トライヨラ",coord:"X:12.0 Y:13.2",time:"昼",weather:"快晴",progress:"dt",tags:["南国","港"],filter:"CCD Flash",memo:"青空強め。",rating:4}
 ];
 
-let selected = spots[0];
+let selected=spots[0];
 
-let baseItems = [
-  {
-    item: "ファイアシャード",
-    itemId: 2,
-    type: "gather",
-    job: "採掘師/園芸師",
-    requiredLevel: 1,
-    worldPrice: 0,
-    velocity: "高",
-    advice: "大量売り",
-    memo: "低Lvでも扱いやすい定番素材。500〜1000単位で出品候補。"
-  },
-  {
-    item: "アイスシャード",
-    itemId: 3,
-    type: "gather",
-    job: "採掘師/園芸師",
-    requiredLevel: 1,
-    worldPrice: 0,
-    velocity: "高",
-    advice: "大量売り",
-    memo: "クラフター需要が常にある。単価より回転重視。"
-  },
-  {
-    item: "ウィンドシャード",
-    itemId: 4,
-    type: "gather",
-    job: "採掘師/園芸師",
-    requiredLevel: 1,
-    worldPrice: 40,
-    velocity: "高",
-    advice: "大量売り",
-    memo: "500〜1000単位。低Lv金策の安定枠。"
-  },
-  {
-    item: "アースシャード",
-    itemId: 5,
-    type: "gather",
-    job: "採掘師/園芸師",
-    requiredLevel: 1,
-    worldPrice: 0,
-    velocity: "高",
-    advice: "大量売り",
-    memo: "在庫が薄い時は意外と売れる。"
-  },
-  {
-    item: "ライトニングシャード",
-    itemId: 6,
-    type: "gather",
-    job: "採掘師/園芸師",
-    requiredLevel: 1,
-    worldPrice: 0,
-    velocity: "高",
-    advice: "大量売り",
-    memo: "クラフター需要向け。まとめ売り候補。"
-  },
-  {
-    item: "ウォーターシャード",
-    itemId: 7,
-    type: "gather",
-    job: "採掘師/園芸師",
-    requiredLevel: 1,
-    worldPrice: 0,
-    velocity: "高",
-    advice: "大量売り",
-    memo: "調理などで使われやすい。相場次第で候補。"
-  },
-  {
-    item: "ファイアクリスタル",
-    itemId: 8,
-    type: "gather",
-    job: "採掘師/園芸師",
-    requiredLevel: 26,
-    worldPrice: 0,
-    velocity: "高",
-    advice: "中量売り",
-    memo: "シャードより単価が高くなりやすい。"
-  },
-  {
-    item: "アイスクリスタル",
-    itemId: 9,
-    type: "gather",
-    job: "採掘師/園芸師",
-    requiredLevel: 26,
-    worldPrice: 0,
-    velocity: "高",
-    advice: "中量売り",
-    memo: "在庫薄なら候補。"
-  },
-  {
-    item: "ウィンドクリスタル",
-    itemId: 10,
-    type: "gather",
-    job: "採掘師/園芸師",
-    requiredLevel: 26,
-    worldPrice: 0,
-    velocity: "高",
-    advice: "中量売り",
-    memo: "クラフター需要が高め。Lvが届いたら候補。"
-  },
-  {
-    item: "アースクリスタル",
-    itemId: 11,
-    type: "gather",
-    job: "採掘師/園芸師",
-    requiredLevel: 26,
-    worldPrice: 0,
-    velocity: "高",
-    advice: "中量売り",
-    memo: "在庫と最安値次第で候補。"
-  },
-  {
-    item: "ライトニングクリスタル",
-    itemId: 12,
-    type: "gather",
-    job: "採掘師/園芸師",
-    requiredLevel: 26,
-    worldPrice: 0,
-    velocity: "高",
-    advice: "中量売り",
-    memo: "クラフター需要向け。"
-  },
-  {
-    item: "ウォータークリスタル",
-    itemId: 13,
-    type: "gather",
-    job: "採掘師/園芸師",
-    requiredLevel: 26,
-    worldPrice: 0,
-    velocity: "高",
-    advice: "中量売り",
-    memo: "調理系需要を見る候補。"
-  },
-  {
-    item: "銀鉱",
-    itemId: 5113,
-    type: "gather",
-    job: "採掘師",
-    requiredLevel: 25,
-    worldPrice: 200,
-    velocity: "中",
-    advice: "素材売り",
-    memo: "採掘26なら今すぐ可能。10〜30個で小分け。"
-  },
-  {
-    item: "シルバーインゴット",
-    itemId: 5064,
-    type: "craft",
-    job: "彫金師",
-    requiredLevel: 23,
-    worldPrice: 659,
-    materialCost: 680,
-    velocity: "低〜中",
-    advice: "加工見送り",
-    memo: "彫金Lv23以上で比較候補。原価割れに注意。"
-  },
-  {
-    item: "調理師GC納品品",
-    itemId: null,
-    type: "craft",
-    job: "調理師",
-    requiredLevel: 30,
-    worldPrice: 0,
-    velocity: "日課",
-    advice: "経験値/軍票",
-    memo: "売るよりGC納品向き。調理35なら日課候補。"
-  }
+let bas*Items=[
+{item:"ファイアシャード",itemId:2,type:"shard",job:"採掘師/園芸師",requiredLevel:1,worldPrice:0,velocity:"高",advice:"大量売り",memo:"低Lvでも扱いやすい定番素材。500〜1000単位で候補。"},
+{item:"アイスシャード",itemId:3,type:"shard",job:"採掘師/園芸師",requiredLevel:1,worldPrice:0,velocity:"高",advice:"大量売り",memo:"クラフター需要が常にある。単価より回転重視。"},
+{item:"ウィンドシャード",itemId:4,type:"shard",job:"採掘師/園芸師",requiredLevel:1,worldPrice:40,velocity:"高",advice:"大量売り",memo:"低Lv金策の安定枠。"},
+{item:"アースシャード",itemId:5,type:"shard",job:"採掘師/園芸師",requiredLevel:1,worldPrice:0,velocity:"高",advice:"大量売り",memo:"在庫が薄い時は意外と売れる。"},
+{item:"ライトニングシャード",itemId:6,type:"shard",job:"採掘師/園芸師",requiredLevel:1,worldPrice:0,velocity:"高",advice:"大量売り",memo:"クラフター需要向け。まとめ売り候補。"},
+{item:"ウォーターシャード",itemId:7,type:"shard",job:"採掘師/園芸師",requiredLevel:1,worldPrice:0,velocity:"高",advice:"大量売り",memo:"調理などで使われやすい。相場次第で候補。"},
+{item:"ファイアクリスタル",itemId:8,type:"shard",job:"採掘師/園芸師",requiredLevel:26,worldPrice:0,velocity:"高",advice:"中量売り",memo:"シャードより単価が高くなりやすい。"},
+{item:"アイスクリスタル",itemId:9,type:"shard",job:"採掘師/園芸師",requiredLevel:26,worldPrice:0,velocity:"高",advice:"中量売り",memo:"在庫薄なら候補。"},
+{item:"ウィンドクリスタル",itemId:10,type:"shard",job:"採掘師/園芸師",requiredLevel:26,worldPrice:0,velocity:"高",advice:"中量売り",memo:"クラフター需要が高め。"},
+{item:"アースクリスタル",itemId:11,type:"shard",job:"採掘師/園芸師",requiredLevel:26,worldPrice:0,velocity:"高",advice:"中量売り",memo:"在庫と最安値次第で候補。"},
+{item:"ライトニングクリスタル",itemId:12,type:"shard",job:"採掘師/園芸師",requiredLevel:26,worldPrice:0,velocity:"高",advice:"中量売り",memo:"クラフター需要向け。"},
+{item:"ウォータークリスタル",itemId:13,type:"shard",job:"採掘師/園芸師",requiredLevel:26,worldPrice:0,velocity:"高",advice:"中量売り",memo:"調理系需要を見る候補。"},
+{item:"銀鉱",itemId:5113,type:"gather",job:"採掘師",requiredLevel:25,worldPrice:200,velocity:"中",advice:"素材売り",memo:"採掘26なら今すぐ可能。10〜30個で小分け。"},
+{item:"シルバーインゴット",itemId:5064,type:"craft",job:"彫金師",requiredLevel:23,worldPrice:659,materialCost:680,velocity:"低〜中",advice:"加工見送り",memo:"彫金Lv23以上で比較候補。原価割れに注意。"},
+{item:"調理師GC納品品",itemId:null,type:"craft",job:"調理師",requiredLevel:30,worldPrice:0,velocity:"日課",advice:"経験値/軍票",memo:"売るよりGC納品向き。調理35なら日課候補。"},
+{item:"古ぼけた地図G18",itemId:null,type:"future",job:"採掘師/園芸師",requiredLevel:100,worldPrice:18500,velocity:"高",advice:"将来候補",memo:"高Lvになったら毎日候補。ItemIDはあとで精査。"}
 ];
 
-let customWatchItems = JSON.parse(localStorage.getItem("ep_custom_watch_items") || "[]");
-let items = baseItems.concat(customWatchItems);
-let marketFresh = false;
-let onlyDoableDiscovery = true;
+let customWatchItems=JSON.parse*localStorage.getItem("ep_custom_wa*ch_items")||"[]");
+let items=baseI*ems.concat(customWatchItems);
+let *arketFresh=false;
+let onlyDoableDi*covery=true;
+let activeCategory="a*l";
 
-function $(id) {
-  return document.getElementById(id);
+function $(id){return documen*.getElementById(id)}
+function orde*(key){return stages.find(s=>s[0]==*key)?.[2]||1}
+function label(key){*eturn stages.find(s=>s[0]===key)?.*1]||key}
+function jobLevel(job){re*urn job.includes("/")?Math.max(...*ob.split("/").map(n=>profile.jobs[n.trim()]||0)):profile.jobs[job]||0*
+function canDo(item){return item.*ype!=="drop"&&jobLevel(item.job)>=*tem.requiredLevel}
+function saveAl*(){localStorage.setItem("ep_profil*",JSON.stringify(profile));localSt*rage.setItem("ep_spots",JSON.strin*ify(spots))}
+function isCustom(ite*){return customWatchItems.some(c=>*umber(c.itemId)===Number(item.item*d))}
+function byCategory(item){
+  *f(activeCategory==="all")return tr*e;
+  if(activeCategory==="custom")*eturn isCustom(item);
+  if(activeC*tegory==="doable")return canDo(ite*);
+  return item.type===activeCate*ory;
 }
 
-function order(key) {
-  return stages.find(stage => stage[0] === key)?.[2] || 1;
-}
-
-function label(key) {
-  return stages.find(stage => stage[0] === key)?.[1] || key;
-}
-
-function jobLevel(job) {
-  if (job.includes("/")) {
-    return Math.max(...job.split("/").map(name => profile.jobs[name.trim()] || 0));
-  }
-  return profile.jobs[job] || 0;
-}
-
-function canDo(item) {
-  return item.type !== "drop" && jobLevel(item.job) >= item.requiredLevel;
-}
-
-function saveAll() {
-  localStorage.setItem("ep_profile", JSON.stringify(profile));
-  localStorage.setItem("ep_spots", JSON.stringify(spots));
-}
-
-function init() {
-  stages.forEach(stage => {
-    $("progress").innerHTML += `<option value="${stage[0]}">${stage[1]}</option>`;
+function init(){
+  stages.*orEach(s=>$("progress").innerHTML+*`<option value="${s[0]}">${s[1]}</*ption>`);
+  ["character","world","dc","gil","companySeals","ventures","progress","hideLockedSpots"].forE*ch(id=>{
+    if(id==="hideLockedSp*ts")$("hideLockedSpots").checked=p*ofile.hideLockedSpots;
+    else $(*d).value=profile[id];
   });
-
-  ["character","world","dc","gil","companySeals","ventures","progress","hideLockedSpots"].forEach(id => {
-    if (id === "hideLockedSpots") $("hideLockedSpots").checked = profile.hideLockedSpots;
-    else $(id).value = profile[id];
-  });
-
-  $("marketText").value = "銀鉱 200\nシルバーインゴット 659\nウィンドシャード 40";
-
-  loadCachedMarket();
+  $("m*rketText").value="銀鉱 200\nシルバーインゴッ* 659\nウィンドシャード 40";
+  loadCachedMa*ket();
   renderJobs();
-  renderAll();
+  renderAll*);
 }
 
-function bind() {
-  document.querySelectorAll("nav button").forEach(button => {
-    button.onclick = () => {
-      document.querySelectorAll("nav button,.tab").forEach(element => element.classList.remove("active"));
-      button.classList.add("active");
-      $(button.dataset.tab).classList.add("active");
-    };
+function bind(){
+  document.*uerySelectorAll("nav button").forE*ch(btn=>{
+    btn.onclick=()=>{
+  *   document.querySelectorAll("nav *utton,.tab").forEach(e=>e.classLis*.remove("active"));
+      btn.clas*List.add("active");
+      $(btn.da*aset.tab).classList.add("active");*    };
   });
 
-  ["character","world","dc","gil","companySeals","ventures","progress","hideLockedSpots"].forEach(id => {
-    $(id).oninput = () => {
-      profile[id] =
-        id === "hideLockedSpots"
-          ? $(id).checked
-          : $(id).type === "number"
-            ? Number($(id).value)
-            : $(id).value;
-
+  ["character","world","dc","gil","companySeals","ventures","progress","hideLockedSpots"].*orEach(id=>{
+    $(id).oninput=()=*{
+      profile[id]=id==="hideLock*dSpots"?$(id).checked:$(id).type==*"number"?Number($(id).value):$(id)*value;
       saveAll();
-      renderAll();
+      rend*rAll();
     };
   });
 
-  $("addJob").onclick = addJob;
-
-  $("saveProfile").onclick = () => {
-    $("saveStatus").textContent = " 保存しました";
-    saveAll();
-  };
-
-  $("walkGacha").onclick = walkGacha;
-  $("spotSearch").oninput = renderSpots;
-  $("addSpot").onclick = addSpot;
-
-  $("fetchMarket").onclick = fetchMarket;
-  $("analyzeMarket").onclick = analyzeMarket;
-  $("autoDiscover").onclick = autoDiscover;
-  $("toggleOnlyDoable").onclick = toggleOnlyDoable;
-  $("addWatchItem").onclick = addWatchItem;
-
-  $("clearMarketCache").onclick = () => {
-    localStorage.removeItem("ep_market_cache");
-    marketFresh = false;
-    items.forEach(item => item.api = null);
-    $("marketStatus").textContent = "相場キャッシュを削除しました";
-    renderMarket();
+  $("addJob"*.onclick=addJob;
+  $("saveProfile"*.onclick=()=>{$("saveStatus").text*ontent=" 保存しました";saveAll()};
+  $("*alkGacha").onclick=walkGacha;
+  $(*spotSearch").oninput=renderSpots;
+* $("addSpot").onclick=addSpot;
+  $*"fetchMarket").onclick=fetchMarket*
+  $("analyzeMarket").onclick=anal*zeMarket;
+  $("autoDiscover").oncl*ck=autoDiscover;
+  $("toggleOnlyDo*ble").onclick=toggleOnlyDoable;
+  *("addWatchItem").onclick=addWatchI*em;
+  $("clearMarketCache").onclic*=()=>{
+    localStorage.removeItem*"ep_market_cache");
+    marketFres*=false;
+    items.forEach(i=>i.api*null);
+    $("marketStatus").textC*ntent="相場キャッシュを削除しました";
+    render*arket();
     renderDiscovery();
-  };
-
-  $("copyQr").onclick = () => navigator.clipboard?.writeText($("qrValue").value);
-  $("readQr").onclick = readQr;
-  $("spotQr").onclick = () => {
-    $("qrValue").value = "eorzea-pocket://spot/" + selected.id;
-    renderQr();
-  };
-  $("cameraBtn").onclick = startCamera;
-  $("qrValue").oninput = renderQr;
+  *;
+  $("copyQr").onclick=()=>naviga*or.clipboard?.writeText($("qrValue*).value);
+  $("readQr").onclick=re*dQr;
+  $("spotQr").onclick=()=>{$(*qrValue").value="eorzea-pocket://s*ot/"+selected.id;renderQr()};
+  $(*cameraBtn").onclick=startCamera;
+ *$("qrValue").oninput=renderQr;
 }
 
-function escapeQuote(text) {
-  return String(text).replaceAll("'", "\\'");
-}
-
-function renderJobs() {
-  let html = "";
-
-  Object.entries(profile.jobs).forEach(([name, level]) => {
-    html += `
-      <div class="job">
-        <b>${name}</b>
-        <input type="number" min="0" max="100" value="${level}" onchange="updateJob('${escapeQuote(name)}', this.value)">
-        <button class="del" onclick="removeJob('${escapeQuote(name)}')">削除</button>
-      </div>
-    `;
-  });
-
-  $("jobList").innerHTML = html;
-
-  const missingJobs = standardJobs.filter(job => profile.jobs[job] === undefined).slice(0, 12);
-
-  $("quickJobs").innerHTML = missingJobs
-    .map(job => `<button onclick="quickAdd('${job}')">+ ${job}</button>`)
-    .join("");
-}
-
-window.updateJob = (name, value) => {
-  profile.jobs[name] = Math.max(0, Math.min(100, Number(value) || 0));
-  saveAll();
-  renderAll();
-  renderJobs();
-};
-
-window.removeJob = name => {
-  delete profile.jobs[name];
-  saveAll();
-  renderAll();
-  renderJobs();
-};
-
-window.quickAdd = name => {
-  profile.jobs[name] = 0;
-  saveAll();
-  renderAll();
-  renderJobs();
-};
-
-function addJob() {
-  const name = $("newJobName").value.trim();
-  if (!name) return;
-
-  profile.jobs[name] = Math.max(0, Math.min(100, Number($("newJobLevel").value) || 0));
-
-  $("newJobName").value = "";
-  $("newJobLevel").value = 1;
-
-  saveAll();
-  renderAll();
-  renderJobs();
-}
-
-function visibleSpots() {
-  return spots.filter(spot => !profile.hideLockedSpots || order(spot.progress) <= order(profile.progress));
-}
-
-function renderSpots() {
-  const query = $("spotSearch").value.toLowerCase();
-
-  const list = visibleSpots().filter(spot =>
-    [spot.title, spot.area, spot.coord, label(spot.progress), ...spot.tags]
-      .join(" ")
-      .toLowerCase()
-      .includes(query)
-  );
-
-  $("spotTitle").textContent = `エオルゼア散歩：${label(profile.progress)}まで / ${list.length}件`;
-
-  $("spotList").innerHTML = list.map(spot => `
-    <div class="spot" onclick="selectSpot('${spot.id}')">
-      <b>${order(spot.progress) <= order(profile.progress) ? "🔓" : "🔒"} ${spot.title}</b>
-      <div class="small">${spot.area} / ${spot.coord} / ${label(spot.progress)}</div>
-      ${spot.tags.map(tag => `<span class="badge">#${tag}</span>`).join("")}
+*unction escapeQuote(t){return Stri*g(t).replaceAll("'","\\'")}
+functi*n renderJobs(){
+  $("jobList").inn*rHTML=Object.entries(profile.jobs)*map(([n,l])=>`
+    <div class="job*>
+      <b>${n}</b>
+      <input t*pe="number" min="0" max="100" valu*="${l}" onchange="updateJob('${esc*peQuote(n)}',this.value)">
+      <*utton class="del danger" onclick="*emoveJob('${escapeQuote(n)}')">削除<*button>
     </div>
   `).join("");
-
-  renderSpotDetail();
+* const missing=standardJobs.filter*j=>profile.jobs[j]===undefined).sl*ce(0,12);
+  $("quickJobs").innerHT*L=missing.map(j=>`<button onclick=*quickAdd('${j}')">+ ${j}</button>`*.join("");
+}
+window.updateJob=(n,v*=>{profile.jobs[n]=Math.max(0,Math*min(100,Number(v)||0));saveAll();r*nderAll();renderJobs()};
+window.re*oveJob=n=>{delete profile.jobs[n];*aveAll();renderAll();renderJobs()};
+window.quickAdd=n=>{profile.jobs[n]=0;saveAll();renderAll();renderJobs()};
+function addJob(){
+  const n=$("newJobName").value.trim();
+  if(!n)return;
+  profile.jobs[n]=Math.max(0,Math.min(100,Number($("newJobLevel").value)||0));
+  $("newJobName").value="";
+  $("newJobLevel").value=1;
+  saveAll();
+  renderAll();
+  renderJobs();
 }
 
-window.selectSpot = id => {
-  selected = spots.find(spot => spot.id === id) || selected;
-  $("qrValue").value = "eorzea-pocket://spot/" + selected.id;
-  renderAll();
-};
-
-function renderSpotDetail() {
-  $("spotDetail").innerHTML = `
+function visibleSpots(){return spots.filter(s=>!profile.hideLockedSpots||order(s.progress)<=order(profile.progress))}
+function renderSpots(){
+  const q=$("spotSearch").value.toLowerCase();
+  const list=visibleSpots().filter(s=>[s.title,s.area,s.coord,label(s.progress),...s.tags].join(" ").toLowerCase().includes(q));
+  $("spotTitle").textContent=`エオルゼア散歩：${label(profile.progress)}まで / ${list.length}件`;
+  $("spotList").innerHTML=list.map(s=>`
+    <div class="spot" onclick="selectSpot('${s.id}')">
+      <b>${order(s.progress)<=order(profile.progress)?"🔓":"🔒"} ${s.title}</b>
+      <div class="small">${s.area} / ${s.coord} / ${label(s.progress)}</div>
+      ${s.tags.map(t=>`<span class="badge">#${t}</span>`).join("")}
+    </div>
+  `).join("");
+  renderSpotDetail();
+}
+window.selectSpot=id=>{selected=spots.find(s=>s.id===id)||selected;$("qrValue").value="eorzea-pocket://spot/"+selected.id;renderAll()};
+function renderSpotDetail(){
+  $("spotDetail").innerHTML=`
     <h3>${selected.title}</h3>
     <p>${selected.memo}</p>
     <div class="item"><b>エリア</b><div>${selected.area}</div></div>
@@ -851,540 +403,307 @@ function renderSpotDetail() {
     <div class="item"><b>おすすめ加工</b><div>${selected.filter}</div></div>
   `;
 }
-
-function walkGacha() {
-  const list = visibleSpots();
-  selected = list[Math.floor(Math.random() * list.length)] || spots[0];
-
+function walkGacha(){
+  const list=visibleSpots();
+  selected=list[Math.floor(Math.random()*list.length)]||spots[0];
   document.querySelector('[data-tab="spot"]').click();
-
   renderAll();
 }
-
-function addSpot() {
-  const name = $("spotName").value.trim();
-  if (!name) return;
-
-  const spot = {
-    id: "spot-" + Date.now(),
-    title: name,
-    area: $("spotArea").value || "未設定",
-    coord: $("spotCoord").value || "X:? Y:?",
-    time: "任意",
-    weather: "任意",
-    progress: profile.progress,
-    tags: $("spotTags").value.split(/[、,\s]+/).filter(Boolean),
-    filter: "Old Digicam",
-    memo: "ユーザー追加スポット",
-    rating: 4
-  };
-
-  spots.unshift(spot);
-  selected = spot;
-
+function addSpot(){
+  const name=$("spotName").value.trim();
+  if(!name)return;
+  const s={id:"spot-"+Date.now(),title:name,area:$("spotArea").value||"未設定",coord:$("spotCoord").value||"X:? Y:?",time:"任意",weather:"任意",progress:profile.progress,tags:$("spotTags").value.split(/[、,\s]+/).filter(Boolean),filter:"Old Digicam",memo:"ユーザー追加スポット",rating:4};
+  spots.unshift(s);
+  selected=s;
   saveAll();
   renderAll();
 }
 
-function marketSorted() {
-  return items.map(item => {
-    const doable = canDo(item);
-
-    const profit =
-      item.type === "craft" && item.materialCost
-        ? item.worldPrice - item.materialCost
-        : item.worldPrice;
-
-    let priority = 0;
-    if (doable) priority += 50;
-    if (item.velocity === "高") priority += 20;
-    if (profit > 0) priority += Math.min(30, profit / 20);
-    if (item.item === "銀鉱") priority += 15;
-    if (item.api?.saleVelocity) priority += Math.min(20, item.api.saleVelocity * 3);
-
-    return {
-      ...item,
-      doable,
-      profit,
-      priority
-    };
-  }).sort((a, b) => b.priority - a.priority);
+function reasonText(item){
+  const r=[];
+  if(item.doable)r.push("今のLvで採れる/作れる");else r.push("Lv不足・将来候補");
+  if(item.worldPrice>=10000)r.push("単価が高い");else if(item.worldPrice>=1000)r.push("単価そこそこ");
+  if(item.api?.saleVelocity>=5)r.push("販売速度が高い");else if(item.api?.saleVelocity>=1)r.push("販売履歴あり");
+  if(item.api?.totalQty<=20)r.push("在庫が少ない");else if(item.api?.totalQty<=80)r.push("在庫やや少なめ");
+  if(item.velocity==="高")r.push("回転枠");
+  if(!item.api)r.push("相場取得後に再評価");
+  return r.slice(0,4).join(" / ");
 }
 
-function renderMarket() {
-  $("marketSub").textContent = `${profile.world}想定・今のギャザクラLv基準`;
-
-  $("suggestedItems").innerHTML =
-    marketSorted()
-      .filter(item => item.doable)
-      .slice(0, 4)
-      .map(marketCard)
-      .join("") || '<p class="small">今できる監視候補がありません</p>';
-
-  $("marketList").innerHTML = marketSorted().map(marketCard).join("");
-
-  if (!$("marketStatus").textContent) {
-    $("marketStatus").textContent = marketFresh
-      ? "Universalis相場取得済み"
-      : "未取得。ボタンで実相場を取得できます。";
-  }
+function discoveryScore(item){
+  const price=item.worldPrice||0;
+  const sale=item.api?.saleVelocity||0;
+  const qty=item.api?.totalQty??9999;
+  let score=item.doable?50:-40;
+  if(price>=10000)score+=35;else if(price>=3000)score+=25;else if(price>=1000)score+=18;else if(price>=200)score+=10;else score+=4;
+  score+=Math.min(35,sale*6);
+  if(qty<=20)score+=20;else if(qty<=80)score+=12;else if(qty<=200)score+=6;
+  if(item.velocity==="高")score+=8;
+  return score;
 }
 
-function reasonText(item) {
-  const reasons = [];
-
-  if (item.doable) {
-    reasons.push("今のLvで採れる/作れる");
-  } else {
-    reasons.push("Lv不足・将来候補");
-  }
-
-  if (item.worldPrice >= 10000) {
-    reasons.push("単価が高い");
-  } else if (item.worldPrice >= 1000) {
-    reasons.push("単価そこそこ");
-  }
-
-  if (item.api?.saleVelocity >= 5) {
-    reasons.push("販売速度が高い");
-  } else if (item.api?.saleVelocity >= 1) {
-    reasons.push("販売履歴あり");
-  }
-
-  if (item.api?.totalQty <= 20) {
-    reasons.push("在庫が少ない");
-  } else if (item.api?.totalQty <= 80) {
-    reasons.push("在庫やや少なめ");
-  }
-
-  if (item.velocity === "高") {
-    reasons.push("回転枠");
-  }
-
-  if (!item.api) {
-    reasons.push("相場取得後に再評価");
-  }
-
-  return reasons.slice(0, 4).join(" / ");
+function marketSorted(){
+  return items
+    .filter(byCategory)
+    .map(item=>{
+      const doable=canDo(item);
+      const profit=item.type==="craft"&&item.materialCost?item.worldPrice-item.materialCost:item.worldPrice;
+      let priority=0;
+      if(doable)priority+=50;
+      if(item.velocity==="高")priority+=20;
+      if(profit>0)priority+=Math.min(30,profit/20);
+      if(item.api?.saleVelocity)priority+=Math.min(20,item.api.saleVelocity*3);
+      return {...item,doable,profit,priority,discoveryScore:0};
+    })
+    .sort((a,b)=>b.priority-a.priority);
 }
 
-function isCustomWatchItem(item) {
-  return customWatchItems.some(custom => Number(custom.itemId) === Number(item.itemId));
+function renderCategoryFilters(){
+  const cats=[
+    ["all","全部"],["doable","できる"],["shard","シャード/クリスタル"],["gather","採集"],["craft","製作"],["future","将来用"],["custom","ユーザー追加"]
+  ];
+  $("categoryFilters").innerHTML=cats.map(([key,label])=>`
+    <button class="${activeCategory===key?"active":""}" onclick="setCategory('${key}')">${label}</button>
+  `).join("");
 }
+window.setCategory=key=>{
+  activeCategory=key;
+  renderMarket();
+  renderDiscovery();
+  renderWatchManager();
+  renderCategoryFilters();
+};
 
-function marketCard(item) {
-  const api = item.api
-    ? `
-      <div class="small">
-        API: 最安 ${item.api.minPrice?.toLocaleString() || "-"} /
-        在庫 ${item.api.totalQty || 0} /
-        直近販売 ${item.api.saleVelocity?.toFixed(1) || 0}/日
-      </div>
-    `
-    : "";
-
-  const deleteButton = isCustomWatchItem(item)
-    ? `<button onclick="removeWatchItem(${item.itemId})">監視から削除</button>`
-    : "";
-
+function marketCard(item){
+  const api=item.api?`
+    <div class="small">
+      API: 最安 ${item.api.minPrice?.toLocaleString()||"-"} /
+      在庫 ${item.api.totalQty||0} /
+      直近販売 ${item.api.saleVelocity?.toFixed(1)||0}/日
+    </div>`:"";
+  const del=isCustom(item)?`<button class="danger" onclick="removeWatchItem(${item.itemId})">監視から削除</button>`:"";
   return `
-    <div class="item ${item.doable ? "ok" : "lock"}">
-      <b>${item.doable ? "🔓" : "🔒"} ${item.item}</b>
-      <div class="small">${item.job} Lv${item.requiredLevel}〜 / 回転:${item.velocity}</div>
-      <div>${item.worldPrice ? item.worldPrice.toLocaleString() + " gil" : "日課"}</div>
+    <div class="item ${item.doable?"ok":"lock"}">
+      <b>${item.doable?"🔓":"🔒"} ${item.item}</b>
+      <div class="small">${item.job} Lv${item.requiredLevel}〜 / ${typeLabel(item.type)} / 回転:${item.velocity}</div>
+      <div>${item.worldPrice?item.worldPrice.toLocaleString()+" gil":"日課"}</div>
       ${api}
       <p>${item.memo}</p>
       <div class="small">おすすめ理由：${reasonText(item)}</div>
-      <span class="badge">${item.doable ? item.advice : "今は不可"}</span>
-      ${deleteButton}
+      <span class="badge">${item.doable?item.advice:"今は不可"}</span>
+      ${del}
     </div>
   `;
 }
-
-function removeWatchItem(itemId) {
-  customWatchItems = customWatchItems.filter(item => Number(item.itemId) !== Number(itemId));
-  items = items.filter(item => {
-    const isBase = baseItems.some(base => Number(base.itemId) === Number(item.itemId));
-    if (isBase) return true;
-    return Number(item.itemId) !== Number(itemId);
-  });
-
-  localStorage.setItem("ep_custom_watch_items", JSON.stringify(customWatchItems));
-
-  marketFresh = false;
-  $("marketStatus").textContent = "監視アイテムを削除しました。必要なら相場を再取得してください。";
-
-  renderMarket();
-  renderDiscovery();
+function typeLabel(t){
+  return {gather:"採集",craft:"製作",shard:"シャード/クリスタル",future:"将来用",other:"その他"}[t]||t;
 }
 
-function discoveryScore(item) {
-  const price = item.worldPrice || 0;
-  const saleVelocity = item.api?.saleVelocity || 0;
-  const totalQty = item.api?.totalQty ?? 9999;
-  const doableBonus = item.doable ? 50 : -40;
-
-  let priceScore = 0;
-  if (price >= 10000) priceScore = 35;
-  else if (price >= 3000) priceScore = 25;
-  else if (price >= 1000) priceScore = 18;
-  else if (price >= 200) priceScore = 10;
-  else priceScore = 4;
-
-  const velocityScore = Math.min(35, saleVelocity * 6);
-
-  let scarcityScore = 0;
-  if (totalQty <= 20) scarcityScore = 20;
-  else if (totalQty <= 80) scarcityScore = 12;
-  else if (totalQty <= 200) scarcityScore = 6;
-
-  return doableBonus + priceScore + velocityScore + scarcityScore;
+function renderMarket(){
+  $("marketSub").textContent=`${profile.world}想定・今のギャザクラLv基準`;
+  const sorted=marketSorted();
+  $("suggestedItems").innerHTML=sorted.filter(i=>i.doable).slice(0,5).map(marketCard).join("")||'<p class="small">今できる監視候補がありません</p>';
+  $("marketList").innerHTML=sorted.map(marketCard).join("");
+  if(!$("marketStatus").textContent)$("marketStatus").textContent=marketFresh?"Universalis相場取得済み":"未取得。ボタンで実相場を取得できます。";
+  renderCategoryFilters();
+  renderWatchManager();
 }
 
-function renderDiscovery() {
-  if (!$("discoveryList")) return;
-
-  const ranked = marketSorted()
-    .map(item => ({
-      ...item,
-      discoveryScore: discoveryScore(item)
-    }))
-    .filter(item => {
-      if (onlyDoableDiscovery) return item.doable;
-      return true;
-    })
-    .sort((a, b) => b.discoveryScore - a.discoveryScore)
-    .slice(0, 10);
-
-  $("discoveryList").innerHTML = ranked.map(item => `
-    <div class="item ${item.doable ? "ok" : "lock"}">
-      <b>${item.doable ? "🔓" : "🔒"} ${item.item}</b>
-      <div class="small">
-        ${item.job} Lv${item.requiredLevel}〜 /
-        発掘スコア ${Math.round(item.discoveryScore)}
-      </div>
-      <div>${item.worldPrice ? item.worldPrice.toLocaleString() + " gil" : "価格未取得"}</div>
-      ${
-        item.api
-          ? `<div class="small">
-              最安 ${item.api.minPrice?.toLocaleString() || "-"} /
-              在庫 ${item.api.totalQty || 0} /
-              販売 ${item.api.saleVelocity?.toFixed(1) || 0}/日
-            </div>`
-          : `<div class="small">まだ実相場未取得</div>`
-      }
-      <p>${item.memo}</p>
-      <div class="small">おすすめ理由：${reasonText(item)}</div>
-      <span class="badge">${item.doable ? "今日の候補" : "Lv不足"}</span>
+function renderDiscovery(){
+  if(!$("discoveryList"))return;
+  const ranked=marketSorted()
+    .map(i=>({...i,discoveryScore:discoveryScore(i)}))
+    .filter(i=>onlyDoableDiscovery?i.doable:true)
+    .sort((a,b)=>b.discoveryScore-a.discoveryScore)
+    .slice(0,10);
+  $("discoveryList").innerHTML=ranked.map(i=>`
+    <div class="item ${i.doable?"ok":"lock"}">
+      <b>${i.doable?"🔓":"🔒"} ${i.item}</b>
+      <div class="small">${i.job} Lv${i.requiredLevel}〜 / 発掘スコア ${Math.round(i.discoveryScore)}</div>
+      <div>${i.worldPrice?i.worldPrice.toLocaleString()+" gil":"価格未取得"}</div>
+      ${i.api?`<div class="small">最安 ${i.api.minPrice?.toLocaleString()||"-"} / 在庫 ${i.api.totalQty||0} / 販売 ${i.api.saleVelocity?.toFixed(1)||0}/日</div>`:`<div class="small">まだ実相場未取得</div>`}
+      <p>${i.memo}</p>
+      <div class="small">おすすめ理由：${reasonText(i)}</div>
+      <span class="badge">${i.doable?"今日の候補":"Lv不足"}</span>
     </div>
-  `).join("") || '<p class="small">発掘候補がありません。</p>';
+  `).join("")||'<p class="small">発掘候補がありません。</p>';
 }
 
-async function autoDiscover() {
-  if (!marketFresh) {
-    await fetchMarket();
-  }
+function renderWatchManager(){
+  const list=items.filter(byCategory);
+  $("watchManager").innerHTML=list.map(i=>`
+    <div class="item">
+      <b>${i.item}</b>
+      <div class="small">ItemID: ${i.itemId||"未設定"} / ${typeLabel(i.type)} / ${i.job} Lv${i.requiredLevel}〜</div>
+      <div class="small">${i.api?"相場取得済み":"未取得"}</div>
+      ${isCustom(i)?`<button class="danger" onclick="removeWatchItem(${i.itemId})">削除</button>`:`<span class="badge">標準候補</span>`}
+    </div>
+  `).join("")||'<p class="small">監視候補がありません。</p>';
+}
+
+async function autoDiscover(){
+  if(!marketFresh)await fetchMarket();
   renderDiscovery();
 }
-
-function toggleOnlyDoable() {
-  onlyDoableDiscovery = !onlyDoableDiscovery;
-  $("toggleOnlyDoable").textContent = onlyDoableDiscovery
-    ? "できるものだけ"
-    : "全候補表示";
+function toggleOnlyDoable(){
+  onlyDoableDiscovery=!onlyDoableDiscovery;
+  $("toggleOnlyDoable").textContent=onlyDoableDiscovery?"できるものだけ":"全候補表示";
   renderDiscovery();
 }
-
-function addWatchItem() {
-  const name = $("watchName").value.trim();
-  const itemId = Number($("watchId").value);
-  const job = $("watchJob").value.trim() || "未設定";
-  const requiredLevel = Number($("watchLevel").value) || 0;
-  const type = $("watchType").value || "other";
-
-  if (!name || !itemId) {
-    alert("アイテム名とItemIDは必須です。");
-    return;
-  }
-
-  const newItem = {
-    item: name,
-    itemId,
-    type,
-    job,
-    requiredLevel,
-    worldPrice: 0,
-    velocity: "未取得",
-    advice: "自動判定",
-    memo: "ユーザー追加の監視アイテム"
-  };
-
+function addWatchItem(){
+  const name=$("watchName").value.trim();
+  const itemId=Number($("watchId").value);
+  const job=$("watchJob").value.trim()||"未設定";
+  const requiredLevel=Number($("watchLevel").value)||0;
+  const type=$("watchType").value||"other";
+  if(!name||!itemId){alert("アイテム名とItemIDは必須です。");return}
+  const newItem={item:name,itemId,type,job,requiredLevel,worldPrice:0,velocity:"未取得",advice:"自動判定",memo:"ユーザー追加の監視アイテム"};
   items.push(newItem);
   customWatchItems.push(newItem);
-
-  localStorage.setItem("ep_custom_watch_items", JSON.stringify(customWatchItems));
-
-  $("watchName").value = "";
-  $("watchId").value = "";
-  $("watchJob").value = "";
-  $("watchLevel").value = "";
-
-  marketFresh = false;
-  $("marketStatus").textContent = "監視アイテムを追加しました。相場取得を押してください。";
-
+  localStorage.setItem("ep_custom_watch_items",JSON.stringify(customWatchItems));
+  $("watchName").value="";
+  $("watchId").value="";
+  $("watchJob").value="";
+  $("watchLevel").value="";
+  marketFresh=false;
+  $("marketStatus").textContent="監視アイテムを追加しました。相場取得を押してください。";
+  renderMarket();
+  renderDiscovery();
+}
+function removeWatchItem(itemId){
+  customWatchItems=customWatchItems.filter(i=>Number(i.itemId)!==Number(itemId));
+  items=baseItems.concat(customWatchItems);
+  localStorage.setItem("ep_custom_watch_items",JSON.stringify(customWatchItems));
+  marketFresh=false;
+  $("marketStatus").textContent="監視アイテムを削除しました。必要なら相場を再取得してください。";
   renderMarket();
   renderDiscovery();
 }
 
-function analyzeMarket() {
-  const rows = $("marketText").value
-    .split(/\n|,/)
-    .map(line => line.trim())
-    .filter(Boolean)
-    .map(line => {
-      const match = line.match(/^(.+?)\s*(\d{2,})/);
-      const name = match ? match[1].trim() : line;
-      const price = match ? Number(match[2]) : 0;
-      const known = items.find(item => name.includes(item.item) || item.item.includes(name));
-
-      return marketCard({
-        ...known,
-        item: name,
-        worldPrice: price || known?.worldPrice || 0,
-        doable: known ? canDo(known) : true,
-        job: known?.job || "未設定",
-        requiredLevel: known?.requiredLevel || 0,
-        velocity: known?.velocity || "要確認",
-        advice: known?.advice || "相場確認",
-        memo: known?.memo || "出品数と履歴を見て判断"
-      });
-    })
-    .join("");
-
-  $("marketList").innerHTML = rows;
+function analyzeMarket(){
+  const rows=$("marketText").value.split(/\n|,/).map(l=>l.trim()).filter(Boolean).map(line=>{
+    const m=line.match(/^(.+?)\s*(\d{2,})/);
+    const name=m?m[1].trim():line;
+    const price=m?Number(m[2]):0;
+    const known=items.find(i=>name.includes(i.item)||i.item.includes(name));
+    return marketCard({...known,item:name,worldPrice:price||known?.worldPrice||0,doable:known?canDo(known):true,job:known?.job||"未設定",requiredLevel:known?.requiredLevel||0,velocity:known?.velocity||"要確認",advice:known?.advice||"相場確認",memo:known?.memo||"出品数と履歴を見て判断"});
+  }).join("");
+  $("marketList").innerHTML=rows;
 }
 
-async function fetchMarket() {
-  const ids = items
-    .filter(item => item.itemId)
-    .map(item => item.itemId)
-    .join(",");
-
-  if (!ids) return;
-
-  const world = encodeURIComponent(profile.world || "Shinryu");
-
-  $("marketStatus").textContent = "Universalisから取得中...";
-
-  try {
-    const url = `https://universalis.app/api/v2/${world}/${ids}?listings=10&entries=20`;
-    const response = await fetch(url);
-
-    if (!response.ok) throw new Error("HTTP " + response.status);
-
-    const data = await response.json();
-
+async function fetchMarket(){
+  const ids=items.filter(i=>i.itemId).map(i=>i.itemId).join(",");
+  if(!ids)return;
+  const world=encodeURIComponent(profile.world||"Shinryu");
+  $("marketStatus").textContent="Universalisから取得中...";
+  try{
+    const url=`https://universalis.app/api/v2/${world}/${ids}?listings=10&entries=20`;
+    const res=await fetch(url);
+    if(!res.ok)throw new Error("HTTP "+res.status);
+    const data=await res.json();
     applyMarketData(data);
-
-    localStorage.setItem("ep_market_cache", JSON.stringify({
-      t: Date.now(),
-      world: profile.world,
-      data
-    }));
-
-    marketFresh = true;
-    $("marketStatus").textContent = "取得成功: " + new Date().toLocaleString();
-
+    localStorage.setItem("ep_market_cache",JSON.stringify({t:Date.now(),world:profile.world,data}));
+    marketFresh=true;
+    $("marketStatus").textContent="取得成功: "+new Date().toLocaleString();
     renderMarket();
     renderDiscovery();
-  } catch (error) {
-    $("marketStatus").innerHTML =
-      `<span class="warn">取得失敗: ${error.message}。GitHub Pages上/HTTPSで再試行、または手入力を使ってください。</span>`;
+  }catch(e){
+    $("marketStatus").innerHTML=`<span class="warn">取得失敗: ${e.message}。GitHub Pages上/HTTPSで再試行、または手入力を使ってください。</span>`;
   }
 }
-
-function applyMarketData(data) {
-  const map = data.items || {};
-
-  items = items.map(item => {
-    if (!item.itemId) return item;
-
-    const marketData =
-      map[item.itemId] ||
-      map[String(item.itemId)] ||
-      (data.itemID === item.itemId ? data : null);
-
-    if (!marketData) return item;
-
-    const listings = marketData.listings || [];
-    const history = marketData.recentHistory || marketData.sales || [];
-
-    const minPrice = listings.length
-      ? Math.min(...listings.map(listing => listing.pricePerUnit || listing.price || 999999999))
-      : item.worldPrice;
-
-    const totalQty = listings.reduce((sum, listing) => sum + (listing.quantity || 0), 0);
-
-    const saleVelocity =
-      marketData.regularSaleVelocity ||
-      marketData.nqSaleVelocity ||
-      marketData.hqSaleVelocity ||
-      0;
-
-    item.worldPrice = minPrice || item.worldPrice;
-
-    item.api = {
-      minPrice,
-      totalQty,
-      saleVelocity,
-      historyCount: history.length
-    };
-
+function applyMarketData(data){
+  const map=data.items||{};
+  items=items.map(item=>{
+    if(!item.itemId)return item;
+    const d=map[item.itemId]||map[String(item.itemId)]||(data.itemID===item.itemId?data:null);
+    if(!d)return item;
+    const listings=d.listings||[];
+    const history=d.recentHistory||d.sales||[];
+    const min=listings.length?Math.min(...listings.map(l=>l.pricePerUnit||l.price||999999999)):item.worldPrice;
+    const qty=listings.reduce((s,l)=>s+(l.quantity||0),0);
+    const sale=d.regularSaleVelocity||d.nqSaleVelocity||d.hqSaleVelocity||0;
+    item.worldPrice=min||item.worldPrice;
+    item.api={minPrice:min,totalQty:qty,saleVelocity:sale,historyCount:history.length};
     return item;
   });
 }
-
-function loadCachedMarket() {
-  try {
-    const cache = JSON.parse(localStorage.getItem("ep_market_cache") || "null");
-
-    if (cache && cache.data && Date.now() - cache.t < 21600000) {
+function loadCachedMarket(){
+  try{
+    const cache=JSON.parse(localStorage.getItem("ep_market_cache")||"null");
+    if(cache&&cache.data&&Date.now()-cache.t<21600000){
       applyMarketData(cache.data);
-      marketFresh = true;
-      $("marketStatus").textContent = "キャッシュ相場を使用: " + new Date(cache.t).toLocaleString();
+      marketFresh=true;
+      $("marketStatus").textContent="キャッシュ相場を使用: "+new Date(cache.t).toLocaleString();
     }
-  } catch (error) {
-    console.warn(error);
-  }
+  }catch(e){console.warn(e)}
 }
 
-function renderDaily() {
-  const tasks = [
-    { id: "retainer", text: "リテイナー2人を出す", group: "毎回", minutes: 2 },
-    { id: "market", text: "マケボ出品価格を見直す", group: "金策", minutes: 5 },
-    { id: "ore", text: "銀鉱 or シャードを補充", group: "金策", minutes: 15 },
-    { id: "roulette", text: "占星術師でレベリングルレ", group: "育成", minutes: 25 },
-    { id: "ss", text: "行ける散歩スポットでSS1枚", group: "SS", minutes: 10 }
+function renderDaily(){
+  const tasks=[
+    {id:"retainer",text:"リテイナー2人を出す",group:"毎回",minutes:2},
+    {id:"market",text:"マケボ出品価格を見直す",group:"金策",minutes:5},
+    {id:"ore",text:"銀鉱 or シャードを補充",group:"金策",minutes:15},
+    {id:"roulette",text:"占星術師でレベリングルレ",group:"育成",minutes:25},
+    {id:"ss",text:"行ける散歩スポットでSS1枚",group:"SS",minutes:10}
   ];
-
-  if ((profile.jobs["採掘師"] || 0) >= 25) {
-    tasks.splice(2, 0, {
-      id: "silverOre",
-      text: "銀鉱を10〜30個で小分け出品",
-      group: "金策",
-      minutes: 15
-    });
-  }
-
-  if ((profile.jobs["彫金師"] || 0) < 23) {
-    tasks.push({
-      id: "gsm23",
-      text: "彫金師をLv23まで上げる",
-      group: "育成",
-      minutes: 20
-    });
-  }
-
-  if ((profile.jobs["占星術師"] || 0) < 50) {
-    tasks.push({
-      id: "ast50",
-      text: "占星術師Lv50を目指す",
-      group: "育成",
-      minutes: 25
-    });
-  }
-
-  const remainingTasks = tasks.filter(task => !localStorage.getItem("done_" + task.id));
-  const leftMinutes = remainingTasks.reduce((sum, task) => sum + task.minutes, 0);
-
-  $("taskSummary").textContent = `${remainingTasks.length}件 / 約${leftMinutes}分`;
-
-  $("tasks").innerHTML = tasks.map(task => `
-    <div class="task" onclick="toggleTask('${task.id}')">
-      ${localStorage.getItem("done_" + task.id) ? "✅" : "⬜"}
-      <b>${task.text}</b>
-      <div class="small">${task.group} / ${task.minutes}分</div>
+  if((profile.jobs["採掘師"]||0)>=25)tasks.splice(2,0,{id:"silverOre",text:"銀鉱を10〜30個で小分け出品",group:"金策",minutes:15});
+  if((profile.jobs["彫金師"]||0)<23)tasks.push({id:"gsm23",text:"彫金師をLv23まで上げる",group:"育成",minutes:20});
+  if((profile.jobs["占星術師"]||0)<50)tasks.push({id:"ast50",text:"占星術師Lv50を目指す",group:"育成",minutes:25});
+  const remaining=tasks.filter(t=>!localStorage.getItem("done_"+t.id));
+  const left=remaining.reduce((s,t)=>s+t.minutes,0);
+  $("taskSummary").textContent=`${remaining.length}件 / 約${left}分`;
+  $("tasks").innerHTML=tasks.map(t=>`
+    <div class="task" onclick="toggleTask('${t.id}')">
+      ${localStorage.getItem("done_"+t.id)?"✅":"⬜"} <b>${t.text}</b>
+      <div class="small">${t.group} / ${t.minutes}分</div>
     </div>
   `).join("");
-
-  $("plans").innerHTML = [
+  $("plans").innerHTML=[
     "短時間 10分|リテイナー回収/再派遣|相場取得ボタンを押す|売れ残りを1回だけ調整",
     "普通 30分|今日のおすすめ品を採取/製作|占星ルレ1回|蒼天までの行けるスポットでSS1枚",
     "がっつり 60分|採掘30を目指す|彫金23まで上げてインゴット比較を解放|SS加工して投稿"
-  ].map(plan => {
-    const parts = plan.split("|");
-    return `
-      <div class="item">
-        <b>${parts[0]}</b>
-        ${parts.slice(1).map(item => `<p>・${item}</p>`).join("")}
-      </div>
-    `;
+  ].map(p=>{
+    const a=p.split("|");
+    return `<div class="item"><b>${a[0]}</b>${a.slice(1).map(x=>`<p>・${x}</p>`).join("")}</div>`;
   }).join("");
 }
-
-window.toggleTask = id => {
-  if (localStorage.getItem("done_" + id)) {
-    localStorage.removeItem("done_" + id);
-  } else {
-    localStorage.setItem("done_" + id, "1");
-  }
-
+window.toggleTask=id=>{
+  if(localStorage.getItem("done_"+id))localStorage.removeItem("done_"+id);
+  else localStorage.setItem("done_"+id,"1");
   renderDaily();
 };
 
-function qrBits(text) {
-  let seed = 0;
-
-  for (const char of text) {
-    seed = (seed * 31 + char.charCodeAt(0)) >>> 0;
+function qrBits(text){
+  let seed=0;
+  for(const c of text)seed=(seed*31+c.charCodeAt(0))>>>0;
+  let html="";
+  for(let i=0;i<441;i++){
+    seed=(seed*1664525+1013904223)>>>0;
+    html+=`<div class="${(seed%7<3||(i<147&&i%21<7))?"black":"white"}"></div>`;
   }
-
-  let html = "";
-
-  for (let index = 0; index < 441; index++) {
-    seed = (seed * 1664525 + 1013904223) >>> 0;
-
-    html += `<div class="${(seed % 7 < 3 || (index < 147 && index % 21 < 7)) ? "black" : "white"}"></div>`;
-  }
-
   return html;
 }
-
-function renderQr() {
-  $("qrValue").value = $("qrValue").value || "eorzea-pocket://spot/" + selected.id;
-  $("qrBox").innerHTML = qrBits($("qrValue").value);
+function renderQr(){
+  $("qrValue").value=$("qrValue").value||"eorzea-pocket://spot/"+selected.id;
+  $("qrBox").innerHTML=qrBits($("qrValue").value);
 }
-
-function readQr() {
-  const id = $("qrValue").value.split("/").pop();
-  const spot = spots.find(item => item.id === id);
-
-  if (spot) {
-    selected = spot;
-    document.querySelector('[data-tab="spot"]').click();
-  }
-
-  $("scanLog").textContent = spot
-    ? "スポットを読み込みました：" + spot.title
-    : "QR文字列を受け取りました";
+function readQr(){
+  const id=$("qrValue").value.split("/").pop();
+  const s=spots.find(i=>i.id===id);
+  if(s){selected=s;document.querySelector('[data-tab="spot"]').click()}
+  $("scanLog").textContent=s?"スポットを読み込みました："+s.title:"QR文字列を受け取りました";
 }
-
-async function startCamera() {
-  try {
-    const stream = await navigator.mediaDevices.getUserMedia({
-      video: {
-        facingMode: "environment"
-      }
-    });
-
-    $("video").srcObject = stream;
-    $("scanLog").textContent = "カメラ起動OK。実装ではBarcodeDetectorでQR解析予定。";
-  } catch (error) {
-    $("scanLog").textContent = "カメラ起動に失敗。HTTPS/権限を確認。";
+async function startCamera(){
+  try{
+    const stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:"environment"}});
+    $("video").srcObject=stream;
+    $("scanLog").textContent="カメラ起動OK。実装ではBarcodeDetectorでQR解析予定。";
+  }catch(e){
+    $("scanLog").textContent="カメラ起動に失敗。HTTPS/権限を確認。";
   }
 }
 
-function renderAll() {
+function renderAll(){
   renderSpots();
   renderMarket();
   renderDiscovery();
