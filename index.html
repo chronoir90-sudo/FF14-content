@@ -1,39 +1,189 @@
 <!doctype html>
 <html lang="ja">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Eorzea Pocket Test</title>
-<style>
-body {
-  margin: 0;
-  background: #050814;
-  color: #eef2ff;
-  font-family: system-ui, sans-serif;
-  padding: 24px;
-}
-.card {
-  max-width: 720px;
-  background: #0f172a;
-  border: 1px solid #263244;
-  border-radius: 24px;
-  padding: 24px;
-}
-button {
-  background: #0284c7;
-  color: white;
-  border: 0;
-  border-radius: 14px;
-  padding: 12px 16px;
-  font-weight: 700;
-}
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Eorzea Pocket</title>
+  style.css
 </head>
 <body>
-  <div class="card">
-    <h1>Eorzea Pocket</h1>
-    <p>この画面が黒背景で見えていたら、GitHub Pagesは正常です。</p>
-    <button onclick="alert('動いてるで')">動作確認</button>
-  </div>
+  <header class="hero">
+    <div>
+      <div class="logo">Eorzea Pocket</div>
+      <h1>FF14スマホ便利ツール</h1>
+      <p>自分情報・進行度別SS散歩・Universalis実相場・自動発掘・監視アイテム管理</p>
+    </div>
+    <button id="walkGacha" class="primary">散歩ガチャ</button>
+  </header>
+
+  <nav class="tabs">
+    <button data-tab="profile" class="active">自分</button>
+    <button data-tab="spot">散歩</button>
+    <button data-tab="market">金策</button>
+    <button data-tab="daily">今日</button>
+    <button data-tab="qr">QR</button>
+  </nav>
+
+  <main>
+    <section id="profile" class="tab active">
+      <div class="grid two">
+        <article class="card">
+          <h2>自分の情報</h2>
+
+          <div class="formgrid">
+            <label>キャラ名<input id="character"></label>
+            <label>ワールド<input id="world"></label>
+            <label>DC<input id="dc"></label>
+            <label>所持ギル<input id="gil" type="number"></label>
+            <label>軍票<input id="companySeals" type="number"></label>
+            <label>ベンチャー<input id="ventures" type="number"></label>
+          </div>
+
+          <label>メイン進行度<select id="progress"></select></label>
+
+          <label class="check">
+            <input id="hideLockedSpots" type="checkbox">
+            行けない散歩スポットを隠す
+          </label>
+
+          <button id="saveProfile" class="primary">この端末に保存</button>
+          <span id="saveStatus" class="saved"></span>
+        </article>
+
+        <article class="card">
+          <h2>ジョブ/クラスLv</h2>
+
+          <div class="addjob">
+            <input id="newJobName" placeholder="例: ピクトマンサー / 木工師">
+            <input id="newJobLevel" type="number" min="0" max="100" value="1">
+            <button id="addJob">追加</button>
+          </div>
+
+          <div id="quickJobs" class="chips"></div>
+          <div id="jobList"></div>
+        </article>
+      </div>
+    </section>
+
+    <section id="spot" class="tab">
+      <div class="grid two">
+        <article class="card">
+          <h2 id="spotTitle">エオルゼア散歩</h2>
+          <input id="spotSearch" placeholder="夜景、雪、クガネ…">
+          <div id="spotList"></div>
+        </article>
+
+        <article class="card">
+          <h2>選択中スポット</h2>
+          <div id="spotDetail"></div>
+
+          <h3>スポット追加</h3>
+          <input id="spotName" placeholder="スポット名">
+          <div class="formgrid">
+            <input id="spotArea" placeholder="エリア">
+            <input id="spotCoord" placeholder="座標 X: Y:">
+          </div>
+          <input id="spotTags" placeholder="タグ 例: 夜景 海 夕焼け">
+          <button id="addSpot" class="primary">現在の進行度で追加</button>
+        </article>
+      </div>
+    </section>
+
+    <section id="market" class="tab">
+      <div class="grid two">
+        <article class="card">
+          <h2>マケボ監視 / 今日売るべきもの</h2>
+          <p id="marketSub"></p>
+
+          <div class="row">
+            <button id="fetchMarket" class="primary">Universalis実相場を取得</button>
+            <button id="clearMarketCache">相場キャッシュ削除</button>
+          </div>
+          <p id="marketStatus" class="small"></p>
+
+          <h3>カテゴリ</h3>
+          <div id="categoryFilters" class="chips"></div>
+
+          <h3>今日売るべきもの</h3>
+          <div id="suggestedItems"></div>
+
+          <h3>自動発掘候補</h3>
+          <div class="row">
+            <button id="autoDiscover" class="primary">高く売れる候補を自動発掘</button>
+            <button id="toggleOnlyDoable">できるものだけ</button>
+          </div>
+          <div id="discoveryList"></div>
+
+          <h3>監視アイテム追加</h3>
+          <div class="formgrid">
+            <input id="watchName" placeholder="アイテム名 例: 銀鉱">
+            <input id="watchId" type="number" placeholder="ItemID 例: 5113">
+            <input id="watchJob" placeholder="必要ジョブ 例: 採掘師">
+            <input id="watchLevel" type="number" placeholder="必要Lv 例: 25">
+          </div>
+          <select id="watchType">
+            <option value="gather">採集</option>
+            <option value="craft">製作</option>
+            <option value="shard">シャード/クリスタル</option>
+            <option value="future">将来用</option>
+            <option value="other">その他</option>
+          </select>
+          <button id="addWatchItem">監視アイテムに追加</button>
+
+          <h3>手入力/OCRデモ</h3>
+          <textarea id="marketText"></textarea>
+          <button id="analyzeMarket">価格を整理</button>
+        </article>
+
+        <article class="card">
+          <h2>監視候補管理</h2>
+          <p class="small">ユーザー追加アイテムは削除できます。標準候補は削除不可。</p>
+          <div id="watchManager"></div>
+
+          <h2>監視候補</h2>
+          <div id="marketList"></div>
+        </article>
+      </div>
+    </section>
+
+    <section id="daily" class="tab">
+      <div class="grid two">
+        <article class="card">
+          <h2>今日やること</h2>
+          <div id="taskSummary" class="summary"></div>
+          <div id="tasks"></div>
+        </article>
+
+        <article class="card">
+          <h2>今日のおすすめ進行</h2>
+          <div id="plans"></div>
+        </article>
+      </div>
+    </section>
+
+    <section id="qr" class="tab">
+      <div class="grid two">
+        <article class="card">
+          <h2>QR Hub</h2>
+          <div id="qrBox" class="qr"></div>
+          <textarea id="qrValue"></textarea>
+          <div class="row">
+            <button id="copyQr">コピー</button>
+            <button id="readQr">読み込み</button>
+          </div>
+        </article>
+
+        <article class="card">
+          <h2>カメラQR読み取りデモ</h2>
+          <video id="video" playsinline autoplay muted></video>
+          <button id="cameraBtn" class="primary">カメラ起動</button>
+          <p id="scanLog"></p>
+          <button id="spotQr">選択中スポットをQR化</button>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  app.jsscript>
 </body>
 </html>
