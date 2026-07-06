@@ -471,6 +471,138 @@ let selected = spots[0];
 
 let baseItems = [
   {
+    item: "ファイアシャード",
+    itemId: 2,
+    type: "gather",
+    job: "採掘師/園芸師",
+    requiredLevel: 1,
+    worldPrice: 0,
+    velocity: "高",
+    advice: "大量売り",
+    memo: "低Lvでも扱いやすい定番素材。500〜1000単位で出品候補。"
+  },
+  {
+    item: "アイスシャード",
+    itemId: 3,
+    type: "gather",
+    job: "採掘師/園芸師",
+    requiredLevel: 1,
+    worldPrice: 0,
+    velocity: "高",
+    advice: "大量売り",
+    memo: "クラフター需要が常にある。単価より回転重視。"
+  },
+  {
+    item: "ウィンドシャード",
+    itemId: 4,
+    type: "gather",
+    job: "採掘師/園芸師",
+    requiredLevel: 1,
+    worldPrice: 40,
+    velocity: "高",
+    advice: "大量売り",
+    memo: "500〜1000単位。低Lv金策の安定枠。"
+  },
+  {
+    item: "アースシャード",
+    itemId: 5,
+    type: "gather",
+    job: "採掘師/園芸師",
+    requiredLevel: 1,
+    worldPrice: 0,
+    velocity: "高",
+    advice: "大量売り",
+    memo: "在庫が薄い時は意外と売れる。"
+  },
+  {
+    item: "ライトニングシャード",
+    itemId: 6,
+    type: "gather",
+    job: "採掘師/園芸師",
+    requiredLevel: 1,
+    worldPrice: 0,
+    velocity: "高",
+    advice: "大量売り",
+    memo: "クラフター需要向け。まとめ売り候補。"
+  },
+  {
+    item: "ウォーターシャード",
+    itemId: 7,
+    type: "gather",
+    job: "採掘師/園芸師",
+    requiredLevel: 1,
+    worldPrice: 0,
+    velocity: "高",
+    advice: "大量売り",
+    memo: "調理などで使われやすい。相場次第で候補。"
+  },
+  {
+    item: "ファイアクリスタル",
+    itemId: 8,
+    type: "gather",
+    job: "採掘師/園芸師",
+    requiredLevel: 26,
+    worldPrice: 0,
+    velocity: "高",
+    advice: "中量売り",
+    memo: "シャードより単価が高くなりやすい。"
+  },
+  {
+    item: "アイスクリスタル",
+    itemId: 9,
+    type: "gather",
+    job: "採掘師/園芸師",
+    requiredLevel: 26,
+    worldPrice: 0,
+    velocity: "高",
+    advice: "中量売り",
+    memo: "在庫薄なら候補。"
+  },
+  {
+    item: "ウィンドクリスタル",
+    itemId: 10,
+    type: "gather",
+    job: "採掘師/園芸師",
+    requiredLevel: 26,
+    worldPrice: 0,
+    velocity: "高",
+    advice: "中量売り",
+    memo: "クラフター需要が高め。Lvが届いたら候補。"
+  },
+  {
+    item: "アースクリスタル",
+    itemId: 11,
+    type: "gather",
+    job: "採掘師/園芸師",
+    requiredLevel: 26,
+    worldPrice: 0,
+    velocity: "高",
+    advice: "中量売り",
+    memo: "在庫と最安値次第で候補。"
+  },
+  {
+    item: "ライトニングクリスタル",
+    itemId: 12,
+    type: "gather",
+    job: "採掘師/園芸師",
+    requiredLevel: 26,
+    worldPrice: 0,
+    velocity: "高",
+    advice: "中量売り",
+    memo: "クラフター需要向け。"
+  },
+  {
+    item: "ウォータークリスタル",
+    itemId: 13,
+    type: "gather",
+    job: "採掘師/園芸師",
+    requiredLevel: 26,
+    worldPrice: 0,
+    velocity: "高",
+    advice: "中量売り",
+    memo: "調理系需要を見る候補。"
+  },
+  {
     item: "銀鉱",
     itemId: 5113,
     type: "gather",
@@ -482,17 +614,6 @@ let baseItems = [
     memo: "採掘26なら今すぐ可能。10〜30個で小分け。"
   },
   {
-    item: "ウィンドシャード",
-    itemId: 4,
-    type: "gather",
-    job: "採掘師/園芸師",
-    requiredLevel: 1,
-    worldPrice: 40,
-    velocity: "高",
-    advice: "大量売り",
-    memo: "500〜1000単位。"
-  },
-  {
     item: "シルバーインゴット",
     itemId: 5064,
     type: "craft",
@@ -502,7 +623,7 @@ let baseItems = [
     materialCost: 680,
     velocity: "低〜中",
     advice: "加工見送り",
-    memo: "彫金Lv23未満なら不可。"
+    memo: "彫金Lv23以上で比較候補。原価割れに注意。"
   },
   {
     item: "調理師GC納品品",
@@ -513,18 +634,7 @@ let baseItems = [
     worldPrice: 0,
     velocity: "日課",
     advice: "経験値/軍票",
-    memo: "調理35なら日課候補。"
-  },
-  {
-    item: "古ぼけた地図G18",
-    itemId: null,
-    type: "gather",
-    job: "採掘師/園芸師",
-    requiredLevel: 100,
-    worldPrice: 18500,
-    velocity: "高",
-    advice: "今は不可",
-    memo: "将来用。ItemID未設定。"
+    memo: "売るよりGC納品向き。調理35なら日課候補。"
   }
 ];
 
@@ -820,6 +930,48 @@ function renderMarket() {
   }
 }
 
+function reasonText(item) {
+  const reasons = [];
+
+  if (item.doable) {
+    reasons.push("今のLvで採れる/作れる");
+  } else {
+    reasons.push("Lv不足・将来候補");
+  }
+
+  if (item.worldPrice >= 10000) {
+    reasons.push("単価が高い");
+  } else if (item.worldPrice >= 1000) {
+    reasons.push("単価そこそこ");
+  }
+
+  if (item.api?.saleVelocity >= 5) {
+    reasons.push("販売速度が高い");
+  } else if (item.api?.saleVelocity >= 1) {
+    reasons.push("販売履歴あり");
+  }
+
+  if (item.api?.totalQty <= 20) {
+    reasons.push("在庫が少ない");
+  } else if (item.api?.totalQty <= 80) {
+    reasons.push("在庫やや少なめ");
+  }
+
+  if (item.velocity === "高") {
+    reasons.push("回転枠");
+  }
+
+  if (!item.api) {
+    reasons.push("相場取得後に再評価");
+  }
+
+  return reasons.slice(0, 4).join(" / ");
+}
+
+function isCustomWatchItem(item) {
+  return customWatchItems.some(custom => Number(custom.itemId) === Number(item.itemId));
+}
+
 function marketCard(item) {
   const api = item.api
     ? `
@@ -831,6 +983,10 @@ function marketCard(item) {
     `
     : "";
 
+  const deleteButton = isCustomWatchItem(item)
+    ? `<button onclick="removeWatchItem(${item.itemId})">監視から削除</button>`
+    : "";
+
   return `
     <div class="item ${item.doable ? "ok" : "lock"}">
       <b>${item.doable ? "🔓" : "🔒"} ${item.item}</b>
@@ -838,9 +994,28 @@ function marketCard(item) {
       <div>${item.worldPrice ? item.worldPrice.toLocaleString() + " gil" : "日課"}</div>
       ${api}
       <p>${item.memo}</p>
+      <div class="small">おすすめ理由：${reasonText(item)}</div>
       <span class="badge">${item.doable ? item.advice : "今は不可"}</span>
+      ${deleteButton}
     </div>
   `;
+}
+
+function removeWatchItem(itemId) {
+  customWatchItems = customWatchItems.filter(item => Number(item.itemId) !== Number(itemId));
+  items = items.filter(item => {
+    const isBase = baseItems.some(base => Number(base.itemId) === Number(item.itemId));
+    if (isBase) return true;
+    return Number(item.itemId) !== Number(itemId);
+  });
+
+  localStorage.setItem("ep_custom_watch_items", JSON.stringify(customWatchItems));
+
+  marketFresh = false;
+  $("marketStatus").textContent = "監視アイテムを削除しました。必要なら相場を再取得してください。";
+
+  renderMarket();
+  renderDiscovery();
 }
 
 function discoveryScore(item) {
@@ -879,7 +1054,7 @@ function renderDiscovery() {
       return true;
     })
     .sort((a, b) => b.discoveryScore - a.discoveryScore)
-    .slice(0, 8);
+    .slice(0, 10);
 
   $("discoveryList").innerHTML = ranked.map(item => `
     <div class="item ${item.doable ? "ok" : "lock"}">
@@ -899,6 +1074,7 @@ function renderDiscovery() {
           : `<div class="small">まだ実相場未取得</div>`
       }
       <p>${item.memo}</p>
+      <div class="small">おすすめ理由：${reasonText(item)}</div>
       <span class="badge">${item.doable ? "今日の候補" : "Lv不足"}</span>
     </div>
   `).join("") || '<p class="small">発掘候補がありません。</p>';
