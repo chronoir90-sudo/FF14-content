@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Eorzea Pocket</title>
-  style.css
+  ./style.css
 </head>
 
 <body>
@@ -80,10 +80,12 @@
 
           <h3>スポット追加</h3>
           <input id="spotName" placeholder="スポット名">
+
           <div class="formgrid">
             <input id="spotArea" placeholder="エリア">
             <input id="spotCoord" placeholder="座標 X: Y:">
           </div>
+
           <input id="spotTags" placeholder="タグ 例: 夜景 海 夕焼け">
           <button id="addSpot" class="primary">現在の進行度で追加</button>
         </article>
@@ -100,6 +102,7 @@
             <button id="fetchMarket" class="primary">Universalis実相場を取得</button>
             <button id="clearMarketCache">相場キャッシュ削除</button>
           </div>
+
           <p id="marketStatus" class="small"></p>
 
           <h3>カテゴリ</h3>
@@ -113,6 +116,7 @@
             <button id="autoDiscover" class="primary">高く売れる候補を自動発掘</button>
             <button id="toggleOnlyDoable">できるものだけ</button>
           </div>
+
           <div id="discoveryList"></div>
 
           <h3>監視アイテム追加</h3>
@@ -188,6 +192,6 @@
     </section>
   </main>
 
-  app.jsscript>
+  ./app.jsscript>
 </body>
 </html>
