@@ -6,7 +6,7 @@
 <title>Eorzea Pocket</title>
 <style>
 :root{--bg:#050814;--card:#0f172a;--line:#263244;--text:#eef2ff;--muted:#94a3b8;--sky:#38bdf8;--ok:#34d399;--warn:#fbbf24}
-*{box-sizing:border-box}
+{box-sizing:border-box}
 body{margi*:0;background:linear-gradient(#071*1f,#050814);color:var(--text);font*family:system-ui,-apple-system,"Se*oe UI",sans-serif}
 header{max-widt*:1160px;margin:auto;padding:18px;d*splay:flex;justify-content:space-b*tween;gap:14px;align-items:center}*h1{margin:.1em 0;font-size:26px}
 h*{margin-top:0}
@@ -43,8 +43,8 @@ textarea{min-height:110*x}
 .addj*b{display:grid;grid-template-colum*s:1fr 78px 74px;gap:8px}
 .summary{*ont-size:28px;font-weight:900;back*round:#052e22;border-radius:24px;p*dding:16px}
 .row{display:grid;grid*template-columns:1fr 1fr;gap:8px}
-*qr{display:grid;grid-template-colu*ns:repeat(21,1fr);gap:1px;backgrou*d:white;border-radius:16px;padding*12px;max-width:300px;margin:auto}
-*qr div{aspect-ratio:1}
+qr{display:grid;grid-template-colu*ns:repeat(21,1fr);gap:1px;backgrou*d:white;border-radius:16px;padding*12px;max-width:300px;margin:auto}
+qr div{aspect-ratio:1}
 .black{back*round:#020617}
 .white{background:w*ite}
 video{width:100%;aspect-ratio*16/9;background:#020617;border-rad*us:20px}
@@ -65,7 +65,7 @@ video{width:100%;aspect-ratio*16/9;background:#020617;border-rad*us:20px}
     <b cl*ss="logo">Eorzea Pocket</b>
     <h*>FF14スマホ便利ツール</h1>
     <p>自分情報・SS散*・Universalis実相場・自動発掘・監視アイテム管理</p>
-* </div>
+</div>
   <button id="walkGacha">散*ガチャ</button>
 </header>
 
@@ -81,14 +81,14 @@ video{width:100%;aspect-ratio*16/9;background:#020617;border-rad*us:20px}
 <section id="profile" cla*s="tab active">
   <div class="grid*two">
     <article class="card">
- *    <h2>自分の情報</h2>
+   <h2>自分の情報</h2>
       <div clas*="formgrid">
         <label>キャラ名<i*put id="character"></label>
-      * <label>ワールド<input id="world"></la*el>
+<label>ワールド<input id="world"></la*el>
         <label>DC<input id="dc*></label>
         <label>所持ギル<inpu* id="gil" type="number"></label>
- *      <label>軍票<input id="companyS*als" type="number"></label>
-      * <label>ベンチャー<input id="ventures" *ype="number"></label>
+     <label>軍票<input id="companyS*als" type="number"></label>
+<label>ベンチャー<input id="ventures" *ype="number"></label>
       </div>*      <label>メイン進行度<select id="pro*ress"></select></label>
       <lab*l class="check"><input id="hideLoc*edSpots" type="checkbox">行けない散歩スポッ*を隠す</label>
       <button id="save*rofile" class="primary">この端末に保存</b*tton>
@@ -96,7 +96,7 @@ video{width:100%;aspect-ratio*16/9;background:#020617;border-rad*us:20px}
     </article*
 
     <article class="card">
-     *<h2>ジョブ/クラスLv</h2>
+<h2>ジョブ/クラスLv</h2>
       <div clas*="addjob">
         <input id="newJ*bName" placeholder="例: ピクトマンサー / 木*師">
         <input id="newJobLevel* type="number" min="0" max="100" v*lue="1">
@@ -107,23 +107,23 @@ video{width:100%;aspect-ratio*16/9;background:#020617;border-rad*us:20px}
   </div>
 </section>*
 <section id="spot" class="tab">
- *<div class="grid two">
+<div class="grid two">
     <articl* class="card">
       <h2 id="spotT*tle">エオルゼア散歩</h2>
       <input id=*spotSearch" placeholder="夜景、雪、クガネ…*>
       <div id="spotList"></div>
-*   </article>
+  </article>
 
     <article class=*card">
       <h2>選択中スポット</h2>
-    * <div id="spotDetail"></div>
-     *<h3>スポット追加</h3>
+<div id="spotDetail"></div>
+<h3>スポット追加</h3>
       <input id="s*otName" placeholder="スポット名">
-     *<div class="formgrid">
+<div class="formgrid">
         <in*ut id="spotArea" placeholder="エリア"*
         <input id="spotCoord" pla*eholder="座標 X: Y:">
       </div>
- *    <input id="spotTags" placehold*r="タグ 例: 夜景 海 夕焼け">
+   <input id="spotTags" placehold*r="タグ 例: 夜景 海 夕焼け">
       <button *d="addSpot" class="primary">現在の進行度*追加</button>
     </article>
   </div*
@@ -132,7 +132,7 @@ video{width:100%;aspect-ratio*16/9;background:#020617;border-rad*us:20px}
 <section id="market" *lass="tab">
   <div class="grid two*>
     <article class="card">
-     *<h2>マケボ監視 / 今日売るべきもの</h2>
+<h2>マケボ監視 / 今日売るべきもの</h2>
       <p*id="marketSub"></p>
 
       <div cl*ss="row">
@@ -141,10 +141,10 @@ video{width:100%;aspect-ratio*16/9;background:#020617;border-rad*us:20px}
       </div>
       <p id="marke*Status" class="small"></p>
 
-      *h3>カテゴリ</h3>
+h3>カテゴリ</h3>
       <div id="catego*yFilters" class="chips"></div>
 
-  *   <h3>今日売るべきもの</h3>
+  <h3>今日売るべきもの</h3>
       <div id*"suggestedItems"></div>
 
       <h3*自動発掘候補</h3>
@@ -155,12 +155,12 @@ video{width:100%;aspect-ratio*16/9;background:#020617;border-rad*us:20px}
       <div id="discoveryList"></d*v>
 
       <h3>監視アイテム追加</h3>
-      *div class="formgrid">
+div class="formgrid">
         <inp*t id="watchName" placeholder="アイテム* 例: 銀鉱">
         <input id="watchI*" type="number" placeholder="ItemI* 例: 5113">
         <input id="watc*Job" placeholder="必要ジョブ 例: 採掘師">
- *      <input id="watchLevel" type=*number" placeholder="必要Lv 例: 25">
-*     </div>
+     <input id="watchLevel" type=*number" placeholder="必要Lv 例: 25">
+    </div>
       <select id="watc*Type">
         <option value="gath*r">採集</option>
         <option val*e="craft">製作</option>
@@ -180,8 +180,8 @@ video{width:100%;aspect-ratio*16/9;background:#020617;border-rad*us:20px}
       <div id="watchMana*er"></div>
 
       <h2>監視候補</h2>
-  *   <div id="marketList"></div>
-   *</article>
+  <div id="marketList"></div>
+</article>
   </div>
 </section>
 
@@ -189,7 +189,7 @@ video{width:100%;aspect-ratio*16/9;background:#020617;border-rad*us:20px}
   <d*v class="grid two">
     <article c*ass="card">
       <h2>今日やること</h2>
-*     <div id="taskSummary" class="*ummary"></div>
+    <div id="taskSummary" class="*ummary"></div>
       <div id="task*"></div>
     </article>
     <artic*e class="card">
@@ -207,11 +207,11 @@ video{width:100%;aspect-ratio*16/9;background:#020617;border-rad*us:20px}
       </div>
     </ar*icle>
     <article class="card">
- *    <h2>カメラQR読み取りデモ</h2>
+   <h2>カメラQR読み取りデモ</h2>
       <vi*eo id="video" playsinline autoplay*muted></video>
       <button id="c*meraBtn" class="primary">カメラ起動</bu*ton>
       <p id="scanLog"></p>
-  *   <button id="spotQr">選択中スポットをQR化*/button>
+  <button id="spotQr">選択中スポットをQR化*/button>
     </article>
   </div>
 <*section>
@@ -237,19 +237,19 @@ let profile=JS*N.parse(localStorage.getItem("ep_p*ofile")||"null")||{
   companySeals:9050,
   ventu*es:153,
   hideLockedSpots:true,
-  *obs:{
+obs:{
     "占星術師":47,
     "赤魔道士":59*
     "リーパー":90,
     "召喚士":35,
-    *採掘師":26,
+採掘師":26,
     "園芸師":22,
     "漁師":39*
     "調理師":35,
     "彫金師":0
   }
 };
-*let spots=JSON.parse(localStorage.*etItem("ep_spots")||"null")||[
+let spots=JSON.parse(localStorage.*etItem("ep_spots")||"null")||[
 {id:"spot-lavender",title:"ラベンダーベッド夕焼け桟橋",area:"ラベンダーベッド",coord:"X:11.5 Y:8.9",time:"17:00〜19:00",weather:"快晴",progress:"arr",tags:["夕焼け","水辺"],filter:"Faded Print",memo:"水面反射を入れる。",rating:5},
 {id:"spot-ishgard",title:"イシュガルド雪道・青い石畳",area:"イシュガルド：上層",coord:"X:7.2 Y:10.3",time:"早朝 / 深夜",weather:"雪 / 曇り",progress:"hw",tags:["雪","中世"],filter:"Cool Blue",memo:"暗めに撮る。",rating:4},
 {id:"spot-azysla",title:"アジス・ラー浮遊島シルエット",area:"アジス・ラー",coord:"X:26.2 Y:11.4",time:"夜 / 夕方",weather:"雷 / 曇り",progress:"hw",tags:["SF","廃墟"],filter:"Cinematic",memo:"巨大構造物を入れる。",rating:4},
@@ -293,7 +293,7 @@ function canDo(item){return item.*ype!=="drop"&&jobLevel(item.job)>=*tem.require
 function saveAl*(){localStorage.setItem("ep_profil*",JSON.stringify(profile));localSt*rage.setItem("ep_spots",JSON.strin*ify(spots))}
 function isCustom(ite*){return customWatchItems.some(c=>*umber(c.itemId)===Number(item.item*d))}
 function byCategory(item){
-  *f(activeCategory==="all")return tr*e;
+f(activeCategory==="all")return tr*e;
   if(activeCategory==="custom")*eturn isCustom(item);
   if(activeC*tegory==="doable")return canDo(ite*);
   return item.type===activeCate*ory;
@@ -314,7 +314,7 @@ function init(){
 function bind(){
   document.*uerySelectorAll("nav button").forE*ch(btn=>{
     btn.onclick=()=>{
-  *   document.querySelectorAll("nav *utton,.tab").forEach(e=>e.classLis*.remove("active"));
+  document.querySelectorAll("nav *utton,.tab").forEach(e=>e.classLis*.remove("active"));
       btn.clas*List.add("active");
       $(btn.da*aset.tab).classList.add("active");*    };
   });
@@ -331,12 +331,12 @@ function bind(){
   $("saveProfile"*.onclick=()=>{$("saveStatus").text*ontent=" 保存しました";saveAll()};
   $("*alkGacha").onclick=walkGacha;
   $(*spotSearch").oninput=renderSpots;
-* $("addSpot").onclick=addSpot;
+$("addSpot").onclick=addSpot;
   $*"fetchMarket").onclick=fetchMarket*
   $("analyzeMarket").onclick=anal*zeMarket;
   $("autoDiscover").oncl*ck=autoDiscover;
   $("toggleOnlyDo*ble").onclick=toggleOnlyDoable;
-  *("addWatchItem").onclick=addWatchI*em;
+("addWatchItem").onclick=addWatchI*em;
   $("clearMarketCache").onclic*=()=>{
     localStorage.removeItem*"ep_market_cache");
     marketFres*=false;
@@ -344,15 +344,15 @@ function bind(){
     $("marketStatus").textC*ntent="相場キャッシュを削除しました";
     render*arket();
     renderDiscovery();
-  *;
+;
   $("copyQr").onclick=()=>naviga*or.clipboard?.writeText($("qrValue*).value);
   $("readQr").onclick=re*dQr;
   $("spotQr").onclick=()=>{$(*qrValue").value="eorzea-pocket://s*ot/"+selected.id;renderQr()};
   $(*cameraBtn").onclick=startCamera;
- *$("qrValue").oninput=renderQr;
+$("qrValue").oninput=renderQr;
 }
 
-*unction escapeQuote(t){return Stri*g(t).replaceAll("'","\\'")}
+unction escapeQuote(t){return Stri*g(t).replaceAll("'","\\'")}
 functi*n renderJobs(){
   $("jobList").inn*rHTML=Object.entries(profile.jobs)*map(([n,l])=>`
     <div class="job*>
@@ -361,7 +361,7 @@ functi*n renderJobs(){
       <*utton class="del danger" onclick="*emoveJob('${escapeQuote(n)}')">削除<*button>
     </div>
   `).join("");
-* const missing=standardJobs.filter*j=>profile.jobs[j]===undefined).sl*ce(0,12);
+const missing=standardJobs.filter*j=>profile.jobs[j]===undefined).sl*ce(0,12);
   $("quickJobs").innerHT*L=missing.map(j=>`<button onclick=*quickAdd('${j}')">+ ${j}</button>`*.join("");
 }
 window.updateJob=(n,v*=>{profile.jobs[n]=Math.max(0,Math*min(100,Number(v)||0));saveAll();r*nderAll();renderJobs()};
