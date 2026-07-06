@@ -3,37 +3,1071 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Eorzea Pocket Test</title>
+<title>Eorzea Pocket</title>
 <style>
-body {
-  margin: 0;
-  background: #050814;
-  color: #eef2ff;
-  font-family: system-ui, sans-serif;
-  padding: 24px;
+:root{
+  --bg:#050814;
+  --card:#0f172a;
+  --card2:#07111f;
+  --line:#263244;
+  --text:#eef2ff;
+  --muted:#94a3b8;
+  --sky:#38bdf8;
+  --ok:#34d399;
+  --warn:#fbbf24;
 }
-.card {
-  max-width: 720px;
-  background: #0f172a;
-  border: 1px solid #263244;
-  border-radius: 24px;
-  padding: 24px;
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background:linear-gradient(#07111f,#050814);
+  color:var(--text);
+  font-family:system-ui,-apple-system,"Segoe UI",sans-serif;
 }
-button {
-  background: #0284c7;
-  color: white;
-  border: 0;
-  border-radius: 14px;
-  padding: 12px 16px;
-  font-weight: 700;
+header{
+  max-width:1160px;
+  margin:auto;
+  padding:18px;
+  display:flex;
+  justify-content:space-between;
+  gap:14px;
+  align-items:center;
+}
+h1{margin:.1em 0;font-size:26px}
+h2{margin-top:0}
+p{color:var(--muted)}
+.logo{color:var(--sky);font-weight:900}
+button{
+  border:0;
+  border-radius:16px;
+  background:#1f2937;
+  color:white;
+  padding:11px 14px;
+  font-weight:800;
+  cursor:pointer;
+}
+button:hover{filter:brightness(1.12)}
+.primary,header button{background:#0284c7}
+nav{
+  position:sticky;
+  top:0;
+  z-index:9;
+  max-width:1160px;
+  margin:auto;
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:8px;
+  background:#050814dd;
+  padding:8px;
+  backdrop-filter:blur(10px);
+}
+nav button.active{background:#0284c7}
+.tab{
+  display:none;
+  max-width:1160px;
+  margin:auto;
+  padding:14px;
+}
+.tab.active{display:block}
+.grid{display:grid;gap:14px}
+.two{grid-template-columns:1fr 1.1fr}
+.card{
+  border:1px solid var(--line);
+  background:#0f172acc;
+  border-radius:28px;
+  padding:16px;
+  box-shadow:0 20px 50px #0008;
+}
+input,select,textarea{
+  width:100%;
+  border:1px solid #334155;
+  border-radius:16px;
+  background:#07111f;
+  color:var(--text);
+  padding:11px;
+  margin:5px 0 10px;
+}
+textarea{min-height:110px}
+.formgrid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+}
+.check{
+  display:flex;
+  gap:8px;
+  align-items:center;
+}
+.check input{width:auto}
+.item,.spot,.task,.job{
+  border:1px solid var(--line);
+  background:#07111f;
+  border-radius:22px;
+  padding:12px;
+  margin:8px 0;
+}
+.spot{cursor:pointer}
+.ok{border-color:#15803d;background:#052e22}
+.lock{opacity:.72}
+.small{font-size:12px;color:var(--muted)}
+.warn{color:var(--warn)}
+.badge{
+  display:inline-block;
+  border-radius:999px;
+  background:#0c4a6e;
+  color:#bae6fd;
+  padding:4px 8px;
+  font-size:12px;
+  margin:3px;
+}
+.chips button{
+  font-size:12px;
+  padding:6px 9px;
+  margin:3px;
+  background:#1e293b;
+}
+.job{
+  display:grid;
+  grid-template-columns:1fr 70px 48px;
+  gap:8px;
+  align-items:center;
+}
+.job input{margin:0}
+.job .del{
+  background:#3f1d2b;
+  color:#fecdd3;
+}
+.addjob{
+  display:grid;
+  grid-template-columns:1fr 78px 74px;
+  gap:8px;
+}
+.summary{
+  font-size:28px;
+  font-weight:900;
+  background:#052e22;
+  border-radius:24px;
+  padding:16px;
+}
+.row{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+}
+.qr{
+  display:grid;
+  grid-template-columns:repeat(21,1fr);
+  gap:1px;
+  background:white;
+  border-radius:16px;
+  padding:12px;
+  max-width:300px;
+  margin:auto;
+}
+.qr div{aspect-ratio:1}
+.black{background:#020617}
+.white{background:white}
+video{
+  width:100%;
+  aspect-ratio:16/9;
+  background:#020617;
+  border-radius:20px;
+}
+.saved{font-size:12px;color:var(--ok)}
+@media(max-width:800px){
+  header{display:block}
+  .two,.formgrid{grid-template-columns:1fr}
+  .addjob{grid-template-columns:1fr 70px}
+  .addjob button{grid-column:1/3}
+  nav button{font-size:12px;padding:9px 4px}
+  .row{grid-template-columns:1fr}
 }
 </style>
 </head>
 <body>
-  <div class="card">
-    <h1>Eorzea Pocket</h1>
-    <p>この画面が黒背景で見えていたら、GitHub Pagesは正常です。</p>
-    <button onclick="alert('動いてるで')">動作確認</button>
+
+<header>
+  <div>
+    <b class="logo">Eorzea Pocket</b>
+    <h1>FF14スマホ便利ツール</h1>
+    <p>自分情報・進行度別SS散歩・Universalis実相場・今日やること・QR共有</p>
   </div>
+  <button id="walkGacha">散歩ガチャ</button>
+</header>
+
+<nav>
+  <button data-tab="profile" class="active">自分</button>
+  <button data-tab="spot">散歩</button>
+  <button data-tab="market">金策</button>
+  <button data-tab="daily">今日</button>
+  <button data-tab="qr">QR</button>
+</nav>
+
+<main>
+  <section id="profile" class="tab active">
+    <div class="grid two">
+      <article class="card">
+        <h2>自分の情報</h2>
+        <div class="formgrid">
+          <label>キャラ名<input id="character"></label>
+          <label>ワールド<input id="world"></label>
+          <label>DC<input id="dc"></label>
+          <label>所持ギル<input id="gil" type="number"></label>
+          <label>軍票<input id="companySeals" type="number"></label>
+          <label>ベンチャー<input id="ventures" type="number"></label>
+        </div>
+        <label>メイン進行度<select id="progress"></select></label>
+        <label class="check">
+          <input id="hideLockedSpots" type="checkbox">
+          行けない散歩スポットを隠す
+        </label>
+        <button id="saveProfile" class="primary">この端末に保存</button>
+        <span id="saveStatus" class="saved"></span>
+      </article>
+
+      <article class="card">
+        <h2>ジョブ/クラスLv</h2>
+        <div class="addjob">
+          <input id="newJobName" placeholder="例: ピクトマンサー / 木工師">
+          <input id="newJobLevel" type="number" min="0" max="100" value="1">
+          <button id="addJob">追加</button>
+        </div>
+        <div id="quickJobs" class="chips"></div>
+        <div id="jobList"></div>
+      </article>
+    </div>
+  </section>
+
+  <section id="spot" class="tab">
+    <div class="grid two">
+      <article class="card">
+        <h2 id="spotTitle">エオルゼア散歩</h2>
+        <input id="spotSearch" placeholder="夜景、雪、クガネ…">
+        <div id="spotList"></div>
+      </article>
+
+      <article class="card">
+        <h2>選択中スポット</h2>
+        <div id="spotDetail"></div>
+
+        <h3>スポット追加</h3>
+        <input id="spotName" placeholder="スポット名">
+        <div class="formgrid">
+          <input id="spotArea" placeholder="エリア">
+          <input id="spotCoord" placeholder="座標 X: Y:">
+        </div>
+        <input id="spotTags" placeholder="タグ 例: 夜景 海 夕焼け">
+        <button id="addSpot" class="primary">現在の進行度で追加</button>
+      </article>
+    </div>
+  </section>
+  <section id="market" class="tab">
+    <div class="grid two">
+      <article class="card">
+        <h2>マケボ監視 / 今日売るべきもの</h2>
+        <p id="marketSub"></p>
+        <div class="row">
+          <button id="fetchMarket" class="primary">Universalis実相場を取得</button>
+          <button id="clearMarketCache">相場キャッシュ削除</button>
+        </div>
+        <p id="marketStatus" class="small"></p>
+        <div id="suggestedItems"></div>
+
+        <h3>手入力/OCRデモ</h3>
+        <textarea id="marketText"></textarea>
+        <button id="analyzeMarket">価格を整理</button>
+      </article>
+
+      <article class="card">
+        <h2>監視候補</h2>
+        <div id="marketList"></div>
+      </article>
+    </div>
+  </section>
+
+  <section id="daily" class="tab">
+    <div class="grid two">
+      <article class="card">
+        <h2>今日やること</h2>
+        <div id="taskSummary" class="summary"></div>
+        <div id="tasks"></div>
+      </article>
+
+      <article class="card">
+        <h2>今日のおすすめ進行</h2>
+        <div id="plans"></div>
+      </article>
+    </div>
+  </section>
+
+  <section id="qr" class="tab">
+    <div class="grid two">
+      <article class="card">
+        <h2>QR Hub</h2>
+        <div id="qrBox" class="qr"></div>
+        <textarea id="qrValue"></textarea>
+        <div class="row">
+          <button id="copyQr">コピー</button>
+          <button id="readQr">読み込み</button>
+        </div>
+      </article>
+
+      <article class="card">
+        <h2>カメラQR読み取りデモ</h2>
+        <video id="video" playsinline autoplay muted></video>
+        <button id="cameraBtn" class="primary">カメラ起動</button>
+        <p id="scanLog"></p>
+        <button id="spotQr">選択中スポットをQR化</button>
+      </article>
+    </div>
+  </section>
+</main>
+
+<script>
+const stages = [
+  ["arr", "新生", 1],
+  ["hw", "蒼天", 2],
+  ["sb", "紅蓮", 3],
+  ["shb", "漆黒", 4],
+  ["ew", "暁月", 5],
+  ["dt", "黄金", 6]
+];
+
+const standardJobs = [
+  "ナイト","戦士","暗黒騎士","ガンブレイカー",
+  "白魔道士","学者","占星術師","賢者",
+  "モンク","竜騎士","忍者","侍","リーパー","ヴァイパー",
+  "吟遊詩人","機工士","踊り子",
+  "黒魔道士","召喚士","赤魔道士","ピクトマンサー","青魔道士",
+  "木工師","鍛冶師","甲冑師","彫金師","革細工師","裁縫師","錬金術師","調理師",
+  "採掘師","園芸師","漁師"
+];
+
+let profile = JSON.parse(localStorage.getItem("ep_profile") || "null") || {
+  character: "Yuzu Chu-hi",
+  world: "Shinryu",
+  dc: "Meteor",
+  progress: "hw",
+  gil: 48884,
+  companySeals: 9050,
+  ventures: 153,
+  hideLockedSpots: true,
+  jobs: {
+    "占星術師": 47,
+    "赤魔道士": 59,
+    "リーパー": 90,
+    "召喚士": 35,
+    "採掘師": 26,
+    "園芸師": 22,
+    "漁師": 39,
+    "調理師": 35,
+    "彫金師": 0
+  }
+};
+
+let spots = JSON.parse(localStorage.getItem("ep_spots") || "null") || [
+  {
+    id: "spot-lavender",
+    title: "ラベンダーベッド夕焼け桟橋",
+    area: "ラベンダーベッド",
+    coord: "X:11.5 Y:8.9",
+    time: "17:00〜19:00",
+    weather: "快晴",
+    progress: "arr",
+    tags: ["夕焼け","水辺"],
+    filter: "Faded Print",
+    memo: "水面反射を入れる。",
+    rating: 5
+  },
+  {
+    id: "spot-ishgard",
+    title: "イシュガルド雪道・青い石畳",
+    area: "イシュガルド：上層",
+    coord: "X:7.2 Y:10.3",
+    time: "早朝 / 深夜",
+    weather: "雪 / 曇り",
+    progress: "hw",
+    tags: ["雪","中世"],
+    filter: "Cool Blue",
+    memo: "暗めに撮る。",
+    rating: 4
+  },
+  {
+    id: "spot-azysla",
+    title: "アジス・ラー浮遊島シルエット",
+    area: "アジス・ラー",
+    coord: "X:26.2 Y:11.4",
+    time: "夜 / 夕方",
+    weather: "雷 / 曇り",
+    progress: "hw",
+    tags: ["SF","廃墟"],
+    filter: "Cinematic",
+    memo: "巨大構造物を入れる。",
+    rating: 4
+  },
+  {
+    id: "spot-kugane",
+    title: "クガネ夜景・朱雀門前",
+    area: "クガネ",
+    coord: "X:10.8 Y:9.7",
+    time: "18:00〜23:00",
+    weather: "快晴 / 晴れ",
+    progress: "sb",
+    tags: ["夜景","和風"],
+    filter: "Old Digicam",
+    memo: "提灯背景が強い。",
+    rating: 5
+  },
+  {
+    id: "spot-elpis",
+    title: "エルピス花畑・白昼夢",
+    area: "エルピス",
+    coord: "X:13.5 Y:7.8",
+    time: "昼〜夕方",
+    weather: "快晴",
+    progress: "ew",
+    tags: ["花畑","幻想"],
+    filter: "Faded Print",
+    memo: "明るく淡く。",
+    rating: 5
+  },
+  {
+    id: "spot-tuli",
+    title: "トライヨラ港・南国スナップ",
+    area: "トライヨラ",
+    coord: "X:12.0 Y:13.2",
+    time: "昼",
+    weather: "快晴",
+    progress: "dt",
+    tags: ["南国","港"],
+    filter: "CCD Flash",
+    memo: "青空強め。",
+    rating: 4
+  }
+];
+
+let selected = spots[0];
+
+let items = [
+  {
+    item: "銀鉱",
+    itemId: 5113,
+    type: "gather",
+    job: "採掘師",
+    requiredLevel: 25,
+    worldPrice: 200,
+    velocity: "中",
+    advice: "素材売り",
+    memo: "採掘26なら今すぐ可能。10〜30個で小分け。"
+  },
+  {
+    item: "ウィンドシャード",
+    itemId: 4,
+    type: "gather",
+    job: "採掘師/園芸師",
+    requiredLevel: 1,
+    worldPrice: 40,
+    velocity: "高",
+    advice: "大量売り",
+    memo: "500〜1000単位。"
+  },
+  {
+    item: "シルバーインゴット",
+    itemId: 5064,
+    type: "craft",
+    job: "彫金師",
+    requiredLevel: 23,
+    worldPrice: 659,
+    materialCost: 680,
+    velocity: "低〜中",
+    advice: "加工見送り",
+    memo: "彫金Lv23未満なら不可。"
+  },
+  {
+    item: "調理師GC納品品",
+    itemId: null,
+    type: "craft",
+    job: "調理師",
+    requiredLevel: 30,
+    worldPrice: 0,
+    velocity: "日課",
+    advice: "経験値/軍票",
+    memo: "調理35なら日課候補。"
+  },
+  {
+    item: "古ぼけた地図G18",
+    itemId: null,
+    type: "gather",
+    job: "採掘師/園芸師",
+    requiredLevel: 100,
+    worldPrice: 18500,
+    velocity: "高",
+    advice: "今は不可",
+    memo: "将来用。ItemID未設定。"
+  }
+];
+
+let marketFresh = false;
+
+function $(id) {
+  return document.getElementById(id);
+}
+
+function order(key) {
+  return stages.find(stage => stage[0] === key)?.[2] || 1;
+}
+
+function label(key) {
+  return stages.find(stage => stage[0] === key)?.[1] || key;
+}
+
+function jobLevel(job) {
+  if (job.includes("/")) {
+    return Math.max(...job.split("/").map(name => profile.jobs[name.trim()] || 0));
+  }
+  return profile.jobs[job] || 0;
+}
+
+function canDo(item) {
+  return item.type !== "drop" && jobLevel(item.job) >= item.requiredLevel;
+}
+
+function saveAll() {
+  localStorage.setItem("ep_profile", JSON.stringify(profile));
+  localStorage.setItem("ep_spots", JSON.stringify(spots));
+}
+  function init() {
+  stages.forEach(stage => {
+    $("progress").innerHTML += `<option value="${stage[0]}">${stage[1]}</option>`;
+  });
+
+  ["character","world","dc","gil","companySeals","ventures","progress","hideLockedSpots"].forEach(id => {
+    if (id === "hideLockedSpots") $("hideLockedSpots").checked = profile.hideLockedSpots;
+    else $(id).value = profile[id];
+  });
+
+  $("marketText").value = "銀鉱 200\nシルバーインゴット 659\nウィンドシャード 40";
+
+  loadCachedMarket();
+  renderJobs();
+  renderAll();
+}
+
+function bind() {
+  document.querySelectorAll("nav button").forEach(button => {
+    button.onclick = () => {
+      document.querySelectorAll("nav button,.tab").forEach(element => element.classList.remove("active"));
+      button.classList.add("active");
+      $(button.dataset.tab).classList.add("active");
+    };
+  });
+
+  ["character","world","dc","gil","companySeals","ventures","progress","hideLockedSpots"].forEach(id => {
+    $(id).oninput = () => {
+      profile[id] =
+        id === "hideLockedSpots"
+          ? $(id).checked
+          : $(id).type === "number"
+            ? Number($(id).value)
+            : $(id).value;
+
+      saveAll();
+      renderAll();
+    };
+  });
+
+  $("addJob").onclick = addJob;
+
+  $("saveProfile").onclick = () => {
+    $("saveStatus").textContent = " 保存しました";
+    saveAll();
+  };
+
+  $("walkGacha").onclick = walkGacha;
+  $("spotSearch").oninput = renderSpots;
+  $("addSpot").onclick = addSpot;
+  $("analyzeMarket").onclick = analyzeMarket;
+  $("fetchMarket").onclick = fetchMarket;
+
+  $("clearMarketCache").onclick = () => {
+    localStorage.removeItem("ep_market_cache");
+    marketFresh = false;
+    items.forEach(item => item.api = null);
+    $("marketStatus").textContent = "相場キャッシュを削除しました";
+    renderMarket();
+  };
+
+  $("copyQr").onclick = () => navigator.clipboard?.writeText($("qrValue").value);
+  $("readQr").onclick = readQr;
+  $("spotQr").onclick = () => {
+    $("qrValue").value = "eorzea-pocket://spot/" + selected.id;
+    renderQr();
+  };
+  $("cameraBtn").onclick = startCamera;
+  $("qrValue").oninput = renderQr;
+}
+
+function escapeQuote(text) {
+  return String(text).replaceAll("'", "\\'");
+}
+
+function renderJobs() {
+  let html = "";
+
+  Object.entries(profile.jobs).forEach(([name, level]) => {
+    html += `
+      <div class="job">
+        <b>${name}</b>
+        <input type="number" min="0" max="100" value="${level}" onchange="updateJob('${escapeQuote(name)}', this.value)">
+        <button class="del" onclick="removeJob('${escapeQuote(name)}')">削除</button>
+      </div>
+    `;
+  });
+
+  $("jobList").innerHTML = html;
+
+  const missingJobs = standardJobs.filter(job => profile.jobs[job] === undefined).slice(0, 12);
+
+  $("quickJobs").innerHTML = missingJobs
+    .map(job => `<button onclick="quickAdd('${job}')">+ ${job}</button>`)
+    .join("");
+}
+
+window.updateJob = (name, value) => {
+  profile.jobs[name] = Math.max(0, Math.min(100, Number(value) || 0));
+  saveAll();
+  renderAll();
+  renderJobs();
+};
+
+window.removeJob = name => {
+  delete profile.jobs[name];
+  saveAll();
+  renderAll();
+  renderJobs();
+};
+
+window.quickAdd = name => {
+  profile.jobs[name] = 0;
+  saveAll();
+  renderAll();
+  renderJobs();
+};
+
+function addJob() {
+  const name = $("newJobName").value.trim();
+  if (!name) return;
+
+  profile.jobs[name] = Math.max(0, Math.min(100, Number($("newJobLevel").value) || 0));
+
+  $("newJobName").value = "";
+  $("newJobLevel").value = 1;
+
+  saveAll();
+  renderAll();
+  renderJobs();
+}
+
+function visibleSpots() {
+  return spots.filter(spot => !profile.hideLockedSpots || order(spot.progress) <= order(profile.progress));
+}
+
+function renderSpots() {
+  const query = $("spotSearch").value.toLowerCase();
+
+  const list = visibleSpots().filter(spot =>
+    [spot.title, spot.area, spot.coord, label(spot.progress), ...spot.tags]
+      .join(" ")
+      .toLowerCase()
+      .includes(query)
+  );
+
+  $("spotTitle").textContent = `エオルゼア散歩：${label(profile.progress)}まで / ${list.length}件`;
+
+  $("spotList").innerHTML = list.map(spot => `
+    <div class="spot" onclick="selectSpot('${spot.id}')">
+      <b>${order(spot.progress) <= order(profile.progress) ? "🔓" : "🔒"} ${spot.title}</b>
+      <div class="small">${spot.area} / ${spot.coord} / ${label(spot.progress)}</div>
+      ${spot.tags.map(tag => `<span class="badge">#${tag}</span>`).join("")}
+    </div>
+  `).join("");
+
+  renderSpotDetail();
+}
+
+window.selectSpot = id => {
+  selected = spots.find(spot => spot.id === id) || selected;
+  $("qrValue").value = "eorzea-pocket://spot/" + selected.id;
+  renderAll();
+};
+
+function renderSpotDetail() {
+  $("spotDetail").innerHTML = `
+    <h3>${selected.title}</h3>
+    <p>${selected.memo}</p>
+    <div class="item"><b>エリア</b><div>${selected.area}</div></div>
+    <div class="item"><b>座標</b><div>${selected.coord}</div></div>
+    <div class="item"><b>必要進行</b><div>${label(selected.progress)}</div></div>
+    <div class="item"><b>おすすめ加工</b><div>${selected.filter}</div></div>
+  `;
+}
+
+function walkGacha() {
+  const list = visibleSpots();
+  selected = list[Math.floor(Math.random() * list.length)] || spots[0];
+
+  document.querySelector('[data-tab="spot"]').click();
+
+  renderAll();
+}
+
+function addSpot() {
+  const name = $("spotName").value.trim();
+  if (!name) return;
+
+  const spot = {
+    id: "spot-" + Date.now(),
+    title: name,
+    area: $("spotArea").value || "未設定",
+    coord: $("spotCoord").value || "X:? Y:?",
+    time: "任意",
+    weather: "任意",
+    progress: profile.progress,
+    tags: $("spotTags").value.split(/[、,\s]+/).filter(Boolean),
+    filter: "Old Digicam",
+    memo: "ユーザー追加スポット",
+    rating: 4
+  };
+
+  spots.unshift(spot);
+  selected = spot;
+
+  saveAll();
+  renderAll();
+}
+
+function marketSorted() {
+  return items.map(item => {
+    const doable = canDo(item);
+
+    const profit =
+      item.type === "craft" && item.materialCost
+        ? item.worldPrice - item.materialCost
+        : item.worldPrice;
+
+    let priority = 0;
+    if (doable) priority += 50;
+    if (item.velocity === "高") priority += 20;
+    if (profit > 0) priority += Math.min(30, profit / 20);
+    if (item.item === "銀鉱") priority += 15;
+    if (item.api?.saleVelocity) priority += Math.min(20, item.api.saleVelocity * 3);
+
+    return {
+      ...item,
+      doable,
+      profit,
+      priority
+    };
+  }).sort((a, b) => b.priority - a.priority);
+}
+
+function renderMarket() {
+  $("marketSub").textContent = `${profile.world}想定・今のギャザクラLv基準`;
+
+  $("suggestedItems").innerHTML =
+    marketSorted()
+      .filter(item => item.doable)
+      .slice(0, 4)
+      .map(marketCard)
+      .join("") || '<p class="small">今できる監視候補がありません</p>';
+
+  $("marketList").innerHTML = marketSorted().map(marketCard).join("");
+
+  if (!$("marketStatus").textContent) {
+    $("marketStatus").textContent = marketFresh
+      ? "Universalis相場取得済み"
+      : "未取得。ボタンで実相場を取得できます。";
+  }
+}
+
+function marketCard(item) {
+  const api = item.api
+    ? `
+      <div class="small">
+        API: 最安 ${item.api.minPrice?.toLocaleString() || "-"} /
+        在庫 ${item.api.totalQty || 0} /
+        直近販売 ${item.api.saleVelocity?.toFixed(1) || 0}/日
+      </div>
+    `
+    : "";
+
+  return `
+    <div class="item ${item.doable ? "ok" : "lock"}">
+      <b>${item.doable ? "🔓" : "🔒"} ${item.item}</b>
+      <div class="small">${item.job} Lv${item.requiredLevel}〜 / 回転:${item.velocity}</div>
+      <div>${item.worldPrice ? item.worldPrice.toLocaleString() + " gil" : "日課"}</div>
+      ${api}
+      <p>${item.memo}</p>
+      <span class="badge">${item.doable ? item.advice : "今は不可"}</span>
+    </div>
+  `;
+}
+
+function analyzeMarket() {
+  const rows = $("marketText").value
+    .split(/\n|,/)
+    .map(line => line.trim())
+    .filter(Boolean)
+    .map(line => {
+      const match = line.match(/^(.+?)\s*(\d{2,})/);
+      const name = match ? match[1].trim() : line;
+      const price = match ? Number(match[2]) : 0;
+      const known = items.find(item => name.includes(item.item) || item.item.includes(name));
+
+      return marketCard({
+        ...known,
+        item: name,
+        worldPrice: price || known?.worldPrice || 0,
+        doable: known ? canDo(known) : true,
+        job: known?.job || "未設定",
+        requiredLevel: known?.requiredLevel || 0,
+        velocity: known?.velocity || "要確認",
+        advice: known?.advice || "相場確認",
+        memo: known?.memo || "出品数と履歴を見て判断"
+      });
+    })
+    .join("");
+
+  $("marketList").innerHTML = rows;
+}
+
+async function fetchMarket() {
+  const ids = items
+    .filter(item => item.itemId)
+    .map(item => item.itemId)
+    .join(",");
+
+  if (!ids) return;
+
+  const world = encodeURIComponent(profile.world || "Shinryu");
+
+  $("marketStatus").textContent = "Universalisから取得中...";
+
+  try {
+    const url = `https://universalis.app/api/v2/${world}/${ids}?listings=10&entries=20`;
+    const response = await fetch(url);
+
+    if (!response.ok) throw new Error("HTTP " + response.status);
+
+    const data = await response.json();
+
+    applyMarketData(data);
+
+    localStorage.setItem("ep_market_cache", JSON.stringify({
+      t: Date.now(),
+      world: profile.world,
+      data
+    }));
+
+    marketFresh = true;
+    $("marketStatus").textContent = "取得成功: " + new Date().toLocaleString();
+
+    renderMarket();
+  } catch (error) {
+    $("marketStatus").innerHTML =
+      `<span class="warn">取得失敗: ${error.message}。GitHub Pages上/HTTPSで再試行、または手入力を使ってください。</span>`;
+  }
+}
+
+function applyMarketData(data) {
+  const map = data.items || {};
+
+  items = items.map(item => {
+    if (!item.itemId) return item;
+
+    const marketData =
+      map[item.itemId] ||
+      map[String(item.itemId)] ||
+      (data.itemID === item.itemId ? data : null);
+
+    if (!marketData) return item;
+
+    const listings = marketData.listings || [];
+    const history = marketData.recentHistory || marketData.sales || [];
+
+    const minPrice = listings.length
+      ? Math.min(...listings.map(listing => listing.pricePerUnit || listing.price || 999999999))
+      : item.worldPrice;
+
+    const totalQty = listings.reduce((sum, listing) => sum + (listing.quantity || 0), 0);
+
+    const saleVelocity =
+      marketData.regularSaleVelocity ||
+      marketData.nqSaleVelocity ||
+      marketData.hqSaleVelocity ||
+      0;
+
+    item.worldPrice = minPrice || item.worldPrice;
+
+    item.api = {
+      minPrice,
+      totalQty,
+      saleVelocity,
+      historyCount: history.length
+    };
+
+    return item;
+  });
+}
+
+function loadCachedMarket() {
+  try {
+    const cache = JSON.parse(localStorage.getItem("ep_market_cache") || "null");
+
+    if (cache && cache.data && Date.now() - cache.t < 21600000) {
+      applyMarketData(cache.data);
+      marketFresh = true;
+      $("marketStatus").textContent = "キャッシュ相場を使用: " + new Date(cache.t).toLocaleString();
+    }
+  } catch (error) {
+    console.warn(error);
+  }
+}
+
+function renderDaily() {
+  const tasks = [
+    { id: "retainer", text: "リテイナー2人を出す", group: "毎回", minutes: 2 },
+    { id: "market", text: "マケボ出品価格を見直す", group: "金策", minutes: 5 },
+    { id: "ore", text: "銀鉱 or シャードを補充", group: "金策", minutes: 15 },
+    { id: "roulette", text: "占星術師でレベリングルレ", group: "育成", minutes: 25 },
+    { id: "ss", text: "行ける散歩スポットでSS1枚", group: "SS", minutes: 10 }
+  ];
+
+  if ((profile.jobs["採掘師"] || 0) >= 25) {
+    tasks.splice(2, 0, {
+      id: "silverOre",
+      text: "銀鉱を10〜30個で小分け出品",
+      group: "金策",
+      minutes: 15
+    });
+  }
+
+  if ((profile.jobs["彫金師"] || 0) < 23) {
+    tasks.push({
+      id: "gsm23",
+      text: "彫金師をLv23まで上げる",
+      group: "育成",
+      minutes: 20
+    });
+  }
+
+  if ((profile.jobs["占星術師"] || 0) < 50) {
+    tasks.push({
+      id: "ast50",
+      text: "占星術師Lv50を目指す",
+      group: "育成",
+      minutes: 25
+    });
+  }
+
+  const remainingTasks = tasks.filter(task => !localStorage.getItem("done_" + task.id));
+  const leftMinutes = remainingTasks.reduce((sum, task) => sum + task.minutes, 0);
+
+  $("taskSummary").textContent = `${remainingTasks.length}件 / 約${leftMinutes}分`;
+
+  $("tasks").innerHTML = tasks.map(task => `
+    <div class="task" onclick="toggleTask('${task.id}')">
+      ${localStorage.getItem("done_" + task.id) ? "✅" : "⬜"}
+      <b>${task.text}</b>
+      <div class="small">${task.group} / ${task.minutes}分</div>
+    </div>
+  `).join("");
+
+  $("plans").innerHTML = [
+    "短時間 10分|リテイナー回収/再派遣|相場取得ボタンを押す|売れ残りを1回だけ調整",
+    "普通 30分|今日のおすすめ品を採取/製作|占星ルレ1回|蒼天までの行けるスポットでSS1枚",
+    "がっつり 60分|採掘30を目指す|彫金23まで上げてインゴット比較を解放|SS加工して投稿"
+  ].map(plan => {
+    const parts = plan.split("|");
+    return `
+      <div class="item">
+        <b>${parts[0]}</b>
+        ${parts.slice(1).map(item => `<p>・${item}</p>`).join("")}
+      </div>
+    `;
+  }).join("");
+}
+
+window.toggleTask = id => {
+  if (localStorage.getItem("done_" + id)) {
+    localStorage.removeItem("done_" + id);
+  } else {
+    localStorage.setItem("done_" + id, "1");
+  }
+
+  renderDaily();
+};
+
+function qrBits(text) {
+  let seed = 0;
+
+  for (const char of text) {
+    seed = (seed * 31 + char.charCodeAt(0)) >>> 0;
+  }
+
+  let html = "";
+
+  for (let index = 0; index < 441; index++) {
+    seed = (seed * 1664525 + 1013904223) >>> 0;
+
+    html += `<div class="${(seed % 7 < 3 || (index < 147 && index % 21 < 7)) ? "black" : "white"}"></div>`;
+  }
+
+  return html;
+}
+
+function renderQr() {
+  $("qrValue").value = $("qrValue").value || "eorzea-pocket://spot/" + selected.id;
+  $("qrBox").innerHTML = qrBits($("qrValue").value);
+}
+
+function readQr() {
+  const id = $("qrValue").value.split("/").pop();
+  const spot = spots.find(item => item.id === id);
+
+  if (spot) {
+    selected = spot;
+    document.querySelector('[data-tab="spot"]').click();
+  }
+
+  $("scanLog").textContent = spot
+    ? "スポットを読み込みました：" + spot.title
+    : "QR文字列を受け取りました";
+}
+
+async function startCamera() {
+  try {
+    const stream = await navigator.mediaDevices.getUserMedia({
+      video: {
+        facingMode: "environment"
+      }
+    });
+
+    $("video").srcObject = stream;
+    $("scanLog").textContent = "カメラ起動OK。実装ではBarcodeDetectorでQR解析予定。";
+  } catch (error) {
+    $("scanLog").textContent = "カメラ起動に失敗。HTTPS/権限を確認。";
+  }
+}
+
+function renderAll() {
+  renderSpots();
+  renderMarket();
+  renderDaily();
+  renderQr();
+}
+
+bind();
+init();
+</script>
 </body>
 </html>
