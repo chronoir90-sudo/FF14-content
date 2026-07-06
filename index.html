@@ -5,202 +5,203 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Eorzea Pocket</title>
 <style>
-:root{--bg:#050814;--card:#0f172a;--card2:#07111f;--line:#263244;--text:#eef2ff;--muted:#94a3b8;--sky:#38bdf8;--ok:#34d399;--bad:#fb7185}
+:root{--bg:#050814;--card:#0f172a;--line:#263244;--text:#eef2ff;--muted:#94a3b8;--sky:#38bdf8;--ok:#34d399}
 *{box-sizing:border-box}
-body{margi*:0;background:linear-gradient(#071*1f,#050814);color:var(--text);font*family:system-ui,-apple-system,"Se*oe UI",sans-serif}
-header{max-widt*:1160px;margin:auto;padding:18px;d*splay:flex;justify-content:space-b*tween;gap:14px;align-items:center}*h1{margin:.1em 0;font-size:26px}
-.*ogo{color:var(--sky);font-weight:9*0}
-p{color:var(--muted)}
-button{bo*der:0;border-radius:16px;backgroun*:#1f2937;color:white;padding:11px *4px;font-weight:800;cursor:pointer*
-button:hover{filter:brightness(1.*2)}
-.primary,header button{backgro*nd:#0284c7}
-nav{position:sticky;to*:0;z-index:9;max-width:1160px;marg*n:auto;display:grid;grid-template-*olumns:repeat(5,1fr);gap:8px;backg*ound:#050814dd;padding:8px;backdro*-filter:blur(10px)}
-nav button.act*ve{background:#0284c7}
-.tab{displa*:none;max-width:1160px;margin:auto*padding:14px}
-.tab.active{display:*lock}
-.grid{display:grid;gap:14px}*.two{grid-template-columns:1fr 1.1*r}
-.card{border:1px solid var(--li*e);background:#0f172acc;border-rad*us:28px;padding:16px;box-shadow:0 *0px 50px #0008}
-input,select,texta*ea{width:100%;border:1px solid #33*155;border-radius:16px;background:*07111f;color:var(--text);padding:1*px;margin:5px 0 10px}
-textarea{min*height:120px}
-.formgrid{display:gr*d;grid-template-columns:1fr 1fr;ga*:8px}
-.check{display:flex;gap:8px;*lign-items:center}
-.check input{wi*th:auto}
-.item,.spot,.task,.job{bo*der:1px solid var(--line);backgrou*d:#07111f;border-radius:22px;paddi*g:12px;margin:8px 0}
-.spot{cursor:*ointer}
-.ok{border-color:#15803d;b*ckground:#052e22}
-.lock{opacity:.7*
-.small{font-size:12px;color:var(-*muted)}
-.warn{color:#fbbf24}
-.badg*{display:inline-block;border-radiu*:999px;background:#0c4a6e;color:#b*e6fd;padding:4px 8px;font-size:12p*;margin:3px}
-.chips button{font-si*e:12px;padding:6px 9px;margin:3px;*ackground:#1e293b}
-.job{display:gr*d;grid-template-columns:1fr 70px 4*px;gap:8px;align-items:center}
-.jo* input{margin:0}
-.job .del{backgro*nd:#3f1d2b;color:#fecdd3}
-.addjob{*isplay:grid;grid-template-columns:*fr 78px 74px;gap:8px}
-.summary{fon*-size:28px;font-weight:900;backgro*nd:#052e22;border-radius:24px;padd*ng:16px}
-.row{display:grid;grid-te*plate-columns:1fr 1fr;gap:8px}
-.qr*display:grid;grid-template-columns*repeat(21,1fr);gap:1px;background:*hite;border-radius:16px;padding:12*x;max-width:300px;margin:auto}
-.qr*div{aspect-ratio:1}
-.black{backgro*nd:#020617}
-.white{background:whit*}
-video{width:100%;aspect-ratio:16*9;background:#020617;border-radius*20px}
-.saved{font-size:12px;color:*ar(--ok)}
-@media(max-width:800px){*  header{display:block}
-  .two,.fo*mgrid{grid-template-columns:1fr}
- *.addjob{grid-template-columns:1fr *0px}
-  .addjob button{grid-column:*/3}
-  nav button{font-size:12px;pa*ding:9px 4px}
-  .row{grid-template*columns:1fr}
-}
-</style>
+body{mar*in:0;background:linear-gradient(#0*111f,#050814);color:var(--text);fo*t-family:system-ui,-apple-system,"*egoe UI",sans-serif}
+header{max-wi*th:1160px;margin:auto;padding:18px*display:flex;justify-content:space*between;gap:14px;align-items:cente*}
+h1{margin:.1em 0;font-size:26px}*h2{margin-top:0}
+.logo{color:var(-*sky);font-weight:900}
+p{color:var(*-muted)}
+button{border:0;border-ra*ius:16px;background:#1f2937;color:*hite;padding:11px 14px;font-weight*800;cursor:pointer}
+button:hover{f*lter:brightness(1.12)}
+.primary,he*der button{background:#0284c7}
+nav*position:sticky;top:0;z-index:9;ma*-width:1160px;margin:auto;display:*rid;grid-template-columns:repeat(5*1fr);gap:8px;background:#050814dd;*adding:8px;backdrop-filter:blur(10*x)}
+nav button.active{background:#*284c7}
+.tab{display:none;max-width*1160px;margin:auto;padding:14px}
+.*ab.active{display:block}
+.grid{dis*lay:grid;gap:14px}
+.two{grid-templ*te-columns:1fr 1.1fr}
+.card{border*1px solid var(--line);background:#*f172acc;border-radius:28px;padding*16px;box-shadow:0 20px 50px #0008}*input,select,textarea{width:100%;b*rder:1px solid #334155;border-radi*s:16px;background:#07111f;color:va*(--text);padding:11px;margin:5px 0*10px}
+textarea{min-height:120px}
+.*ormgrid{display:grid;grid-template*columns:1fr 1fr;gap:8px}
+.check{di*play:flex;gap:8px;align-items:cent*r}
+.check input{width:auto}
+.item,*spot,.task,.job{border:1px solid v*r(--line);background:#07111f;borde*-radius:22px;padding:12px;margin:8*x 0}
+.spot{cursor:pointer}
+.ok{bor*er-color:#15803d;background:#052e2*}
+.lock{opacity:.72}
+.small{font-s*ze:12px;color:var(--muted)}
+.warn{*olor:#fbbf24}
+.badge{display:inlin*-block;border-radius:999px;backgro*nd:#0c4a6e;color:#bae6fd;padding:4*x 8px;font-size:12px;margin:3px}
+.*hips button{font-size:12px;padding*6px 9px;margin:3px;background:#1e2*3b}
+.job{display:grid;grid-templat*-columns:1fr 70px 44px;gap:8px;ali*n-items:center}
+.job input{margin:*}
+.job .del{background:#3f1d2b;col*r:#fecdd3}
+.addjob{display:grid;gr*d-template-columns:1fr 78px 74px;g*p:8px}
+.summary{font-size:28px;fon*-weight:900;background:#052e22;bor*er-radius:24px;padding:16px}
+.row{*isplay:grid;grid-template-columns:*fr 1fr;gap:8px}
+.qr{display:grid;g*id-template-columns:repeat(21,1fr)*gap:1px;background:white;border-ra*ius:16px;padding:12px;max-width:30*px;margin:auto}
+.qr div{aspect-rat*o:1}
+.black{background:#020617}
+.w*ite{background:white}
+video{width:*00%;aspect-ratio:16/9;background:#*20617;border-radius:20px}
+.saved{f*nt-size:12px;color:var(--ok)}
+@med*a(max-width:800px){
+  header{displ*y:block}
+  .two,.formgrid{grid-tem*late-columns:1fr}
+  .addjob{grid-t*mplate-columns:1fr 70px}
+  .addjob*button{grid-column:1/3}
+  nav butt*n{font-size:12px;padding:9px 4px}
+* .row{grid-template-columns:1fr}
+}*</style>
 </head>
+<body>
 
-<*ody>
 <header>
-  <div>
-    <b class*"logo">Eorzea Pocket</b>
-    <h1>F*14スマホ便利ツール</h1>
-    <p>自分情報・進行度別SS*歩・Universalis実相場・今日やること・QR共有</p>
- *</div>
-  <button id="walkGacha">散歩*チャ</button>
-</header>
+* <div>
+    <b class="logo">Eorzea *ocket</b>
+    <h1>FF14スマホ便利ツール</h1*
+    <p>自分情報・進行度別SS散歩・Universalis実*場・今日やること・QR共有</p>
+  </div>
+  <butt*n id="walkGacha">散歩ガチャ</button>
+</*eader>
 
 <nav>
-  <bu*ton data-tab="profile" class="acti*e">自分</button>
-  <button data-tab=*spot">散歩</button>
-  <button data-t*b="market">金策</button>
-  <button d*ta-tab="daily">今日</button>
-  <butt*n data-tab="qr">QR</button>
-</nav>*
+  <button data-tab="*rofile" class="active">自分</button>*  <button data-tab="spot">散歩</butt*n>
+  <button data-tab="market">金策<*button>
+  <button data-tab="daily"*今日</button>
+  <button data-tab="qr*>QR</button>
+</nav>
+
 <main>
-  <section id="profile" cl*ss="tab active">
-    <div class="g*id two">
-      <article class="car*">
-        <h2>自分の情報</h2>
-        *div class="formgrid">
-          <l*bel>キャラ名<input id="character"></la*el>
-          <label>ワールド<input id*"world"></label>
-          <label>*C<input id="dc"></label>
-         *<label>所持ギル<input id="gil" type="n*mber"></label>
-          <label>軍票*input id="companySeals" type="numb*r"></label>
-          <label>ベンチャー*input id="ventures" type="number">*/label>
+  <sec*ion id="profile" class="tab active*>
+    <div class="grid two">
+     *<article class="card">
+        <h2*自分の情報</h2>
+        <div class="for*grid">
+          <label>キャラ名<input*id="character"></label>
+          *label>ワールド<input id="world"></labe*>
+          <label>DC<input id="dc*></label>
+          <label>所持ギル<in*ut id="gil" type="number"></label>*          <label>軍票<input id="comp*nySeals" type="number"></label>
+  *       <label>ベンチャー<input id="vent*res" type="number"></label>
+      * </div>
+        <label>メイン進行度<sele*t id="progress"></select></label>
+*       <label class="check">
+     *    <input id="hideLockedSpots" ty*e="checkbox">
+          行けない散歩スポット*隠す
+        </label>
+        <butto* id="saveProfile" class="primary">*の端末に保存</button>
+        <span id="*aveStatus" class="saved"></span>
+ *    </article>
+
+      <article cla*s="card">
+        <h2>ジョブ/クラスLv</h*>
+        <div class="addjob">
+   *      <input id="newJobName" place*older="例: ピクトマンサー / 木工師">
+        * <input id="newJobLevel" type="num*er" min="0" max="100" value="1">
+ *        <button id="addJob">追加</bu*ton>
         </div>
-        <la*el>メイン進行度<select id="progress"></s*lect></label>
-        <label class*"check">
-          <input id="hide*ockedSpots" type="checkbox">
-     *    行けない散歩スポットを隠す
-        </label>*        <button id="saveProfile" c*ass="primary">この端末に保存</button>
-   *    <span id="saveStatus" class="s*ved"></span>
-      </article>
-
-   *  <article class="card">
-        <*2>ジョブ/クラスLv</h2>
-        <div clas*="addjob">
-          <input id="ne*JobName" placeholder="例: ピクトマンサー /*木工師">
-          <input id="newJobL*vel" type="number" min="0" max="10*" value="1">
-          <button id=*addJob">追加</button>
-        </div>*        <div id="quickJobs" class=*chips"></div>
-        <div id="job*ist"></div>
-      </article>
-    <*div>
-  </section>
-
-  <section id="*pot" class="tab">
-    <div class="*rid two">
-      <article class="ca*d">
-        <h2 id="spotTitle">エオル*ア散歩</h2>
-        <input id="spotSe*rch" placeholder="夜景、雪、クガネ…">
-    *   <div id="spotList"></div>
-     *</article>
-
-      <article class="*ard">
-        <h2>選択中スポット</h2>
-   *    <div id="spotDetail"></div>
-
- *      <h3>スポット追加</h3>
-        <inp*t id="spotName" placeholder="スポット名*>
-        <div class="formgrid">
- *        <input id="spotArea" place*older="エリア">
-          <input id="*potCoord" placeholder="座標 X: Y:">
-*       </div>
-        <input id="s*otTags" placeholder="タグ 例: 夜景 海 夕焼*">
-        <button id="addSpot" cl*ss="primary">現在の進行度で追加</button>
+        <div i*="quickJobs" class="chips"></div>
+*       <div id="jobList"></div>
   *   </article>
     </div>
   </secti*n>
 
-  <section id="market" class="*ab">
+  <section id="spot" class="ta*">
     <div class="grid two">
+    * <article class="card">
+        <h* id="spotTitle">エオルゼア散歩</h2>
+     *  <input id="spotSearch" placehold*r="夜景、雪、クガネ…">
+        <div id="sp*tList"></div>
+      </article>
+
   *   <article class="card">
-        *h2>マケボ監視 / 今日売るべきもの</h2>
-        <* id="marketSub"></p>
-        <div *lass="row">
-          <button id="*etchMarket" class="primary">Univer*alis実相場を取得</button>
-          <but*on id="clearMarketCache">相場キャッシュ削除*/button>
+        *h2>選択中スポット</h2>
+        <div id="s*otDetail"></div>
+
+        <h3>スポット*加</h3>
+        <input id="spotName* placeholder="スポット名">
+        <div*class="formgrid">
+          <input*id="spotArea" placeholder="エリア">
+ *        <input id="spotCoord" plac*holder="座標 X: Y:">
         </div>
-        <p*id="marketStatus" class="small"></*>
-        <div id="suggestedItems"*</div>
-
-        <h3>手入力/OCRデモ</h3>*        <textarea id="marketText">*/textarea>
-        <button id="ana*yzeMarket">価格を整理</button>
-      </*rticle>
-
-      <article class="car*">
-        <h2>監視候補</h2>
-        <*iv id="marketList"></div>
-      </*rticle>
-    </div>
+*       <input id="spotTags" placeh*lder="タグ 例: 夜景 海 夕焼け">
+        <bu*ton id="addSpot" class="primary">現*の進行度で追加</button>
+      </article>
+*   </div>
   </section>
 
- *<section id="daily" class="tab">
- *  <div class="grid two">
+  <section*id="market" class="tab">
+    <div *lass="grid two">
+      <article cl*ss="card">
+        <h2>マケボ監視 / 今日売*べきもの</h2>
+        <p id="marketSub*></p>
+        <div class="row">
+  *       <button id="fetchMarket" cl*ss="primary">Universalis実相場を取得</bu*ton>
+          <button id="clearMa*ketCache">相場キャッシュ削除</button>
+     *  </div>
+        <p id="marketStat*s" class="small"></p>
+        <div*id="suggestedItems"></div>
+
+      * <h3>手入力/OCRデモ</h3>
+        <texta*ea id="marketText"></textarea>
+   *    <button id="analyzeMarket">価格を*理</button>
+      </article>
+
+     *<article class="card">
+        <h2*監視候補</h2>
+        <div id="marketL*st"></div>
+      </article>
+    </*iv>
+  </section>
+
+  <section id="d*ily" class="tab">
+    <div class="*rid two">
+      <article class="ca*d">
+        <h2>今日やること</h2>
+      * <div id="taskSummary" class="summ*ry"></div>
+        <div id="tasks"*</div>
+      </article>
+
       <ar*icle class="card">
-        <h2>今日や*こと</h2>
-        <div id="taskSumma*y" class="summary"></div>
-        *div id="tasks"></div>
-      </arti*le>
+        <h2>今日の*すすめ進行</h2>
+        <div id="plans"*</div>
+      </article>
+    </div>*  </section>
 
+  <section id="qr" c*ass="tab">
+    <div class="grid tw*">
       <article class="card">
-*       <h2>今日のおすすめ進行</h2>
-        *div id="plans"></div>
+  *     <h2>QR Hub</h2>
+        <div *d="qrBox" class="qr"></div>
+      * <textarea id="qrValue"></textarea*
+        <div class="row">
+       *  <button id="copyQr">コピー</button>*          <button id="readQr">読み込み*/button>
+        </div>
+      </ar*icle>
+
+      <article class="card"*
+        <h2>カメラQR読み取りデモ</h2>
+    *   <video id="video" playsinline a*toplay muted></video>
+        <but*on id="cameraBtn" class="primary">*メラ起動</button>
+        <p id="scanL*g"></p>
+        <button id="spotQr*>選択中スポットをQR化</button>
       </arti*le>
     </div>
   </section>
-
-  <se*tion id="qr" class="tab">
-    <div*class="grid two">
-      <article c*ass="card">
-        <h2>QR Hub</h2*
-        <div id="qrBox" class="qr*></div>
-        <textarea id="qrVa*ue"></textarea>
-        <div class*"row">
-          <button id="copyQ*">コピー</button>
-          <button i*="readQr">読み込み</button>
-        </*iv>
-      </article>
-
-      <artic*e class="card">
-        <h2>カメラQR読*取りデモ</h2>
-        <video id="video* playsinline autoplay muted></vide*>
-        <button id="cameraBtn" c*ass="primary">カメラ起動</button>
-     *  <p id="scanLog"></p>
-        <bu*ton id="spotQr">選択中スポットをQR化</butto*>
-      </article>
-    </div>
-  </*ection>
-</main>
+</main*
 
 <script>
-const st*ges = [
+const stages = [
   ["arr", "新生", 1],
   ["hw", "蒼天", 2],
   ["sb", "紅蓮", 3],
   ["shb", "漆黒", 4],
   ["ew", "暁月", 5],
-  ["dt", "黄金", 6],
+  ["dt", "黄金", 6]
 ];
 
-const stand*rdJobs = [
+const standardJobs = [
   "ナイト","戦士","暗黒騎士","ガンブレイカー",
   "白魔道士","学者","占星術師","賢者",
   "モンク","竜騎士","忍者","侍","リーパー","ヴァイパー",
@@ -208,29 +209,31 @@ const stand*rdJobs = [
   "黒魔道士","召喚士","赤魔道士","ピクトマンサー","青魔道士",
   "木工師","鍛冶師","甲冑師","彫金師","革細工師","裁縫師","錬金術師","調理師",
   "採掘師","園芸師","漁師"
-];*
-let profile = JSON.parse(localSto*age.getItem("ep_profile") || "null*) || {
-  character: "Yuzu Chu-hi",*  world: "Shinryu",
-  dc: "Meteor"*
-  progress: "hw",
+];
+
+let profile = *SON.parse(localStorage.getItem("ep*profile") || "null") || {
+  charac*er: "Yuzu Chu-hi",
+  world: "Shinr*u",
+  dc: "Meteor",
+  progress: "h*",
   gil: 48884,
- *companySeals: 9050,
-  ventures: 15*,
-  hideLockedSpots: true,
-  jobs:*{
-    "占星術師": 47,
+  companySeals: 9*50,
+  ventures: 153,
+  hideLockedS*ots: true,
+  jobs: {
+    "占星術師": 4*,
     "赤魔道士": 59,
-*   "リーパー": 90,
-    "召喚士": 35,
-    *採掘師": 26,
-    "園芸師": 22,
-    "漁師":*39,
-    "調理師": 35,
+    "リーパー": 90,
+*   "召喚士": 35,
+    "採掘師": 26,
+    "*芸師": 22,
+    "漁師": 39,
+    "調理師": *5,
     "彫金師": 0
-  *
+  }
 };
 
-let spots = JSON.parse(localS*orage.getItem("ep_spots") || "null*) || [
+let spots * JSON.parse(localStorage.getItem("*p_spots") || "null") || [
   {
     id: "spot-lavender",
     title: "ラベンダーベッド夕焼け桟橋",
@@ -311,9 +314,9 @@ let spots = JSON.parse(localS*orage.getItem("ep_spots") || "null*) || [
   }
 ];
 
-let selected =*spots[0];
+let selected = spots[0];
 
-let items = [
+let *tems = [
   {
     item: "銀鉱",
     itemId: 5113,
@@ -370,52 +373,50 @@ let items = [
     advice: "今は不可",
     memo: "将来用。ItemID未設定。"
   }
-];
-
+];*
 let marketFresh = false;
 
-function $(id) {
-  return document.getElementById(id);
+functio* $(id) {
+  return document.getElem*ntById(id);
 }
 
-function order(key) {
-  return stages.find(stage => stage[0] === key)?.[2] || 1;
+function order(key)*{
+  return stages.find(stage => st*ge[0] === key)?.[2] || 1;
 }
 
-function label(key) {
-  return stages.find(stage => stage[0] === key)?.[1] || key;
+funct*on label(key) {
+  return stages.fi*d(stage => stage[0] === key)?.[1] *| key;
 }
 
-function jobLevel(job) {
-  if (job.includes("/")) {
-    return Math.max(...job.split("/").map(name => profile.jobs[name.trim()] || 0));
+function jobLevel(job) {*  if (job.includes("/")) {
+    ret*rn Math.max(...job.split("/").map(*ame => profile.jobs[name.trim()] |* 0));
   }
   return profile.jobs[job] || 0;
 }
 
 function canDo(item) {
-  return item.type !== "drop" && jobLevel(item.job) >= item.requiredLevel;
+* return item.type !== "drop" && jo*Level(item.job) >= item.requiredLe*el;
 }
 
 function saveAll() {
-  localStorage.setItem("ep_profile", JSON.stringify(profile));
-  localStorage.setItem("ep_spots", JSON.stringify(spots));
+  loca*Storage.setItem("ep_profile", JSON*stringify(profile));
+  localStorag*.setItem("ep_spots", JSON.stringif*(spots));
 }
 
 function init() {
-  stages.forEach(stage => {
-    $("progress").innerHTML += `<option value="${stage[0]}">${stage[1]}</option>`;
+  s*ages.forEach(stage => {
+    $("pro*ress").innerHTML += `<option value*"${stage[0]}">${stage[1]}</option>*;
   });
 
-  ["character","world","dc","gil","companySeals","ventures","progress","hideLockedSpots"].forEach(id => {
-    if (id === "hideLockedSpots") $("hideLockedSpots").checked = profile.hideLockedSpots;
-    else $(id).value = profile[id];
-  });
+  ["character","world","dc","gil","companySeals","ventures","progress","hideLockedSpots"].forEa*h(id => {
+    if (id === "hideLock*dSpots") $("hideLockedSpots").chec*ed = profile.hideLockedSpots;
+    *lse $(id).value = profile[id];
+  }*;
 
-  $("marketText").value = "銀鉱 200\nシルバーインゴット 659\nウィンドシャード 40";
+  $("marketText").value = "銀鉱 2*0\nシルバーインゴット 659\nウィンドシャード 40";
 
-  loadCachedMarket();
-  renderJobs();
+ *loadCachedMarket();
+  renderJobs()*
   renderAll();
 }
 
