@@ -1,291 +1,318 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ja">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Eorzea Pocket</title>
-<style>
-*{box-sizing:border-box}
-:root{--b*:#050814;--panel:#0f172a;--inner:#*7111f;--line:#263244;--text:#eef2f*;--muted:#94a3b8;--blue:#0284c7;--*ky:#38bdf8;--ok:#34d399;--okbg:#05*e22;--warn:#fbbf24;--danger:#fecdd*}
-body{margin:0;background:linear-*radient(#07111f,#050814);color:var*--text);font-family:system-ui,-app*e-system,"Segoe UI",sans-serif}
-he*der{max-width:1160px;margin:auto;p*dding:18px;display:flex;justify-co*tent:space-between;gap:14px;align-*tems:center}
-h1{margin:.1em 0;font*size:26px}h2{margin-top:0}h3{margi*-bottom:8px}p{color:var(--muted)}
-*logo{color:var(--sky);font-weight:*00}
-button{border:0;border-radius:*6px;background:#1f2937;color:white*padding:11px 14px;font-weight:800;*ursor:pointer}
-button:hover{filter*brightness(1.12)}.primary,header b*tton{background:var(--blue)}.dange*{background:#3f1d2b;color:var(--da*ger)}
-nav{position:sticky;top:0;z-*ndex:9;max-width:1160px;margin:aut*;display:grid;grid-template-column*:repeat(5,1fr);gap:8px;background:*050814dd;padding:8px;backdrop-filt*r:blur(10px)}
-nav button.active{ba*kground:var(--blue)}
-.tab{display:*one;max-width:1160px;margin:auto;p*dding:14px}.tab.active{display:blo*k}
-.grid{display:grid;gap:14px}.tw*{grid-template-columns:1fr 1.1fr}
-*card{border:1px solid var(--line);*ackground:#0f172acc;border-radius:*8px;padding:16px;box-shadow:0 20px*50px #0008}
-input,select,textarea{*idth:100%;border:1px solid #334155*border-radius:16px;background:var(*-inner);color:var(--text);padding:*1px;margin:5px 0 10px}
-textarea{mi*-height:105px}.formgrid{display:gr*d;grid-template-columns:1fr 1fr;ga*:8px}.row{display:grid;grid-templa*e-columns:1fr 1fr;gap:8px}
-.check{*isplay:flex;gap:8px;align-items:ce*ter}.check input{width:auto}
-.item*.spot,.task,.job{border:1px solid *ar(--line);background:var(--inner)*border-radius:22px;padding:12px;ma*gin:8px 0}
-.spot{cursor:pointer}.o*{border-color:#15803d;background:v*r(--okbg)}.lock{opacity:.72}
-.smal*{font-size:12px;color:var(--muted)*.warn{color:var(--warn)}
-.badge{di*play:inline-block;border-radius:99*px;background:#0c4a6e;color:#bae6f*;padding:4px 8px;font-size:12px;ma*gin:3px}
-.chips{display:flex;flex-*rap:wrap;gap:6px;margin:8px 0}.chi*s button{font-size:12px;padding:7p* 10px;background:#1e293b}.chips bu*ton.active{background:var(--blue)}*.job{display:grid;grid-template-co*umns:1fr 70px 52px;gap:8px;align-i*ems:center}.job input{margin:0}
-.a*djob{display:grid;grid-template-co*umns:1fr 78px 74px;gap:8px}
-.summa*y{font-size:28px;font-weight:900;b*ckground:#052e22;border-radius:24p*;padding:16px}
-.qr{display:grid;gr*d-template-columns:repeat(21,1fr);*ap:1px;background:white;border-rad*us:16px;padding:12px;max-width:300*x;margin:auto}
-.qr div{aspect-rati*:1}.black{background:#020617}.whit*{background:white}
-video{width:100*;aspect-ratio:16/9;background:#020*17;border-radius:20px}.saved{font-*ize:12px;color:var(--ok)}
-@media(m*x-width:800px){header{display:bloc*}.two,.formgrid,.row{grid-template*columns:1fr}.addjob{grid-template-*olumns:1fr 70px}.addjob button{gri*-column:1/3}nav button{font-size:1*px;padding:9px 4px}}
-</style>
-</he*d>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Eorzea Pocket</title>
+  <meta name="description" content="FF14プレイヤー向けのスマホ便利ツール Eorzea Pocket">
+  ./style.css
+</head>
 <body>
-<header>
-  <div>
-    <di* class="logo">Eorzea Pocket</div>
-*   <h1>FF14スマホ便利ツール</h1>
-    <p>自分*報・進行度別SS散歩・Universalis実相場・自動発掘・監視ア*テム管理</p>
+  <div class="app-shell">
+    <header class="topbar">
+      <div>
+        <h1>Eorzea Pocket</h1>
+        <p class="subtitle">FF14プレイヤー向けスマホ便利ツール</p>
+      </div>
+      <div class="world-badge" id="worldBadge">Meteor / Shinryu</div>
+    </header>
+
+    <nav class="tab-nav" aria-label="メインタブ">
+      <button class="tab-btn active" data-tab="self" type="button">自分</button>
+      <button class="tab-btn" data-tab="walk" type="button">散歩</button>
+      <button class="tab-btn" data-tab="market" type="button">金策</button>
+      <button class="tab-btn" data-tab="today" type="button">今日</button>
+      <button class="tab-btn" data-tab="qr" type="button">QR</button>
+    </nav>
+
+    <main class="main-content">
+      <section class="tab-panel active" id="tab-self">
+        <div class="grid">
+          <article class="card">
+            <div class="section-title-row">
+              <h2>自分情報</h2>
+              <span class="pill">保存あり</span>
+            </div>
+
+            <div class="form-grid cols-2">
+              <label>
+                <span>キャラ名</span>
+                <input id="profileCharacter" type="text" placeholder="キャラ名">
+              </label>
+
+              <label>
+                <span>ワールド</span>
+                <input id="profileWorld" type="text" placeholder="Shinryu">
+              </label>
+
+              <label>
+                <span>DC</span>
+                <input id="profileDc" type="text" placeholder="Meteor">
+              </label>
+
+              <label>
+                <span>メイン進行度</span>
+                <select id="profileProgress"></select>
+              </label>
+
+              <label>
+                <span>所持ギル</span>
+                <input id="profileGil" type="number" min="0" step="1">
+              </label>
+
+              <label>
+                <span>軍票</span>
+                <input id="profileSeals" type="number" min="0" step="1">
+              </label>
+
+              <label>
+                <span>ベンチャー</span>
+                <input id="profileVentures" type="number" min="0" step="1">
+              </label>
+
+              <label class="switch-row full-span">
+                <input id="hideLockedSpots" type="checkbox">
+                <span>行けない散歩スポットを隠す</span>
+              </label>
+            </div>
+
+            <div class="button-row">
+              <button id="saveProfileBtn" class="primary-btn" type="button">プロフィールを保存</button>
+              <button id="resetAllBtn" class="ghost-btn" type="button">保存データを初期化</button>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="section-title-row">
+              <h2>ジョブ / クラスLv一覧</h2>
+              <span class="pill accent" id="jobCountPill">0件</span>
+            </div>
+            <div id="jobList" class="job-list"></div>
+          </article>
+
+          <article class="card">
+            <h2>ジョブ追加</h2>
+            <div class="form-grid cols-2">
+              <label>
+                <span>ジョブ名</span>
+                <input id="jobNameInput" type="text" placeholder="例：ナイト">
+              </label>
+              <label>
+                <span>Lv</span>
+                <input id="jobLevelInput" type="number" min="0" max="100" value="1">
+              </label>
+            </div>
+            <div class="button-row">
+              <button id="addJobBtn" class="primary-btn" type="button">追加する</button>
+            </div>
+
+            <h3 class="subheading">クイック追加候補</h3>
+            <div id="quickJobs" class="chip-cloud"></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="tab-panel" id="tab-walk">
+        <div class="grid">
+          <article class="card">
+            <div class="section-title-row">
+              <h2>散歩スポット検索</h2>
+              <span class="pill" id="walkCountPill">0件</span>
+            </div>
+
+            <label>
+              <span>キーワード</span>
+              <input id="spotSearchInput" type="text" placeholder="スポット名・エリア・タグで検索">
+            </label>
+
+            <div class="button-row compact-top">
+              <button id="gachaSpotBtn" class="primary-btn" type="button">散歩ガチャ</button>
+              <button id="clearSpotSearchBtn" class="ghost-btn" type="button">検索クリア</button>
+            </div>
+
+            <div id="spotList" class="spot-list"></div>
+          </article>
+
+          <article class="card">
+            <div class="section-title-row">
+              <h2>選択中スポット詳細</h2>
+              <span class="pill success" id="selectedSpotProgressBadge">行ける</span>
+            </div>
+            <div id="spotDetail" class="detail-box"></div>
+          </article>
+
+          <article class="card">
+            <h2>スポット追加</h2>
+            <p class="muted">追加したスポットは現在の進行度で登録されます。</p>
+
+            <div class="form-grid">
+              <label>
+                <span>スポット名</span>
+                <input id="newSpotName" type="text" placeholder="例：海辺の朝霧ベンチ">
+              </label>
+              <label>
+                <span>エリア</span>
+                <input id="newSpotArea" type="text" placeholder="例：リムサ・ロミンサ">
+              </label>
+              <label>
+                <span>座標</span>
+                <input id="newSpotCoord" type="text" placeholder="例：X:10.1 Y:8.2">
+              </label>
+              <label>
+                <span>タグ</span>
+                <input id="newSpotTags" type="text" placeholder="例：朝焼け, 海, 静か">
+              </label>
+            </div>
+
+            <div class="button-row">
+              <button id="addSpotBtn" class="primary-btn" type="button">スポットを追加</button>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="tab-panel" id="tab-market">
+        <div class="grid">
+          <article class="card">
+            <div class="section-title-row">
+              <h2>相場取得と絞り込み</h2>
+              <span class="pill" id="marketCacheBadge">未取得</span>
+            </div>
+
+            <div class="button-row">
+              <button id="fetchMarketBtn" class="primary-btn" type="button">Universalis実相場取得</button>
+              <button id="clearCacheBtn" class="ghost-btn" type="button">相場キャッシュ削除</button>
+            </div>
+
+            <div id="marketStatus" class="status-box muted">プロフィールのワールドで相場取得できます。</div>
+
+            <div id="marketFilters" class="chip-cloud"></div>
+
+            <label class="switch-row compact-top">
+              <input id="showOnlyPossible" type="checkbox">
+              <span>できるものだけ表示</span>
+            </label>
+          </article>
+
+          <article class="card">
+            <h2>今日売るべきもの</h2>
+            <div id="sellTodayList" class="market-card-list"></div>
+          </article>
+
+          <article class="card">
+            <h2>自動発掘候補</h2>
+            <div id="discoverList" class="market-card-list"></div>
+          </article>
+
+          <article class="card">
+            <h2>手入力 / OCRデモ</h2>
+            <label>
+              <span>複数行で「アイテム名 価格」を入力</span>
+              <textarea id="ocrInput" rows="6" placeholder="銀鉱 180&#10;ファイアシャード 95"></textarea>
+            </label>
+            <div class="button-row">
+              <button id="parseOcrBtn" class="primary-btn" type="button">解析する</button>
+            </div>
+            <div id="ocrCards" class="market-card-list"></div>
+          </article>
+
+          <article class="card">
+            <h2>監視アイテム追加</h2>
+            <div class="form-grid cols-2">
+              <label>
+                <span>アイテム名</span>
+                <input id="watchName" type="text" placeholder="例：ダークチェスナット原木">
+              </label>
+              <label>
+                <span>ItemID</span>
+                <input id="watchItemId" type="number" min="0" step="1" placeholder="任意">
+              </label>
+              <label>
+                <span>必要ジョブ</span>
+                <input id="watchJob" type="text" placeholder="例：採掘師">
+              </label>
+              <label>
+                <span>必要Lv</span>
+                <input id="watchLevel" type="number" min="0" max="100" value="1">
+              </label>
+              <label class="full-span">
+                <span>タイプ</span>
+                <select id="watchType">
+                  <option value="user">ユーザー追加</option>
+                  <option value="shard">シャード / クリスタル</option>
+                  <option value="gather">採集</option>
+                  <option value="craft">製作</option>
+                  <option value="future">将来用</option>
+                </select>
+              </label>
+            </div>
+            <div class="button-row">
+              <button id="addWatchBtn" class="primary-btn" type="button">監視アイテムを追加</button>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="section-title-row">
+              <h2>監視候補管理</h2>
+              <span class="pill accent" id="watchCountPill">0件</span>
+            </div>
+            <div id="watchItemList" class="market-card-list"></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="tab-panel" id="tab-today">
+        <div class="grid">
+          <article class="card">
+            <div class="section-title-row">
+              <h2>今日やること</h2>
+              <span class="pill success" id="taskProgressPill">0 / 0 完了</span>
+            </div>
+            <p class="muted">タップで完了 / 未完了を切り替えできます。</p>
+            <div id="taskList" class="task-list"></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="tab-panel" id="tab-qr">
+        <div class="grid">
+          <article class="card">
+            <div class="section-title-row">
+              <h2>選択中スポット共有</h2>
+              <span class="pill" id="qrSpotName">未選択</span>
+            </div>
+
+            <div id="pseudoQr" class="pseudo-qr" aria-label="疑似QR"></div>
+
+            <label>
+              <span>QR文字列</span>
+              <textarea id="qrText" rows="5" placeholder="スポット情報がここに入ります"></textarea>
+            </label>
+
+            <div class="button-row">
+              <button id="copyQrBtn" class="primary-btn" type="button">QR文字列コピー</button>
+              <button id="loadQrBtn" class="ghost-btn" type="button">QR文字列読み込み</button>
+            </div>
+          </article>
+
+          <article class="card">
+            <h2>スマホカメラ起動デモ</h2>
+            <p class="muted">BarcodeDetector は未実装です。カメラの起動のみ行います。</p>
+
+            <div class="button-row">
+              <button id="startCameraBtn" class="primary-btn" type="button">カメラ起動</button>
+              <button id="stopCameraBtn" class="ghost-btn" type="button">カメラ停止</button>
+            </div>
+
+            <div id="cameraStatus" class="status-box muted">待機中</div>
+            <video id="cameraPreview" autoplay playsinline muted></video>
+          </article>
+        </div>
+      </section>
+    </main>
   </div>
-  <button id="wa*kGacha" class="primary">散歩ガチャ</but*on>
-</header>
 
-<nav>
-  <button dat*-tab="profile" class="active">自分</*utton>
-  <button data-tab="spot">散*</button>
-  <button data-tab="mark*t">金策</button>
-  <button data-tab=*daily">今日</button>
-  <button data-*ab="qr">QR</button>
-</nav>
-
-<main>*<section id="profile" class="tab a*tive">
-  <div class="grid two">
-  * <article class="card">
-      <h2>*分の情報</h2>
-      <div class="formgr*d">
-        <label>キャラ名<input id="*haracter"></label>
-        <label>*ールド<input id="world"></label>
-    *   <label>DC<input id="dc"></label*
-        <label>所持ギル<input id="gil* type="number"></label>
-        <l*bel>軍票<input id="companySeals" typ*="number"></label>
-        <label>*ンチャー<input id="ventures" type="num*er"></label>
-      </div>
-      <l*bel>メイン進行度<select id="progress"></*elect></label>
-      <label class=*check"><input id="hideLockedSpots"*type="checkbox">行けない散歩スポットを隠す</lab*l>
-      <button id="saveProfile" *lass="primary">この端末に保存</button>
-  *   <span id="saveStatus" class="sa*ed"></span>
-    </article>
-    <ar*icle class="card">
-      <h2>ジョブ/ク*スLv</h2>
-      <div class="addjob"*
-        <input id="newJobName" pl*ceholder="例: ピクトマンサー / 木工師">
-     *  <input id="newJobLevel" type="nu*ber" min="0" max="100" value="1">
-*       <button id="addJob">追加</but*on>
-      </div>
-      <div id="qu*ckJobs" class="chips"></div>
-     *<div id="jobList"></div>
-    </art*cle>
-  </div>
-</section>
-
-<section*id="spot" class="tab">
-  <div clas*="grid two">
-    <article class="c*rd">
-      <h2 id="spotTitle">エオルゼ*散歩</h2>
-      <input id="spotSearc*" placeholder="夜景、雪、クガネ…">
-      <*iv id="spotList"></div>
-    </arti*le>
-    <article class="card">
-   *  <h2>選択中スポット</h2>
-      <div id="*potDetail"></div>
-      <h3>スポット追加*/h3>
-      <input id="spotName" pl*ceholder="スポット名">
-      <div class*"formgrid">
-        <input id="spo*Area" placeholder="エリア">
-        <*nput id="spotCoord" placeholder="座* X: Y:">
-      </div>
-      <input*id="spotTags" placeholder="タグ 例: 夜* 海 夕焼け">
-      <button id="addSpot* class="primary">現在の進行度で追加</button*
-    </article>
-  </div>
-</section*
-
-<section id="market" class="tab"*
-  <div class="grid two">
-    <art*cle class="card">
-      <h2>マケボ監視 * 今日売るべきもの</h2>
-      <p id="market*ub"></p>
-      <div class="row">
- *      <button id="fetchMarket" cla*s="primary">Universalis実相場を取得</but*on>
-        <button id="clearMarke*Cache">相場キャッシュ削除</button>
-      </*iv>
-      <p id="marketStatus" cla*s="small"></p>
-      <h3>カテゴリ</h3>*      <div id="categoryFilters" cl*ss="chips"></div>
-      <h3>今日売るべき*の</h3>
-      <div id="suggestedIte*s"></div>
-      <h3>自動発掘候補</h3>
-  *   <div class="row">
-        <butt*n id="autoDiscover" class="primary*>高く売れる候補を自動発掘</button>
-        <bu*ton id="toggleOnlyDoable">できるものだけ<*button>
-      </div>
-      <div id*"discoveryList"></div>
-      <h3>監*アイテム追加</h3>
-      <div class="form*rid">
-        <input id="watchName* placeholder="アイテム名 例: 銀鉱">
-      * <input id="watchId" type="number"*placeholder="ItemID 例: 5113">
-    *   <input id="watchJob" placeholde*="必要ジョブ 例: 採掘師">
-        <input id*"watchLevel" type="number" placeho*der="必要Lv 例: 25">
-      </div>
-   *  <select id="watchType">
-        *option value="gather">採集</option>
-*       <option value="craft">製作</o*tion>
-        <option value="shard*>シャード/クリスタル</option>
-        <opti*n value="future">将来用</option>
-    *   <option value="other">その他</opti*n>
-      </select>
-      <button i*="addWatchItem">監視アイテムに追加</button>*      <h3>手入力/OCRデモ</h3>
-      <te*tarea id="marketText"></textarea>
-*     <button id="analyzeMarket">価格*整理</button>
-    </article>
-    <ar*icle class="card">
-      <h2>監視候補管*</h2>
-      <p class="small">ユーザー追*アイテムは削除できます。標準候補は削除不可。</p>
-      <*iv id="watchManager"></div>
-      *h2>監視候補</h2>
-      <div id="market*ist"></div>
-    </article>
-  </div*
-</section>
-
-<section id="daily" c*ass="tab">
-  <div class="grid two"*
-    <article class="card">
-      *h2>今日やること</h2>
-      <div id="task*ummary" class="summary"></div>
-   *  <div id="tasks"></div>
-    </art*cle>
-    <article class="card">
-  *   <h2>今日のおすすめ進行</h2>
-      <div i*="plans"></div>
-    </article>
-  <*div>
-</section>
-
-<section id="qr" *lass="tab">
-  <div class="grid two*>
-    <article class="card">
-     *<h2>QR Hub</h2>
-      <div id="qrB*x" class="qr"></div>
-      <textar*a id="qrValue"></textarea>
-      <*iv class="row">
-        <button id*"copyQr">コピー</button>
-        <but*on id="readQr">読み込み</button>
-     *</div>
-    </article>
-    <article*class="card">
-      <h2>カメラQR読み取りデ*</h2>
-      <video id="video" play*inline autoplay muted></video>
-   *  <button id="cameraBtn" class="pr*mary">カメラ起動</button>
-      <p id="*canLog"></p>
-      <button id="spo*Qr">選択中スポットをQR化</button>
-    </art*cle>
-  </div>
-</section>
-</main>
-`*
-      <script*
-const stages=[["arr","新生",1],["hw*,"蒼天",2],["sb","紅蓮",3],["shb","漆黒"*4],["ew","暁月",5],["dt","黄金",6]];
-c*nst standardJobs=["ナイト","戦士","暗黒騎士*,"ガンブレイカー","白魔道士","学者","占星術師","賢者"*"モンク","竜騎士","忍者","侍","リーパー","ヴァイパー*,"吟遊詩人","機工士","踊り子","黒魔道士","召喚士","*魔道士","ピクトマンサー","青魔道士","木工師","鍛冶師",*甲冑師","彫金師","革細工師","裁縫師","錬金術師","調理*","採掘師","園芸師","漁師"];
-let profile=J*ON.parse(localStorage.getItem("ep_*rofile")||"null")||{character:"Yuz* Chu-hi",world:"Shinryu",dc:"Meteo*",progress:"hw",gil:48884,companyS*als:9050,ventures:153,hideLockedSp*ts:true,jobs:{"占星術師":47,"赤魔道士":59,*リーパー":90,"召喚士":35,"採掘師":26,"園芸師":2*,"漁師":39,"調理師":35,"彫金師":0}};
-let s*ots=JSON.parse(localStorage.getIte*("ep_spots")||"null")||[
-{id:"spot*lavender",title:"ラベンダーベッド夕焼け桟橋",ar*a:"ラベンダーベッド",coord:"X:11.5 Y:8.9",*rogress:"arr",tags:["夕焼け","水辺"],fi*ter:"Faded Print",memo:"水面反射を入れる。"*rating:5},
-{id:"spot-ishgard",titl*:"イシュガルド雪道・青い石畳",area:"イシュガルド：上層",*oord:"X:7.2 Y:10.3",progress:"hw",*ags:["雪","中世"],filter:"Cool Blue",*emo:"暗めに撮る。",rating:4},
-{id:"spot-*zysla",title:"アジス・ラー浮遊島シルエット",area*"アジス・ラー",coord:"X:26.2 Y:11.4",pro*ress:"hw",tags:["SF","廃墟"],filter:*Cinematic",memo:"巨大構造物を入れる。",ratin*:4},
-{id:"spot-kugane",title:"クガネ夜*・朱雀門前",area:"クガネ",coord:"X:10.8 Y:*.7",progress:"sb",tags:["夜景","和風"]*filter:"Old Digicam",memo:"提灯背景が強い*",rating:5},
-{id:"spot-elpis",titl*:"エルピス花畑・白昼夢",area:"エルピス",coord:"X*13.5 Y:7.8",progress:"ew",tags:["花*","幻想"],filter:"Faded Print",memo:*明るく淡く。",rating:5}
-];
-let selected=*pots[0];
-let baseItems=[
-{item:"ファ*アシャード",itemId:2,type:"shard",job:"*掘師/園芸師",requiredLevel:1,worldPrice*0,velocity:"高",advice:"大量売り",memo:*低Lvでも扱いやすい定番素材。"},
-{item:"アイスシャード"*itemId:3,type:"shard",job:"採掘師/園芸師*,requiredLevel:1,worldPrice:0,velo*ity:"高",advice:"大量売り",memo:"クラフター需*が常にある。"},
-{item:"ウィンドシャード",itemId:*,type:"shard",job:"採掘師/園芸師",requir*dLevel:1,worldPrice:40,velocity:"高*,advice:"大量売り",memo:"低Lv金策の安定枠。"},*{item:"アースシャード",itemId:5,type:"sha*d",job:"採掘師/園芸師",requiredLevel:1,w*rldPrice:0,velocity:"高",advice:"大量*り",memo:"在庫が薄い時は意外と売れる。"},
-{item:"*イトニングシャード",itemId:6,type:"shard",j*b:"採掘師/園芸師",requiredLevel:1,worldP*ice:0,velocity:"高",advice:"大量売り",m*mo:"まとめ売り候補。"},
-{item:"ウォーターシャード",*temId:7,type:"shard",job:"採掘師/園芸師"*requiredLevel:1,worldPrice:0,veloc*ty:"高",advice:"大量売り",memo:"調理需要を見る*補。"},
-{item:"ファイアクリスタル",itemId:8,t*pe:"shard",job:"採掘師/園芸師",requiredL*vel:26,worldPrice:0,velocity:"高",a*vice:"中量売り",memo:"シャードより単価が高くなりやすい*"},
-{item:"アイスクリスタル",itemId:9,type*"shard",job:"採掘師/園芸師",requiredLeve*:26,worldPrice:0,velocity:"高",advi*e:"中量売り",memo:"在庫薄なら候補。"},
-{item:"*ィンドクリスタル",itemId:10,type:"shard",j*b:"採掘師/園芸師",requiredLevel:26,world*rice:0,velocity:"高",advice:"中量売り",*emo:"クラフター需要が高め。"},
-{item:"銀鉱",ite*Id:5113,type:"gather",job:"採掘師",re*uiredLevel:25,worldPrice:200,veloc*ty:"中",advice:"素材売り",memo:"10〜30個で*分け。"},
-{item:"シルバーインゴット",itemId:50*4,type:"craft",job:"彫金師",requiredL*vel:23,worldPrice:659,materialCost*680,velocity:"低〜中",advice:"加工比較",m*mo:"原価割れに注意。"},
-{item:"古ぼけた地図G18",*temId:null,type:"future",job:"採掘師/*芸師",requiredLevel:100,worldPrice:1*500,velocity:"高",advice:"将来候補",mem*:"高Lvになったら毎日候補。"}
-];
-let customWat*hItems=JSON.parse(localStorage.get*tem("ep_custom_watch_items")||"[]"*;
-let items=baseItems.concat(custo*WatchItems);
-let marketFresh=false*
-let onlyDoableDiscovery=true;
-let*activeCategory="all";
-const $=id=>*ocument.getElementById(id);
-functi*n order(key){return stages.find(s=*s[0]===key)?.[2]||1}
-function labe*(key){return stages.find(s=>s[0]==*key)?.[1]||key}
-function jobLevel(*ob){return job.includes("/")?Math.*ax(...job.split("/").map(n=>profil*.jobs[n.trim()]||0)):profile.jobs[*ob]||0}
-function canDo(item){retur* item.type!=="drop"&&jobLevel(item*job)>=item.requiredLevel}
-function*saveAll(){localStorage.setItem("ep*profile",JSON.stringify(profile));*ocalStorage.setItem("ep_spots",JSO*.stringify(spots))}
-function isCus*om(item){return customWatchItems.s*me(c=>Number(c.itemId)===Number(it*m.itemId))}
-function typeLabel(t){*eturn{gather:"採集",craft:"製作",shard*"シャード/クリスタル",future:"将来用",other:"そ*他"}[t]||t}
-function byCategory(ite*){if(activeCategory==="all")return*true;if(activeCategory==="custom")*eturn isCustom(item);if(activeCate*ory==="doable")return canDo(item);*eturn item.type===activeCategory}
-*unction escapeQuote(t){return Stri*g(t).replaceAll("'","\\'")}
-functi*n init(){
-stages.forEach(s=>$("pro*ress").innerHTML+=`<option value="*{s[0]}">${s[1]}</option>`);
-["char*cter","world","dc","gil","companyS*als","ventures","progress","hideLo*kedSpots"].forEach(id=>{if(id==="h*deLockedSpots")$("hideLockedSpots"*.checked=profile.hideLockedSpots;e*se $(id).value=profile[id]});
-$("m*rketText").value="銀鉱 200\nシルバーインゴッ* 659\nウィンドシャード 40";
-loadCachedMark*t();renderJobs();renderAll();
-}
-fu*ction bind(){
-document.querySelect*rAll("nav button").forEach(btn=>bt*.onclick=()=>{document.querySelect*rAll("nav button,.tab").forEach(e=*e.classList.remove("active"));btn.*lassList.add("active");$(btn.datas*t.tab).classList.add("active")});
-*"character","world","dc","gil","co*panySeals","ventures","progress","*ideLockedSpots"].forEach(id=>$(id)*oninput=()=>{profile[id]=id==="hid*LockedSpots"?$(id).checked:$(id).t*pe==="number"?Number($(id).value):*(id).value;saveAll();renderAll()})*
-$("addJob").onclick=addJob;$("sav*Profile").onclick=()=>{$("saveStat*s").textContent=" 保存しました";saveAll(*};
-$("walkGacha").onclick=walkGach*;$("spotSearch").oninput=renderSpo*s;$("addSpot").onclick=addSpot;
-$(*fetchMarket").onclick=fetchMarket;*("clearMarketCache").onclick=clear*arketCache;$("autoDiscover").oncli*k=autoDiscover;$("toggleOnlyDoable*).onclick=toggleOnlyDoable;$("addW*tchItem").onclick=addWatchItem;$("*nalyzeMarket").onclick=analyzeMark*t;
-$("copyQr").onclick=()=>navigat*r.clipboard?.writeText($("qrValue"*.value);$("readQr").onclick=readQr*$("spotQr").onclick=()=>{$("qrValu*").value="eorzea-pocket://spot/"+s*lected.id;renderQr()};$("cameraBtn*).onclick=startCamera;$("qrValue")*oninput=renderQr;
-}
-function rende*Jobs(){
-$("jobList").innerHTML=Obj*ct.entries(profile.jobs).map(([n,l*)=>`<div class="job"><b>${n}</b><i*put type="number" min="0" max="100* value="${l}" onchange="updateJob(*${escapeQuote(n)}',this.value)"><b*tton class="danger" onclick="remov*Job('${escapeQuote(n)}')">削除</butt*n></div>`).join("");
-const missing*standardJobs.filter(j=>profile.job*[j]===undefined).slice(0,12);$("qu*ckJobs").innerHTML=missing.map(j=>*<button onclick="quickAdd('${j}')"*+ ${j}</button>`).join("");
-}
-wind*w.updateJob=(n,v)=>{profile.jobs[n*=Math.max(0,Math.min(100,Number(v)*|0));saveAll();renderAll();renderJ*bs()};
-window.removeJob=n=>{delete*profile.jobs[n];saveAll();renderAl*();renderJobs()};
-window.quickAdd=*=>{profile.jobs[n]=0;saveAll();ren*erAll();renderJobs()};
-function ad*Job(){const n=$("newJobName").valu*.trim();if(!n)return;profile.jobs[*]=Math.max(0,Math.min(100,Number($*"newJobLevel").value)||0));$("newJ*bName").value="";$("newJobLevel").*alue=1;saveAll();renderAll();rende*Jobs()}
-function visibleSpots(){re*urn spots.filter(s=>!profile.hideL*ckedSpots||order(s.progress)<=orde*(profile.progress))}
-function rend*rSpots(){
-const q=$("spotSearch").*alue.toLowerCase();const list=visi*leSpots().filter(s=>[s.title,s.are*,s.coord,label(s.progress),...s.ta*s].join(" ").toLowerCase().include*(q));
-$("spotTitle").textContent=`*オルゼア散歩：${label(profile.progress)}ま* / ${list.length}件`;
-$("spotList")*innerHTML=list.map(s=>`<div class=*spot" onclick="selectSpot('${s.id}*)"><b>${order(s.progress)<=order(p*ofile.progress)?"🔓":"🔒"} ${s.tit*e}</b><div class="small">${s.area}*/ ${s.coord} / ${label(s.progress)*</div>${s.tags.map(t=>`<span class*"badge">#${t}</span>`).join("")}</*iv>`).join("");
-renderSpotDetail()*
-}
-window.selectSpot=id=>{selected*spots.find(s=>s.id===id)||selected*$("qrValue").value="eorzea-pocket:*/spot/"+selected.id;renderAll()};
-*unction renderSpotDetail(){$("spot*etail").innerHTML=`<h3>${selected.*itle}</h3><p>${selected.memo}</p><*iv class="item"><b>エリア</b><div>${s*lected.area}</div></div><div class*"item"><b>座標</b><div>${selected.co*rd}</div></div><div class="item"><*>必要進行</b><div>${label(selected.pro*ress)}</div></div><div class="item*><b>おすすめ加工</b><div>${selected.filt*r}</div></div>`}
-function walkGach*(){const list=visibleSpots();selec*ed=list[Math.floor(Math.random()*l*st.length)]||spots[0];document.que*ySelector('[data-tab="spot"]').cli*k();renderAll()}
-function addSpot(*{const name=$("spotName").value.tr*m();if(!name)return;const s={id:"s*ot-"+Date.now(),title:name,area:$(*spotArea").value||"未設定",coord:$("s*otCoord").value||"X:? Y:?",progres*:profile.progress,tags:$("spotTags*).value.split(/[、,\s]+/).filter(Bo*lean),filter:"Old Digicam",memo:"ユ*ザー追加スポット",rating:4};spots.unshift(*);selected=s;saveAll();renderAll()*
-function reasonText(item){const r*[];if(item.doable)r.push("今のLvで採れる*作れる");else r.push("Lv不足・将来候補");if(*tem.worldPrice>=10000)r.push("単価が高*");else if(item.worldPrice>=1000)r*push("単価そこそこ");if(item.api?.saleVe*ocity>=5)r.push("販売速度が高い");else if*item.api?.saleVelocity>=1)r.push("*売履歴あり");if(item.api?.totalQty<=20)*.push("在庫が少ない");else if(item.api?.*otalQty<=80)r.push("在庫やや少なめ");if(i*em.velocity==="高")r.push("回転枠");if*!item.api)r.push("相場取得後に再評価");retu*n r.slice(0,4).join(" / ")}
-functi*n discoveryScore(item){const price*item.worldPrice||0,sale=item.api?.*aleVelocity||0,qty=item.api?.total*ty??9999;let score=item.doable?50:*40;if(price>=10000)score+=35;else *f(price>=3000)score+=25;else if(pr*ce>=1000)score+=18;else if(price>=*00)score+=10;else score+=4;score+=*ath.min(35,sale*6);if(qty<=20)scor*+=20;else if(qty<=80)score+=12;els* if(qty<=200)score+=6;if(item.velo*ity==="高")score+=8;return score}
-f*nction marketSorted(){return items*filter(byCategory).map(item=>{cons* doable=canDo(item),profit=item.ty*e==="craft"&&item.materialCost?ite*.worldPrice-item.materialCost:item*worldPrice;let priority=0;if(doabl*)priority+=50;if(item.velocity==="*")priority+=20;if(profit>0)priorit*+=Math.min(30,profit/20);if(item.a*i?.saleVelocity)priority+=Math.min*20,item.api.saleVelocity*3);return*...item,doable,profit,priority}}).*ort((a,b)=>b.priority-a.priority)}*function renderCategoryFilters(){c*nst cats=[["all","全部"],["doable","*きる"],["shard","シャード/クリスタル"],["gath*r","採集"],["craft","製作"],["future",*将来用"],["custom","ユーザー追加"]];$("cate*oryFilters").innerHTML=cats.map(([*ey,text])=>`<button class="${activ*Category===key?"active":""}" oncli*k="setCategory('${key}')">${text}<*button>`).join("")}
-window.setCate*ory=key=>{activeCategory=key;rende*Market();renderDiscovery()};
-funct*on marketCard(item){const api=item*api?`<div class="small">API: 最安 ${*tem.api.minPrice?.toLocaleString()*|"-"} / 在庫 ${item.api.totalQty||0}*/ 直近販売 ${item.api.saleVelocity?.to*ixed(1)||0}/日</div>`:"";const del=*sCustom(item)?`<button class="dang*r" onclick="removeWatchItem(${item*itemId})">監視から削除</button>`:"";retu*n`<div class="item ${item.doable?"*k":"lock"}"><b>${item.doable?"🔓":*🔒"} ${item.item}</b><div class="s*all">${item.job} Lv${item.required*evel}〜 / ${typeLabel(item.type)} /*回転:${item.velocity}</div><div>${it*m.worldPrice?item.worldPrice.toLoc*leString()+" gil":"日課"}</div>${api*<p>${item.memo}</p><div class="sma*l">おすすめ理由：${reasonText(item)}</div*<span class="badge">${item.doable?*tem.advice:"今は不可"}</span>${del}</d*v>`}
-function renderMarket(){$("ma*ketSub").textContent=`${profile.wo*ld}想定・今のギャザクラLv基準`;const sorted=ma*ketSorted();$("suggestedItems").in*erHTML=sorted.filter(i=>i.doable).*lice(0,5).map(marketCard).join("")*|'<p class="small">今できる監視候補がありません<*p>';$("marketList").innerHTML=sort*d.map(marketCard).join("");if(!$("*arketStatus").textContent)$("marke*Status").textContent=marketFresh?"*niversalis相場取得済み":"未取得。ボタンで実相場を取得で*ます。";renderCategoryFilters();rende*WatchManager()}
-function renderDis*overy(){const ranked=marketSorted(*.map(i=>({...i,discoveryScore:disc*veryScore(i)})).filter(i=>onlyDoab*eDiscovery?i.doable:true).sort((a,*)=>b.discoveryScore-a.discoverySco*e).slice(0,10);$("discoveryList").*nnerHTML=ranked.map(i=>`<div class*"item ${i.doable?"ok":"lock"}"><b>*{i.doable?"🔓":"🔒"} ${i.item}</b>*div class="small">${i.job} Lv${i.r*quiredLevel}〜 / 発掘スコア ${Math.round*i.discoveryScore)}</div><div>${i.w*rldPrice?i.worldPrice.toLocaleStri*g()+" gil":"価格未取得"}</div>${i.api?`*div class="small">最安 ${i.api.minPr*ce?.toLocaleString()||"-"} / 在庫 ${*.api.totalQty||0} / 販売 ${i.api.sal*Velocity?.toFixed(1)||0}/日</div>`:*<div class="small">まだ実相場未取得</div>`*<p>${i.memo}</p><div class="small">おすすめ理由：${reasonText(i)}</div><span class="badge">${i.doable?"今日の候補":"Lv不足"}</span></div>`).join("")||'<p class="small">発掘候補がありません。</p>'}
-function renderWatchManager(){const list=items.filter(byCategory);$("watchManager").innerHTML=list.map(i=>`<div class="item"><b>${i.item}</b><div class="small">ItemID: ${i.itemId||"未設定"} / ${typeLabel(i.type)} / ${i.job} Lv${i.requiredLevel}〜</div><div class="small">${i.api?"相場取得済み":"未取得"}</div>${isCustom(i)?`<button class="danger" onclick="removeWatchItem(${i.itemId})">削除</button>`:`<span class="badge">標準候補</span>`}</div>`).join("")||'<p class="small">監視候補がありません。</p>'}
-async function autoDiscover(){if(!marketFresh)await fetchMarket();renderDiscovery()}
-function toggleOnlyDoable(){onlyDoableDiscovery=!onlyDoableDiscovery;$("toggleOnlyDoable").textContent=onlyDoableDiscovery?"できるものだけ":"全候補表示";renderDiscovery()}
-function addWatchItem(){const name=$("watchName").value.trim(),itemId=Number($("watchId").value),job=$("watchJob").value.trim()||"未設定",requiredLevel=Number($("watchLevel").value)||0,type=$("watchType").value||"other";if(!name||!itemId){alert("アイテム名とItemIDは必須です。");return}const newItem={item:name,itemId,type,job,requiredLevel,worldPrice:0,velocity:"未取得",advice:"自動判定",memo:"ユーザー追加の監視アイテム"};customWatchItems.push(newItem);items=baseItems.concat(customWatchItems);localStorage.setItem("ep_custom_watch_items",JSON.stringify(customWatchItems));$("watchName").value="";$("watchId").value="";$("watchJob").value="";$("watchLevel").value="";marketFresh=false;$("marketStatus").textContent="監視アイテムを追加しました。相場取得を押してください。";renderMarket();renderDiscovery()}
-function removeWatchItem(itemId){customWatchItems=customWatchItems.filter(i=>Number(i.itemId)!==Number(itemId));items=baseItems.concat(customWatchItems);localStorage.setItem("ep_custom_watch_items",JSON.stringify(customWatchItems));marketFresh=false;$("marketStatus").textContent="監視アイテムを削除しました。必要なら相場を再取得してください。";renderMarket();renderDiscovery()}
-function analyzeMarket(){const rows=$("marketText").value.split(/\n|,/).map(l=>l.trim()).filter(Boolean).map(line=>{const m=line.match(/^(.+?)\s*(\d{2,})/),name=m?m[1].trim():line,price=m?Number(m[2]):0,known=items.find(i=>name.includes(i.item)||i.item.includes(name));return marketCard({...known,item:name,worldPrice:price||known?.worldPrice||0,doable:known?canDo(known):true,job:known?.job||"未設定",requiredLevel:known?.requiredLevel||0,velocity:known?.velocity||"要確認",advice:known?.advice||"相場確認",memo:known?.memo||"出品数と履歴を見て判断"})}).join("");$("marketList").innerHTML=rows}
-async function fetchMarket(){const ids=items.filter(i=>i.itemId).map(i=>i.itemId).join(",");if(!ids)return;const world=encodeURIComponent(profile.world||"Shinryu");$("marketStatus").textContent="Universalisから取得中...";try{const url=`https://universalis.app/api/v2/${world}/${ids}?listings=10&entries=20`;const res=await fetch(url);if(!res.ok)throw new Error("HTTP "+res.status);const data=await res.json();applyMarketData(data);localStorage.setItem("ep_market_cache",JSON.stringify({t:Date.now(),world:profile.world,data}));marketFresh=true;$("marketStatus").textContent="取得成功: "+new Date().toLocaleString();renderMarket();renderDiscovery()}catch(e){$("marketStatus").innerHTML=`<span class="warn">取得失敗: ${e.message}。GitHub Pages上/HTTPSで再試行、または手入力を使ってください。</span>`}}
-function applyMarketData(data){const map=data.items||{};items=items.map(item=>{if(!item.itemId)return item;const d=map[item.itemId]||map[String(item.itemId)]||(data.itemID===item.itemId?data:null);if(!d)return item;const listings=d.listings||[],history=d.recentHistory||d.sales||[];const min=listings.length?Math.min(...listings.map(l=>l.pricePerUnit||l.price||999999999)):item.worldPrice;const qty=listings.reduce((s,l)=>s+(l.quantity||0),0);const sale=d.regularSaleVelocity||d.nqSaleVelocity||d.hqSaleVelocity||0;item.worldPrice=min||item.worldPrice;item.api={minPrice:min,totalQty:qty,saleVelocity:sale,historyCount:history.length};return item})}
-function loadCachedMarket(){try{const cache=JSON.parse(localStorage.getItem("ep_market_cache")||"null");if(cache&&cache.data&&Date.now()-cache.t<21600000){applyMarketData(cache.data);marketFresh=true;$("marketStatus").textContent="キャッシュ相場を使用: "+new Date(cache.t).toLocaleString()}}catch(e){console.warn(e)}}
-function clearMarketCache(){localStorage.removeItem("ep_market_cache");marketFresh=false;items.forEach(i=>i.api=null);$("marketStatus").textContent="相場キャッシュを削除しました";renderMarket();renderDiscovery()}
-function renderDaily(){const tasks=[{id:"retainer",text:"リテイナー2人を出す",group:"毎回",minutes:2},{id:"market",text:"マケボ出品価格を見直す",group:"金策",minutes:5},{id:"ore",text:"銀鉱 or シャードを補充",group:"金策",minutes:15},{id:"roulette",text:"占星術師でレベリングルレ",group:"育成",minutes:25},{id:"ss",text:"行ける散歩スポットでSS1枚",group:"SS",minutes:10}];if((profile.jobs["採掘師"]||0)>=25)tasks.splice(2,0,{id:"silverOre",text:"銀鉱を10〜30個で小分け出品",group:"金策",minutes:15});if((profile.jobs["彫金師"]||0)<23)tasks.push({id:"gsm23",text:"彫金師をLv23まで上げる",group:"育成",minutes:20});if((profile.jobs["占星術師"]||0)<50)tasks.push({id:"ast50",text:"占星術師Lv50を目指す",group:"育成",minutes:25});const remaining=tasks.filter(t=>!localStorage.getItem("done_"+t.id));$("taskSummary").textContent=`${remaining.length}件 / 約${remaining.reduce((s,t)=>s+t.minutes,0)}分`;$("tasks").innerHTML=tasks.map(t=>`<div class="task" onclick="toggleTask('${t.id}')">${localStorage.getItem("done_"+t.id)?"✅":"⬜"} <b>${t.text}</b><div class="small">${t.group} / ${t.minutes}分</div></div>`).join("");$("plans").innerHTML=["短時間 10分|リテイナー回収/再派遣|相場取得ボタンを押す|売れ残りを1回だけ調整","普通 30分|今日のおすすめ品を採取/製作|占星ルレ1回|蒼天までの行けるスポットでSS1枚","がっつり 60分|採掘30を目指す|彫金23まで上げてインゴット比較を解放|SS加工して投稿"].map(p=>{const a=p.split("|");return `<div class="item"><b>${a[0]}</b>${a.slice(1).map(x=>`<p>・${x}</p>`).join("")}</div>`}).join("")}
-window.toggleTask=id=>{localStorage.getItem("done_"+id)?localStorage.removeItem("done_"+id):localStorage.setItem("done_"+id,"1");renderDaily()};
-function qrBits(text){let seed=0;for(const c of text)seed=(seed*31+c.charCodeAt(0))>>>0;let html="";for(let i=0;i<441;i++){seed=(seed*1664525+1013904223)>>>0;html+=`<div class="${(seed%7<3||(i<147&&i%21<7))?"black":"white"}"></div>`}return html}
-function renderQr(){$("qrValue").value=$("qrValue").value||"eorzea-pocket://spot/"+selected.id;$("qrBox").innerHTML=qrBits($("qrValue").value)}
-function readQr(){const id=$("qrValue").value.split("/").pop(),s=spots.find(i=>i.id===id);if(s){selected=s;document.querySelector('[data-tab="spot"]').click()}$("scanLog").textContent=s?"スポットを読み込みました："+s.title:"QR文字列を受け取りました"}
-async function startCamera(){try{const stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:"environment"}});$("video").srcObject=stream;$("scanLog").textContent="カメラ起動OK。実装ではBarcodeDetectorでQR解析予定。"}catch(e){$("scanLog").textContent="カメラ起動に失敗。HTTPS/権限を確認。"}}
-function renderAll(){renderSpots();renderMarket();renderDiscovery();renderDaily();renderQr()}
-bind();
-init();
-</script>
+  <script src="./
 </body>
 </html>
+``
