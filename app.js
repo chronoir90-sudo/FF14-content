@@ -168,8 +168,8 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function bindEvents() {
-  document.querySelectorAll(".tab-btn").forEach((btn) => {
-    btn.addEventListener("click", () => setActiveTab(btn.dataset.tab));
+  document.querySelectorAll(".tab-btn").forEach((button) => {
+    button.addEventListener("click", () => setActiveTab(button.dataset.tab));
   });
 
   document.getElementById("saveProfileBtn").addEventListener("click", saveProfileFromForm);
@@ -189,10 +189,10 @@ function bindEvents() {
   });
 
   document.getElementById("addJobBtn").addEventListener("click", addJob);
-  document.getElementById("jobLevelInput").addEventListener("keydown", (event) => {
+  document.getElementById("jobNameInput").addEventListener("keydown", (event) => {
     if (event.key === "Enter") addJob();
   });
-  document.getElementById("jobNameInput").addEventListener("keydown", (event) => {
+  document.getElementById("jobLevelInput").addEventListener("keydown", (event) => {
     if (event.key === "Enter") addJob();
   });
 
@@ -229,34 +229,33 @@ function renderAll() {
   renderMarketFilters();
   renderMarketSection();
   renderTaskSection();
-  ensureSelectedSpot();
   renderQrSection();
 }
 
 function setActiveTab(tab) {
   state.activeTab = tab;
-  document.querySelectorAll(".tab-btn").forEach((btn) => {
-    btn.classList.toggle("active", btn.dataset.tab === tab);
+  document.querySelectorAll(".tab-btn").forEach((button) => {
+    button.classList.toggle("active", button.dataset.tab === tab);
   });
   document.querySelectorAll(".tab-panel").forEach((panel) => {
     panel.classList.toggle("active", panel.id === `tab-${tab}`);
   });
 }
 
-function renderHeader() {
-  const badge = document.getElementById("worldBadge");
-  badge.textContent = `${state.profile.dc} / ${state.profile.world}`;
-}
-
 function populateProgressSelect() {
   const select = document.getElementById("profileProgress");
   if (select.childElementCount > 0) return;
+
   PROGRESS_ORDER.forEach((key) => {
     const option = document.createElement("option");
     option.value = key;
-    option.textContent = `${PROGRESS_LABELS[key]}`;
+    option.textContent = PROGRESS_LABELS[key];
     select.appendChild(option);
   });
+}
+
+function renderHeader() {
+  document.getElementById("worldBadge").textContent = `${state.profile.dc} / ${state.profile.world}`;
 }
 
 function renderProfileForm() {
@@ -281,6 +280,7 @@ function saveProfileFromForm() {
     ventures: clampNumber(document.getElementById("profileVentures").value, 0, 999999999, DEFAULT_PROFILE.ventures),
     hideLockedSpots: document.getElementById("hideLockedSpots").checked
   };
+
   saveJSON(STORAGE_KEYS.profile, state.profile);
   renderHeader();
   renderSpotSection();
@@ -292,10 +292,12 @@ function saveProfileFromForm() {
 function resetAllData() {
   const ok = window.confirm("保存データを初期状態に戻します。よろしいですか？");
   if (!ok) return;
+
   Object.values(STORAGE_KEYS).forEach((key) => localStorage.removeItem(key));
   stopCamera();
-  state.profile = structuredCloneSafe(DEFAULT_PROFILE);
-  state.jobs = structuredCloneSafe(DEFAULT_JOBS);
+
+  state.profile = clone(DEFAULT_PROFILE);
+  state.jobs = clone(DEFAULT_JOBS);
   state.addedSpots = [];
   state.doneTasks = {};
   state.customWatchItems = [];
@@ -303,45 +305,47 @@ function resetAllData() {
   state.marketCategory = "all";
   state.showOnlyPossible = false;
   state.selectedSpotId = null;
+
   document.getElementById("spotSearchInput").value = "";
   document.getElementById("showOnlyPossible").checked = false;
   document.getElementById("ocrInput").value = "";
   document.getElementById("ocrCards").innerHTML = "";
+
   renderAll();
   setStatus("marketStatus", "保存データを初期化しました。", "ok");
 }
 
 function renderJobSection() {
   const list = document.getElementById("jobList");
+  list.innerHTML = "";
+
   const entries = Object.entries(state.jobs).sort((a, b) => {
     if (b[1] !== a[1]) return b[1] - a[1];
     return a[0].localeCompare(b[0], "ja");
   });
 
   document.getElementById("jobCountPill").textContent = `${entries.length}件`;
-  list.innerHTML = "";
 
-  if (entries.length === 0) {
+  if (!entries.length) {
     list.innerHTML = `<div class="empty-state">ジョブがまだありません。</div>`;
   } else {
-    entries.forEach(([name, level]) => {
+    entries.forEach(([jobName, level]) => {
       const item = document.createElement("div");
       item.className = "job-item";
       item.innerHTML = `
         <div class="job-meta">
-          <strong>${escapeHtml(name)}</strong>
+          <strong>${escapeHtml(jobName)}</strong>
           <span class="job-level">Lv ${Number(level)}</span>
         </div>
-        <button class="delete-btn" type="button" data-job="${escapeAttribute(name)}">削除</button>
+        <button class="delete-btn" type="button" data-job="${escapeAttr(jobName)}">削除</button>
       `;
       list.appendChild(item);
     });
   }
 
-  list.querySelectorAll(".delete-btn").forEach((btn) => {
-    btn.addEventListener("click", () => {
-      const job = btn.dataset.job;
-      delete state.jobs[job];
+  list.querySelectorAll("[data-job]").forEach((button) => {
+    button.addEventListener("click", () => {
+      delete state.jobs[button.dataset.job];
       saveJSON(STORAGE_KEYS.jobs, state.jobs);
       renderJobSection();
       renderMarketSection();
@@ -349,18 +353,18 @@ function renderJobSection() {
     });
   });
 
-  const quickWrap = document.getElementById("quickJobs");
-  quickWrap.innerHTML = "";
-  QUICK_JOBS.forEach((job) => {
-    const btn = document.createElement("button");
-    btn.className = "chip";
-    btn.type = "button";
-    btn.textContent = job;
-    btn.addEventListener("click", () => {
-      document.getElementById("jobNameInput").value = job;
+  const quickJobs = document.getElementById("quickJobs");
+  quickJobs.innerHTML = "";
+  QUICK_JOBS.forEach((jobName) => {
+    const button = document.createElement("button");
+    button.className = "chip";
+    button.type = "button";
+    button.textContent = jobName;
+    button.addEventListener("click", () => {
+      document.getElementById("jobNameInput").value = jobName;
       document.getElementById("jobLevelInput").focus();
     });
-    quickWrap.appendChild(btn);
+    quickJobs.appendChild(button);
   });
 }
 
@@ -375,8 +379,10 @@ function addJob() {
 
   state.jobs[name] = level;
   saveJSON(STORAGE_KEYS.jobs, state.jobs);
+
   document.getElementById("jobNameInput").value = "";
   document.getElementById("jobLevelInput").value = "1";
+
   renderJobSection();
   renderMarketSection();
   renderTaskSection();
@@ -386,8 +392,8 @@ function getAllSpots() {
   return [...BASE_SPOTS, ...state.addedSpots];
 }
 
-function progressIndex(key) {
-  return PROGRESS_ORDER.indexOf(key);
+function progressIndex(progressKey) {
+  return PROGRESS_ORDER.indexOf(progressKey);
 }
 
 function canAccessProgress(requiredProgress) {
@@ -395,53 +401,50 @@ function canAccessProgress(requiredProgress) {
 }
 
 function getVisibleSpots() {
-  const query = document.getElementById("spotSearchInput")?.value.trim().toLowerCase() || "";
+  const query = (document.getElementById("spotSearchInput")?.value || "").trim().toLowerCase();
   const hideLocked = Boolean(state.profile.hideLockedSpots);
 
   return getAllSpots().filter((spot) => {
     const accessible = canAccessProgress(spot.progress);
-    const inProgressRange = hideLocked ? accessible : true;
-    const searchTarget = [spot.name, spot.area, spot.coord, spot.filter, spot.memo, ...(spot.tags || [])]
-      .join(" ")
-      .toLowerCase();
-    const matches = !query || searchTarget.includes(query);
-    return inProgressRange && matches;
+    const allowByProgress = hideLocked ? accessible : true;
+    const bundle = [spot.name, spot.area, spot.coord, spot.filter, spot.memo, ...(spot.tags || [])].join(" ").toLowerCase();
+    const matches = !query || bundle.includes(query);
+    return allowByProgress && matches;
   });
 }
 
 function ensureSelectedSpot() {
-  const visible = getVisibleSpots();
   const all = getAllSpots();
-  if (state.selectedSpotId && all.some((spot) => spot.id === state.selectedSpotId)) return;
+  const visible = getVisibleSpots();
+  const stillExists = all.some((spot) => spot.id === state.selectedSpotId);
+
+  if (stillExists) return;
   state.selectedSpotId = visible[0]?.id || all[0]?.id || null;
 }
 
 function getSelectedSpot() {
-  const all = getAllSpots();
-  return all.find((spot) => spot.id === state.selectedSpotId) || null;
+  return getAllSpots().find((spot) => spot.id === state.selectedSpotId) || null;
 }
 
 function renderSpotSection() {
   ensureSelectedSpot();
+  const visible = getVisibleSpots();
+  const all = getAllSpots();
   const list = document.getElementById("spotList");
-  const spots = getVisibleSpots();
-  const allSpots = getAllSpots();
-  const selectedExistsInVisible = spots.some((spot) => spot.id === state.selectedSpotId);
-
-  if (!selectedExistsInVisible && spots[0]) {
-    state.selectedSpotId = spots[0].id;
-  } else if (!spots.length && allSpots.length) {
-    const maybeLocked = allSpots.find((spot) => spot.id === state.selectedSpotId) || allSpots[0];
-    state.selectedSpotId = maybeLocked?.id || null;
-  }
-
-  document.getElementById("walkCountPill").textContent = `${spots.length}件`;
   list.innerHTML = "";
 
-  if (spots.length === 0) {
+  if (visible.length && !visible.some((spot) => spot.id === state.selectedSpotId)) {
+    state.selectedSpotId = visible[0].id;
+  } else if (!visible.length && all.length && !all.some((spot) => spot.id === state.selectedSpotId)) {
+    state.selectedSpotId = all[0].id;
+  }
+
+  document.getElementById("walkCountPill").textContent = `${visible.length}件`;
+
+  if (!visible.length) {
     list.innerHTML = `<div class="empty-state">条件に合うスポットがありません。検索条件か進行度を見直してください。</div>`;
   } else {
-    spots.forEach((spot) => {
+    visible.forEach((spot) => {
       const accessible = canAccessProgress(spot.progress);
       const item = document.createElement("div");
       item.className = `spot-item ${state.selectedSpotId === spot.id ? "active" : ""} ${accessible ? "" : "locked"}`;
@@ -479,7 +482,7 @@ function renderSpotSection() {
 
   const accessible = canAccessProgress(selected.progress);
   badge.textContent = accessible ? "行ける" : "未到達";
-  badge.className = `pill ${accessible ? "success" : ""}`;
+  badge.className = accessible ? "pill success" : "pill";
 
   detail.innerHTML = `
     <h3>${escapeHtml(selected.name)}</h3>
@@ -492,32 +495,30 @@ function renderSpotSection() {
       ${(selected.tags || []).map((tag) => `<span class="tag">${escapeHtml(tag)}</span>`).join("")}
       ${selected.custom ? `<span class="tag">追加スポット</span>` : ""}
     </div>
-    ${selected.custom ? `<div class="button-row compact-top"><button class="delete-btn" id="deleteSelectedSpotBtn" type="button">追加スポットを削除</button></div>` : ""}
+    ${selected.custom ? `<div class="button-row compact-top"><button id="deleteSelectedSpotBtn" class="delete-btn" type="button">追加スポットを削除</button></div>` : ""}
   `;
 
   if (selected.custom) {
-    const btn = document.getElementById("deleteSelectedSpotBtn");
-    if (btn) {
-      btn.addEventListener("click", () => {
-        state.addedSpots = state.addedSpots.filter((spot) => spot.id !== selected.id);
-        saveJSON(STORAGE_KEYS.addedSpots, state.addedSpots);
-        state.selectedSpotId = null;
-        renderSpotSection();
-        renderQrSection();
-      });
-    }
+    const deleteButton = document.getElementById("deleteSelectedSpotBtn");
+    deleteButton.addEventListener("click", () => {
+      state.addedSpots = state.addedSpots.filter((spot) => spot.id !== selected.id);
+      saveJSON(STORAGE_KEYS.addedSpots, state.addedSpots);
+      state.selectedSpotId = null;
+      renderSpotSection();
+      renderQrSection();
+    });
   }
 
   renderQrSection();
 }
 
 function pickRandomSpot() {
-  const spots = getVisibleSpots();
-  if (!spots.length) {
+  const visible = getVisibleSpots();
+  if (!visible.length) {
     window.alert("ガチャ対象のスポットがありません。");
     return;
   }
-  const picked = spots[Math.floor(Math.random() * spots.length)];
+  const picked = visible[Math.floor(Math.random() * visible.length)];
   state.selectedSpotId = picked.id;
   renderSpotSection();
   setActiveTab("walk");
@@ -527,34 +528,36 @@ function addSpot() {
   const name = document.getElementById("newSpotName").value.trim();
   const area = document.getElementById("newSpotArea").value.trim();
   const coord = document.getElementById("newSpotCoord").value.trim();
-  const tagsValue = document.getElementById("newSpotTags").value.trim();
+  const tagsText = document.getElementById("newSpotTags").value.trim();
 
   if (!name || !area || !coord) {
     window.alert("スポット名・エリア・座標を入力してください。");
     return;
   }
 
-  const newSpot = {
+  const spot = {
     id: `custom-spot-${Date.now()}`,
     name,
     area,
     coord,
     progress: state.profile.progress,
-    tags: tagsValue ? tagsValue.split(/[、,]\s*/).filter(Boolean) : [],
+    tags: tagsText ? tagsText.split(/[、,]\s*/).filter(Boolean) : [],
     filter: "未設定",
     memo: "ユーザー追加スポット",
     custom: true
   };
 
-  state.addedSpots.push(newSpot);
+  state.addedSpots.push(spot);
   saveJSON(STORAGE_KEYS.addedSpots, state.addedSpots);
 
   document.getElementById("newSpotName").value = "";
   document.getElementById("newSpotArea").value = "";
   document.getElementById("newSpotCoord").value = "";
   document.getElementById("newSpotTags").value = "";
-  state.selectedSpotId = newSpot.id;
+
+  state.selectedSpotId = spot.id;
   renderSpotSection();
+  renderQrSection();
   setActiveTab("walk");
 }
 
@@ -564,20 +567,23 @@ function getAllWatchItems() {
 
 function renderMarketFilters() {
   const wrap = document.getElementById("marketFilters");
-  if (wrap.childElementCount) return;
+  if (wrap.childElementCount > 0) {
+    renderMarketFilterState();
+    return;
+  }
 
   Object.entries(CATEGORY_LABELS).forEach(([key, label]) => {
-    const btn = document.createElement("button");
-    btn.className = `chip ${state.marketCategory === key ? "active" : ""}`;
-    btn.type = "button";
-    btn.dataset.category = key;
-    btn.textContent = label;
-    btn.addEventListener("click", () => {
+    const button = document.createElement("button");
+    button.className = "chip";
+    button.type = "button";
+    button.dataset.category = key;
+    button.textContent = label;
+    button.addEventListener("click", () => {
       state.marketCategory = key;
       renderMarketFilterState();
       renderMarketSection();
     });
-    wrap.appendChild(btn);
+    wrap.appendChild(button);
   });
 
   renderMarketFilterState();
@@ -599,11 +605,9 @@ function renderMarketSection() {
 
 function renderMarketCacheBadge() {
   const badge = document.getElementById("marketCacheBadge");
-  const cache = state.marketCache || {};
-  if (cache.fetchedAt && cache.world === state.profile.world && Object.keys(cache.items || {}).length) {
-    const date = new Date(cache.fetchedAt);
-    const time = `${pad2(date.getHours())}:${pad2(date.getMinutes())}`;
-    badge.textContent = `取得済み ${time}`;
+  if (isCacheValidForWorld(state.profile.world)) {
+    const date = new Date(state.marketCache.fetchedAt);
+    badge.textContent = `取得済み ${pad2(date.getHours())}:${pad2(date.getMinutes())}`;
   } else {
     badge.textContent = "未取得";
   }
@@ -615,27 +619,29 @@ function getItemMarket(item) {
 }
 
 function getJobLevelForRequirement(jobText) {
-  if (!jobText) return 0;
-  const choices = String(jobText)
+  const choices = String(jobText || "")
     .split("/")
     .map((value) => value.trim())
     .filter(Boolean);
+
   if (!choices.length) return 0;
-  return choices.reduce((max, jobName) => Math.max(max, Number(state.jobs[jobName] || 0)), 0);
+
+  return choices.reduce((maxLevel, jobName) => {
+    return Math.max(maxLevel, Number(state.jobs[jobName] || 0));
+  }, 0);
 }
 
 function canDoItem(item) {
-  const level = getJobLevelForRequirement(item.job);
-  return level >= Number(item.requiredLevel || 0);
+  return getJobLevelForRequirement(item.job) >= Number(item.requiredLevel || 0);
 }
 
 function scoreItem(item) {
   let score = 0;
   const reasons = [];
-  const canDo = canDoItem(item);
+  const doable = canDoItem(item);
   const market = getItemMarket(item);
 
-  if (canDo) {
+  if (doable) {
     score += 45;
     reasons.push("今のLvで採れる/作れる");
   } else {
@@ -691,16 +697,18 @@ function scoreItem(item) {
     score -= 5;
   }
 
-  const uniqueReasons = [...new Set(reasons)].slice(0, 5);
-  return { score, reasons: uniqueReasons, canDo };
+  return {
+    score,
+    reasons: [...new Set(reasons)].slice(0, 5),
+    canDo: doable
+  };
 }
 
 function categoryMatches(item) {
-  const category = state.marketCategory;
-  if (category === "all") return true;
-  if (category === "possible") return canDoItem(item);
-  if (category === "user") return item.custom === true || item.type === "user";
-  return item.type === category;
+  if (state.marketCategory === "all") return true;
+  if (state.marketCategory === "possible") return canDoItem(item);
+  if (state.marketCategory === "user") return item.custom === true || item.type === "user";
+  return item.type === state.marketCategory;
 }
 
 function renderSellToday() {
@@ -708,7 +716,7 @@ function renderSellToday() {
   list.innerHTML = "";
 
   const ranked = getAllWatchItems()
-    .map((item) => ({ item, ...scoreItem(item), market: getItemMarket(item) }))
+    .map((item) => ({ item, market: getItemMarket(item), ...scoreItem(item) }))
     .filter((entry) => entry.canDo)
     .sort((a, b) => b.score - a.score)
     .slice(0, 5);
@@ -718,7 +726,9 @@ function renderSellToday() {
     return;
   }
 
-  ranked.forEach((entry) => list.appendChild(createMarketCard(entry.item, entry.market, entry.score, entry.reasons, entry.canDo, false)));
+  ranked.forEach((entry) => {
+    list.appendChild(createMarketCard(entry.item, entry.market, entry.score, entry.reasons, entry.canDo, false));
+  });
 }
 
 function renderDiscoverList() {
@@ -727,7 +737,7 @@ function renderDiscoverList() {
 
   let items = getAllWatchItems()
     .filter((item) => categoryMatches(item))
-    .map((item) => ({ item, ...scoreItem(item), market: getItemMarket(item) }));
+    .map((item) => ({ item, market: getItemMarket(item), ...scoreItem(item) }));
 
   if (state.showOnlyPossible) {
     items = items.filter((entry) => entry.canDo);
@@ -747,34 +757,35 @@ function renderDiscoverList() {
 
 function renderWatchItemList() {
   const list = document.getElementById("watchItemList");
-  const items = getAllWatchItems();
-  document.getElementById("watchCountPill").textContent = `${items.length}件`;
   list.innerHTML = "";
 
+  const items = getAllWatchItems();
+  document.getElementById("watchCountPill").textContent = `${items.length}件`;
+
   items.forEach((item) => {
+    const scoring = scoreItem(item);
     const market = getItemMarket(item);
-    const wrap = createMarketCard(item, market, scoreItem(item).score, scoreItem(item).reasons, canDoItem(item), true);
-    list.appendChild(wrap);
+    list.appendChild(createMarketCard(item, market, scoring.score, scoring.reasons, scoring.canDo, true));
   });
 
-  list.querySelectorAll("[data-delete-watch]").forEach((btn) => {
-    btn.addEventListener("click", () => {
-      const id = btn.dataset.deleteWatch;
-      state.customWatchItems = state.customWatchItems.filter((item) => item.id !== id);
+  list.querySelectorAll("[data-delete-watch]").forEach((button) => {
+    button.addEventListener("click", () => {
+      state.customWatchItems = state.customWatchItems.filter((item) => item.id !== button.dataset.deleteWatch);
       saveJSON(STORAGE_KEYS.customWatchItems, state.customWatchItems);
       renderMarketSection();
     });
   });
 }
 
-function createMarketCard(item, market, score, reasons, canDo, includeDeleteButton) {
+function createMarketCard(item, market, score, reasons, doable, includeDeleteButton) {
   const wrapper = document.createElement("div");
-  wrapper.className = `market-item ${canDo ? "can-do" : "locked"}`;
-  const typeText = CATEGORY_LABELS[item.type] || item.type;
-  const affordableText = canDo ? "できる" : "まだ無理";
+  wrapper.className = `market-item ${doable ? "can-do" : "locked"}`;
+
   const lowestPrice = market?.lowestPrice ? `${formatNumber(market.lowestPrice)} ギル` : "未取得";
-  const stock = Number.isFinite(Number(market?.stock)) ? `${formatNumber(market.stock)}` : "未取得";
-  const velocity = Number.isFinite(Number(market?.velocity)) ? `${Number(market.velocity).toFixed(2)}` : "未取得";
+  const stock = Number.isFinite(Number(market?.stock)) ? formatNumber(market.stock) : "未取得";
+  const velocity = Number.isFinite(Number(market?.velocity)) ? Number(market.velocity).toFixed(2) : "未取得";
+  const itemTypeText = CATEGORY_LABELS[item.type] || item.type;
+  const actionState = doable ? "できる" : "まだ無理";
 
   wrapper.innerHTML = `
     <div class="market-title-row">
@@ -783,10 +794,11 @@ function createMarketCard(item, market, score, reasons, canDo, includeDeleteButt
         <div class="meta-line">必要ジョブ：${escapeHtml(item.job)} / 必要Lv：${escapeHtml(String(item.requiredLevel))}</div>
       </div>
       <div class="tag-wrap">
-        <span class="tag ${canDo ? "success" : "locked"}">${affordableText}</span>
-        <span class="tag">${escapeHtml(typeText)}</span>
+        <span class="tag ${doable ? "success" : "locked"}">${actionState}</span>
+        <span class="tag">${escapeHtml(itemTypeText)}</span>
       </div>
     </div>
+
     <div class="market-stats">
       <div class="stat-box">
         <span class="stat-label">最安値</span>
@@ -801,18 +813,22 @@ function createMarketCard(item, market, score, reasons, canDo, includeDeleteButt
         <span class="stat-value">${escapeHtml(velocity)}</span>
       </div>
     </div>
+
     <div class="watch-meta-row">
       <span class="tag">おすすめ ${Math.round(score)}</span>
       ${item.itemId ? `<span class="tag">ItemID ${escapeHtml(String(item.itemId))}</span>` : `<span class="tag">ItemID なし</span>`}
       ${item.materialCost ? `<span class="tag">素材費 ${escapeHtml(String(item.materialCost))} ギル</span>` : ""}
       ${item.custom ? `<span class="tag">ユーザー追加</span>` : `<span class="tag">標準候補</span>`}
     </div>
+
     <ul class="reason-list">
       ${reasons.map((reason) => `<li>${escapeHtml(reason)}</li>`).join("")}
     </ul>
-    ${includeDeleteButton && item.custom ? `<div class="button-row compact-top"><button class="delete-btn" data-delete-watch="${escapeAttribute(item.id)}" type="button">この監視アイテムを削除</button></div>` : ""}
+
+    ${includeDeleteButton && item.custom ? `<div class="button-row compact-top"><button class="delete-btn" type="button" data-delete-watch="${escapeAttr(item.id)}">この監視アイテムを削除</button></div>` : ""}
     ${includeDeleteButton && !item.custom ? `<div class="footer-note">標準候補は削除できません。</div>` : ""}
   `;
+
   return wrapper;
 }
 
@@ -826,16 +842,15 @@ async function fetchMarketData() {
     return;
   }
 
-  const cacheValid = isCacheValidForWorld(state.profile.world);
-  if (cacheValid) {
+  if (isCacheValidForWorld(state.profile.world)) {
     setStatus("marketStatus", "6時間以内の相場キャッシュを利用しました。", "ok");
     renderMarketSection();
     return;
   }
 
-  setStatus("marketStatus", "Universalis から相場を取得中です...", "");
   const itemIdText = itemIds.join(",");
   const url = `https://universalis.app/api/v2/${encodeURIComponent(state.profile.world)}/${itemIdText}?listings=10&entries=20`;
+  setStatus("marketStatus", "Universalis から相場を取得中です...", "");
 
   try {
     const response = await fetch(url, {
@@ -848,13 +863,11 @@ async function fetchMarketData() {
       throw new Error(`HTTP ${response.status}`);
     }
 
-    const data = await response.json();
-    const parsed = parseUniversalisResponse(data, itemIds);
-
+    const json = await response.json();
     state.marketCache = {
       world: state.profile.world,
       fetchedAt: Date.now(),
-      items: parsed
+      items: parseUniversalisResponse(json, itemIds)
     };
     saveJSON(STORAGE_KEYS.marketCache, state.marketCache);
     renderMarketSection();
@@ -866,7 +879,7 @@ async function fetchMarketData() {
 }
 
 function parseUniversalisResponse(data, itemIds) {
-  const parsed = {};
+  const result = {};
 
   itemIds.forEach((id) => {
     const raw =
@@ -877,7 +890,7 @@ function parseUniversalisResponse(data, itemIds) {
       null;
 
     if (!raw) {
-      parsed[String(id)] = {
+      result[String(id)] = {
         lowestPrice: null,
         stock: null,
         velocity: null
@@ -888,30 +901,28 @@ function parseUniversalisResponse(data, itemIds) {
     const listings = Array.isArray(raw.listings) ? raw.listings : [];
     const recentHistory = Array.isArray(raw.recentHistory) ? raw.recentHistory : [];
     const listingPrices = listings
-      .map((l) => Number(l.pricePerUnit || l.price || 0))
+      .map((row) => Number(row.pricePerUnit || row.price || 0))
       .filter((value) => Number.isFinite(value) && value > 0);
 
-    const lowestFromListings = listingPrices.length ? Math.min(...listingPrices) : null;
-    const stockFromListings = listings.reduce((sum, listing) => {
-      const qty = Number(listing.quantity || 1);
-      return sum + (Number.isFinite(qty) ? qty : 0);
+    const stockByQuantity = listings.reduce((sum, row) => {
+      const quantity = Number(row.quantity || 1);
+      return sum + (Number.isFinite(quantity) ? quantity : 0);
     }, 0);
 
-    parsed[String(id)] = {
-      lowestPrice: lowestFromListings || Number(raw.minPriceNQ || raw.minPrice || raw.currentAveragePrice || 0) || null,
-      stock: Number(raw.totalListings || raw.totalListingCount || stockFromListings || 0) || 0,
+    result[String(id)] = {
+      lowestPrice: listingPrices.length ? Math.min(...listingPrices) : Number(raw.minPriceNQ || raw.minPrice || raw.currentAveragePrice || 0) || null,
+      stock: Number(raw.totalListings || raw.totalListingCount || stockByQuantity || 0) || 0,
       velocity: Number(raw.regularSaleVelocity || raw.nqSaleVelocity || recentHistory.length / 20 || 0) || 0
     };
   });
 
-  return parsed;
+  return result;
 }
 
 function isCacheValidForWorld(world) {
-  const cache = state.marketCache;
-  if (!cache || cache.world !== world || !cache.fetchedAt || !cache.items) return false;
+  if (!state.marketCache || state.marketCache.world !== world || !state.marketCache.fetchedAt) return false;
   const sixHours = 6 * 60 * 60 * 1000;
-  return Date.now() - Number(cache.fetchedAt) < sixHours;
+  return Date.now() - Number(state.marketCache.fetchedAt) < sixHours;
 }
 
 function clearMarketCache() {
@@ -923,7 +934,7 @@ function clearMarketCache() {
 
 function addWatchItem() {
   const name = document.getElementById("watchName").value.trim();
-  const itemIdValue = document.getElementById("watchItemId").value.trim();
+  const itemIdText = document.getElementById("watchItemId").value.trim();
   const job = document.getElementById("watchJob").value.trim();
   const requiredLevel = clampNumber(document.getElementById("watchLevel").value, 0, 100, 1);
   const type = document.getElementById("watchType").value;
@@ -933,17 +944,17 @@ function addWatchItem() {
     return;
   }
 
-  const newItem = {
+  const item = {
     id: `custom-watch-${Date.now()}`,
     name,
-    itemId: itemIdValue ? Number(itemIdValue) : null,
-    type,
+    itemId: itemIdText ? Number(itemIdText) : null,
     job,
     requiredLevel,
+    type,
     custom: true
   };
 
-  state.customWatchItems.push(newItem);
+  state.customWatchItems.push(item);
   saveJSON(STORAGE_KEYS.customWatchItems, state.customWatchItems);
 
   document.getElementById("watchName").value = "";
@@ -951,12 +962,13 @@ function addWatchItem() {
   document.getElementById("watchJob").value = "";
   document.getElementById("watchLevel").value = "1";
   document.getElementById("watchType").value = "user";
+
   renderMarketSection();
 }
 
 function parseOcrInput() {
-  const input = document.getElementById("ocrInput").value;
-  const lines = input.split(/\r?\n/).map((line) => line.trim()).filter(Boolean);
+  const text = document.getElementById("ocrInput").value;
+  const lines = text.split(/\r?\n/).map((line) => line.trim()).filter(Boolean);
   const cards = document.getElementById("ocrCards");
   cards.innerHTML = "";
 
@@ -979,16 +991,16 @@ function parseOcrInput() {
     };
   });
 
-  parsed.forEach((item) => {
+  parsed.forEach((entry) => {
     const card = document.createElement("div");
     card.className = "ocr-card";
     card.innerHTML = `
       <div class="market-title-row">
         <div>
-          <h3 class="market-name">${escapeHtml(item.name || "未解析")}</h3>
-          <div class="meta-line">${item.price !== null ? `${formatNumber(item.price)} ギル` : "価格を解析できませんでした"}</div>
+          <h3 class="market-name">${escapeHtml(entry.name || "未解析")}</h3>
+          <div class="meta-line">${entry.price !== null ? `${formatNumber(entry.price)} ギル` : "価格を解析できませんでした"}</div>
         </div>
-        <span class="tag">${item.price !== null ? "解析成功" : "要確認"}</span>
+        <span class="tag">${entry.price !== null ? "解析成功" : "要確認"}</span>
       </div>
     `;
     cards.appendChild(card);
@@ -1007,9 +1019,11 @@ function buildTasks() {
   if (Number(state.jobs["採掘師"] || 0) >= 25) {
     tasks.push("銀鉱を10〜30個で小分け出品");
   }
+
   if (Number(state.jobs["彫金師"] || 0) < 23) {
     tasks.push("彫金師をLv23まで上げる");
   }
+
   if (Number(state.jobs["占星術師"] || 0) < 50) {
     tasks.push("占星術師Lv50を目指す");
   }
@@ -1019,8 +1033,8 @@ function buildTasks() {
 
 function renderTaskSection() {
   const taskList = document.getElementById("taskList");
-  const tasks = buildTasks();
   taskList.innerHTML = "";
+  const tasks = buildTasks();
 
   if (!tasks.length) {
     taskList.innerHTML = `<div class="empty-state">今日のタスクがありません。</div>`;
@@ -1048,34 +1062,32 @@ function renderTaskSection() {
 }
 
 function renderQrSection() {
-  const spot = getSelectedSpot();
   const qrSpotName = document.getElementById("qrSpotName");
   const qrText = document.getElementById("qrText");
+  const selected = getSelectedSpot();
 
-  if (spot) {
-    const payload = JSON.stringify({
-      name: spot.name,
-      area: spot.area,
-      coord: spot.coord,
-      progress: PROGRESS_LABELS[spot.progress],
-      tags: spot.tags || [],
-      world: state.profile.world,
-      character: state.profile.character
-    }, null, 2);
-    qrSpotName.textContent = spot.name;
-    if (!qrText.dataset.userEdited || qrText.value.trim() === "" || qrText.value.includes(`"name": "${spot.name}"`)) {
-      qrText.value = payload;
-      qrText.dataset.userEdited = "";
-    }
-    drawPseudoQr(payload);
-  } else {
+  if (!selected) {
     qrSpotName.textContent = "未選択";
     qrText.value = "";
     drawPseudoQr("");
+    return;
   }
 
+  const payload = JSON.stringify({
+    name: selected.name,
+    area: selected.area,
+    coord: selected.coord,
+    progress: PROGRESS_LABELS[selected.progress],
+    tags: selected.tags || [],
+    world: state.profile.world,
+    character: state.profile.character
+  }, null, 2);
+
+  qrSpotName.textContent = selected.name;
+  qrText.value = payload;
+  drawPseudoQr(payload);
+
   qrText.oninput = () => {
-    qrText.dataset.userEdited = "1";
     drawPseudoQr(qrText.value);
   };
 }
@@ -1091,31 +1103,35 @@ function drawPseudoQr(text) {
     for (let x = 0; x < size; x += 1) {
       const cell = document.createElement("div");
       cell.className = "qr-cell";
-      const finder = isFinderCell(x, y, size);
+
+      const finderState = getFinderState(x, y, size);
       const bitIndex = (x + y * size) % bits.length;
-      const dark = finder ? finder === "dark" : bits[bitIndex] === "1";
+      const dark = finderState === "dark" || (!finderState && bits[bitIndex] === "1");
+
       if (dark) {
         cell.classList.add("dark");
       }
+
       container.appendChild(cell);
     }
   }
 }
 
-function isFinderCell(x, y, size) {
-  const inTopLeft = x <= 6 && y <= 6;
-  const inTopRight = x >= size - 7 && y <= 6;
-  const inBottomLeft = x <= 6 && y >= size - 7;
+function getFinderState(x, y, size) {
+  const topLeft = x <= 6 && y <= 6;
+  const topRight = x >= size - 7 && y <= 6;
+  const bottomLeft = x <= 6 && y >= size - 7;
+  const insideFinder = topLeft || topRight || bottomLeft;
 
-  const isFinder = inTopLeft || inTopRight || inBottomLeft;
-  if (!isFinder) return false;
+  if (!insideFinder) return null;
 
-  const localX = x >= size - 7 ? x - (size - 7) : x;
-  const localY = y >= size - 7 ? y - (size - 7) : y;
+  const localX = topRight ? x - (size - 7) : x;
+  const localY = bottomLeft ? y - (size - 7) : y;
 
   const border = localX === 0 || localY === 0 || localX === 6 || localY === 6;
-  const inner = localX >= 2 && localX <= 4 && localY >= 2 && localY <= 4;
-  return border || inner ? "dark" : "light";
+  const center = localX >= 2 && localX <= 4 && localY >= 2 && localY <= 4;
+
+  return border || center ? "dark" : "light";
 }
 
 function textToBits(text) {
@@ -1127,8 +1143,8 @@ function textToBits(text) {
     hash += (hash << 1) + (hash << 4) + (hash << 7) + (hash << 8) + (hash << 24);
   }
 
-  let bits = "";
   let current = Math.abs(hash);
+  let bits = "";
 
   for (let i = 0; i < 512; i += 1) {
     current ^= current << 13;
@@ -1141,8 +1157,8 @@ function textToBits(text) {
 }
 
 async function copyQrText() {
-  const text = document.getElementById("qrText").value;
-  if (!text.trim()) {
+  const text = document.getElementById("qrText").value.trim();
+  if (!text) {
     window.alert("コピーする文字列がありません。");
     return;
   }
@@ -1163,35 +1179,35 @@ function loadQrText() {
     return;
   }
 
+  drawPseudoQr(text);
+
   try {
     const parsed = JSON.parse(text);
     const target = getAllSpots().find((spot) => spot.name === parsed.name && spot.area === parsed.area);
     if (target) {
       state.selectedSpotId = target.id;
-      setActiveTab("qr");
       renderSpotSection();
       renderQrSection();
+      setActiveTab("qr");
       window.alert("QR文字列からスポットを読み込みました。");
       return;
     }
-    drawPseudoQr(text);
-    window.alert("文字列は読み込みましたが、既存スポットとの一致はありませんでした。");
-  } catch (error) {
-    drawPseudoQr(text);
-    window.alert("JSON形式ではありませんでした。疑似QRだけ更新します。");
+    window.alert("QR文字列は読み込みましたが、登録済みスポットとの一致はありませんでした。");
+  } catch (_error) {
+    window.alert("JSON形式ではありませんでした。疑似QRのみ更新します。");
   }
 }
 
 async function startCamera() {
   const video = document.getElementById("cameraPreview");
-  const isSecure = window.isSecureContext || location.hostname === "localhost" || location.hostname === "127.0.0.1";
+  const secure = window.isSecureContext || location.hostname === "localhost" || location.hostname === "127.0.0.1";
 
   if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
     setStatus("cameraStatus", "このブラウザではカメラAPIが利用できません。", "error");
     return;
   }
 
-  if (!isSecure) {
+  if (!secure) {
     setStatus("cameraStatus", "カメラ起動には HTTPS または localhost が必要です。", "error");
     return;
   }
@@ -1204,6 +1220,7 @@ async function startCamera() {
       },
       audio: false
     });
+
     state.cameraStream = stream;
     video.srcObject = stream;
     setStatus("cameraStatus", "カメラを起動しました。権限拒否時はブラウザ設定を確認してください。", "ok");
@@ -1218,17 +1235,19 @@ function stopCamera() {
     state.cameraStream.getTracks().forEach((track) => track.stop());
     state.cameraStream = null;
   }
+
   const video = document.getElementById("cameraPreview");
   if (video) {
     video.srcObject = null;
   }
+
   setStatus("cameraStatus", "待機中", "");
 }
 
-function setStatus(elementId, message, mode = "") {
-  const target = document.getElementById(elementId);
-  target.textContent = message;
-  target.className = `status-box ${mode || "muted"}`.trim();
+function setStatus(id, message, mode = "") {
+  const el = document.getElementById(id);
+  el.textContent = message;
+  el.className = `status-box ${mode || "muted"}`.trim();
 }
 
 function saveJSON(key, value) {
@@ -1238,31 +1257,28 @@ function saveJSON(key, value) {
 function loadJSON(key, fallback) {
   try {
     const raw = localStorage.getItem(key);
-    if (!raw) return structuredCloneSafe(fallback);
-    return JSON.parse(raw);
-  } catch (error) {
-    console.warn(`${key} の復元に失敗しました。`, error);
-    return structuredCloneSafe(fallback);
+    return raw ? JSON.parse(raw) : clone(fallback);
+  } catch (_error) {
+    return clone(fallback);
   }
 }
 
-function structuredCloneSafe(value) {
+function clone(value) {
   return JSON.parse(JSON.stringify(value));
 }
 
 function clampNumber(value, min, max, fallback) {
-  const n = Number(value);
-  if (!Number.isFinite(n)) return fallback;
-  return Math.min(max, Math.max(min, Math.floor(n)));
+  const number = Number(value);
+  if (!Number.isFinite(number)) return fallback;
+  return Math.min(max, Math.max(min, Math.floor(number)));
 }
 
 function formatNumber(value) {
-  const n = Number(value || 0);
-  return n.toLocaleString("ja-JP");
+  return Number(value || 0).toLocaleString("ja-JP");
 }
 
-function pad2(n) {
-  return String(n).padStart(2, "0");
+function pad2(value) {
+  return String(value).padStart(2, "0");
 }
 
 function escapeHtml(value) {
@@ -1274,6 +1290,6 @@ function escapeHtml(value) {
     .replaceAll("'", "&#39;");
 }
 
-function escapeAttribute(value) {
+function escapeAttr(value) {
   return escapeHtml(value).replaceAll("`", "&#96;");
 }
