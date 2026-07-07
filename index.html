@@ -27,11 +27,11 @@
 
     <main class="main-content">
       <section class="tab-panel active" id="tab-self">
-        <div class="grid">
+        <div class="grid self-grid">
           <article class="card">
             <div class="section-title-row">
               <h2>自分情報</h2>
-              <span class="pill">保存あり</span>
+              <span class="pill">localStorage保存</span>
             </div>
 
             <div class="form-grid cols-2">
@@ -102,6 +102,7 @@
                 <input id="jobLevelInput" type="number" min="0" max="100" value="1">
               </label>
             </div>
+
             <div class="button-row">
               <button id="addJobBtn" class="primary-btn" type="button">追加する</button>
             </div>
@@ -113,7 +114,7 @@
       </section>
 
       <section class="tab-panel" id="tab-walk">
-        <div class="grid">
+        <div class="grid walk-grid">
           <article class="card">
             <div class="section-title-row">
               <h2>散歩スポット検索</h2>
@@ -122,7 +123,7 @@
 
             <label>
               <span>キーワード</span>
-              <input id="spotSearchInput" type="text" placeholder="スポット名・エリア・タグで検索">
+              <input id="spotSearchInput" type="text" placeholder="スポット名 / エリア / タグ / メモ">
             </label>
 
             <div class="button-row compact-top">
@@ -143,21 +144,24 @@
 
           <article class="card">
             <h2>スポット追加</h2>
-            <p class="muted">追加したスポットは現在の進行度で登録されます。</p>
+            <p class="muted">追加スポットは現在の進行度で登録されます。</p>
 
             <div class="form-grid">
               <label>
                 <span>スポット名</span>
                 <input id="newSpotName" type="text" placeholder="例：海辺の朝霧ベンチ">
               </label>
+
               <label>
                 <span>エリア</span>
                 <input id="newSpotArea" type="text" placeholder="例：リムサ・ロミンサ">
               </label>
+
               <label>
                 <span>座標</span>
                 <input id="newSpotCoord" type="text" placeholder="例：X:10.1 Y:8.2">
               </label>
+
               <label>
                 <span>タグ</span>
                 <input id="newSpotTags" type="text" placeholder="例：朝焼け, 海, 静か">
@@ -172,7 +176,7 @@
       </section>
 
       <section class="tab-panel" id="tab-market">
-        <div class="grid">
+        <div class="grid market-grid">
           <article class="card">
             <div class="section-title-row">
               <h2>相場取得と絞り込み</h2>
@@ -186,7 +190,7 @@
 
             <div id="marketStatus" class="status-box muted">プロフィールのワールドで相場取得できます。</div>
 
-            <div id="marketFilters" class="chip-cloud"></div>
+            <div id="marketFilters" class="chip-cloud filters"></div>
 
             <label class="switch-row compact-top">
               <input id="showOnlyPossible" type="checkbox">
@@ -223,18 +227,22 @@
                 <span>アイテム名</span>
                 <input id="watchName" type="text" placeholder="例：ダークチェスナット原木">
               </label>
+
               <label>
                 <span>ItemID</span>
                 <input id="watchItemId" type="number" min="0" step="1" placeholder="任意">
               </label>
+
               <label>
                 <span>必要ジョブ</span>
                 <input id="watchJob" type="text" placeholder="例：採掘師">
               </label>
+
               <label>
                 <span>必要Lv</span>
                 <input id="watchLevel" type="number" min="0" max="100" value="1">
               </label>
+
               <label class="full-span">
                 <span>タイプ</span>
                 <select id="watchType">
@@ -246,6 +254,7 @@
                 </select>
               </label>
             </div>
+
             <div class="button-row">
               <button id="addWatchBtn" class="primary-btn" type="button">監視アイテムを追加</button>
             </div>
@@ -262,7 +271,7 @@
       </section>
 
       <section class="tab-panel" id="tab-today">
-        <div class="grid">
+        <div class="grid today-grid">
           <article class="card">
             <div class="section-title-row">
               <h2>今日やること</h2>
@@ -275,7 +284,7 @@
       </section>
 
       <section class="tab-panel" id="tab-qr">
-        <div class="grid">
+        <div class="grid qr-grid">
           <article class="card">
             <div class="section-title-row">
               <h2>選択中スポット共有</h2>
@@ -312,7 +321,6 @@
     </main>
   </div>
 
-  <script src="./
+  <scriptsscript>
 </body>
 </html>
-``
