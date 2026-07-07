@@ -21,7 +21,7 @@
       --danger: #ff8ea2;
       --shadow: 0 14px 36px rgba(0, 0, 0, 0.28);
       --radius: 18px;
-      --max-width: 1180px;
+      --max-width: 1200px;
       --font: -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Sans", "Noto Sans JP", Meiryo, sans-serif;
     }
 
@@ -130,8 +130,15 @@
       box-shadow: var(--shadow);
     }
 
-    .card h2 { margin: 0 0 12px; font-size: 1.08rem; }
-    .card h3 { margin: 18px 0 10px; font-size: 0.98rem; }
+    .card h2 {
+      margin: 0 0 12px;
+      font-size: 1.08rem;
+    }
+
+    .card h3 {
+      margin: 16px 0 10px;
+      font-size: 1rem;
+    }
 
     .section-title-row {
       display: flex;
@@ -169,7 +176,10 @@
       color: #ffe7a7;
     }
 
-    label { display: block; margin-bottom: 12px; }
+    label {
+      display: block;
+      margin-bottom: 12px;
+    }
 
     label > span {
       display: block;
@@ -209,6 +219,8 @@
     }
 
     .form-grid.cols-2 { grid-template-columns: 1fr; }
+    .form-grid.cols-3 { grid-template-columns: 1fr; }
+
     .full-span { grid-column: 1 / -1; }
 
     .switch-row {
@@ -237,8 +249,8 @@
     }
 
     .primary-btn, .ghost-btn, .delete-btn, .chip, .mini-btn {
-      min-height: 46px;
-      padding: 11px 15px;
+      min-height: 44px;
+      padding: 10px 14px;
       border-radius: 14px;
       font-weight: 700;
       transition: transform 0.16s ease, opacity 0.16s ease, background 0.16s ease;
@@ -284,7 +296,6 @@
     }
 
     .chip-cloud { grid-template-columns: repeat(2, 1fr); }
-
     .chip-cloud.filters { margin-top: 12px; }
 
     .chip {
@@ -302,13 +313,13 @@
       color: #dbe7ff;
     }
 
-    .job-item, .spot-item, .market-item, .ocr-card, .status-box, .detail-box, .summary-box, .compact-watch-item {
+    .job-item, .spot-item, .market-item, .ocr-card, .status-box, .detail-box, .summary-box, .watch-item {
       border-radius: 16px;
       border: 1px solid var(--line);
       background: rgba(255, 255, 255, 0.05);
     }
 
-    .job-item, .spot-item, .market-item, .ocr-card, .compact-watch-item {
+    .job-item, .spot-item, .market-item, .ocr-card, .watch-item {
       padding: 13px;
     }
 
@@ -317,9 +328,9 @@
       gap: 10px;
     }
 
-    .job-top {
+    .job-top, .market-title-row, .spot-title-row, .watch-row-top, .summary-top {
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       justify-content: space-between;
       gap: 10px;
       flex-wrap: wrap;
@@ -338,13 +349,6 @@
       min-width: 0;
     }
 
-    .job-ops {
-      display: flex;
-      gap: 6px;
-      flex-wrap: wrap;
-      justify-content: flex-end;
-    }
-
     .spot-item {
       cursor: pointer;
       transition: 0.18s ease;
@@ -356,14 +360,6 @@
     }
 
     .spot-item.locked { opacity: 0.58; }
-
-    .spot-title-row, .market-title-row, .summary-top {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
 
     .spot-name, .market-name {
       margin: 0;
@@ -383,7 +379,7 @@
       margin-top: 10px;
     }
 
-    .tag {
+    .tag, .tiny-pill, .profit-rank {
       display: inline-flex;
       align-items: center;
       min-height: 28px;
@@ -409,12 +405,36 @@
       color: rgba(255, 255, 255, 0.44);
     }
 
+    .tiny-pill {
+      min-height: 24px;
+      padding: 3px 8px;
+      font-size: 0.74rem;
+      color: var(--muted);
+    }
+
+    .tiny-pill.custom {
+      color: #d7e4ff;
+      background: rgba(63, 127, 255, 0.12);
+    }
+
+    .profit-rank {
+      min-width: 34px;
+      justify-content: center;
+      background: rgba(243, 195, 77, 0.12);
+      color: #ffe6a7;
+      font-weight: 800;
+    }
+
     .detail-box {
       padding: 14px;
       min-height: 220px;
     }
 
-    .detail-box h3 { margin: 0 0 8px; font-size: 1.08rem; }
+    .detail-box h3 {
+      margin: 0 0 8px;
+      font-size: 1.08rem;
+    }
+
     .detail-box p { margin: 7px 0; }
 
     .task-item {
@@ -473,7 +493,7 @@
     }
 
     .market-item.locked {
-      opacity: 0.75;
+      opacity: 0.78;
     }
 
     .market-stats {
@@ -512,6 +532,7 @@
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 10px;
+      margin: 12px 0;
     }
 
     .summary-value {
@@ -520,61 +541,32 @@
       margin-top: 6px;
     }
 
-    .profit-rank {
-      display: inline-flex;
-      min-width: 34px;
-      justify-content: center;
-      padding: 5px 9px;
-      border-radius: 999px;
-      background: rgba(243, 195, 77, 0.12);
-      color: #ffe6a7;
-      font-weight: 800;
-    }
-
-    .compact-watch-list {
+    .watch-list {
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 8px;
     }
 
-    .compact-watch-item {
-      display: flex;
+    .watch-row-top {
       align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-      min-height: 50px;
-      padding: 10px 12px;
     }
 
-    .compact-watch-name {
-      font-size: 0.92rem;
-      line-height: 1.35;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
+    .watch-name {
+      font-size: 0.96rem;
+      line-height: 1.4;
+      overflow-wrap: anywhere;
     }
 
-    .compact-watch-actions {
+    .watch-actions {
       display: flex;
-      align-items: center;
       gap: 6px;
-      flex: 0 0 auto;
+      flex-wrap: wrap;
+      justify-content: flex-end;
     }
 
-    .tiny-pill {
-      display: inline-flex;
-      align-items: center;
-      padding: 4px 8px;
-      border-radius: 999px;
-      font-size: 0.74rem;
-      background: rgba(255, 255, 255, 0.08);
-      color: var(--muted);
-      white-space: nowrap;
-    }
-
-    .tiny-pill.custom {
-      color: #d7e4ff;
-      background: rgba(63, 127, 255, 0.12);
+    .watch-edit-panel {
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
     }
 
     .pseudo-qr {
@@ -634,12 +626,12 @@
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
 
-      .chip-cloud {
-        grid-template-columns: repeat(4, 1fr);
+      .form-grid.cols-3 {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
       }
 
-      .compact-watch-list {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
+      .chip-cloud {
+        grid-template-columns: repeat(4, 1fr);
       }
 
       .market-stats {
@@ -647,7 +639,7 @@
       }
     }
 
-    @media (min-width: 980px) {
+    @media (min-width: 960px) {
       .self-grid, .walk-grid, .market-grid, .today-grid, .qr-grid {
         grid-template-columns: repeat(12, minmax(0, 1fr));
       }
@@ -660,19 +652,15 @@
       .walk-grid .card:nth-child(2) { grid-column: span 7; }
       .walk-grid .card:nth-child(3) { grid-column: span 12; }
 
-      .market-grid .card.market-control { grid-column: span 12; }
-      .market-grid .card.market-ranking { grid-column: span 6; }
-      .market-grid .card.market-discover { grid-column: span 6; }
-      .market-grid .card.market-ocr { grid-column: span 6; }
-      .market-grid .card.market-add { grid-column: span 6; }
-      .market-grid .card.market-manage { grid-column: span 12; }
+      .market-grid .market-control { grid-column: span 12; }
+      .market-grid .market-ranking { grid-column: span 6; }
+      .market-grid .market-discover { grid-column: span 6; }
+      .market-grid .market-ocr { grid-column: span 6; }
+      .market-grid .market-add { grid-column: span 6; }
+      .market-grid .market-manage { grid-column: span 12; }
 
       .today-grid .card { grid-column: span 12; }
       .qr-grid .card { grid-column: span 6; }
-
-      .compact-watch-list {
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-      }
     }
   </style>
 </head>
@@ -815,7 +803,7 @@
             <h2>スポット追加</h2>
             <p class="muted">追加スポットは現在の進行度で登録されます。</p>
 
-            <div class="form-grid">
+            <div class="form-grid cols-2">
               <label>
                 <span>スポット名</span>
                 <input id="newSpotName" type="text" placeholder="例：海辺の朝霧ベンチ">
@@ -857,7 +845,7 @@
               <button id="clearCacheBtn" class="ghost-btn" type="button">相場キャッシュ削除</button>
             </div>
 
-            <div id="marketStatus" class="status-box muted">プロフィールのワールドで相場取得できます。</div>
+            <div id="marketStatus" class="status-box muted">プロフィールのワールドで相場取得できます。ItemID は監視候補編集から調整できます。</div>
 
             <div class="summary-grid" id="marketSummary"></div>
 
@@ -872,7 +860,7 @@
           <article class="card market-ranking">
             <div class="section-title-row">
               <h2>今日売るべきものランキング</h2>
-              <span class="pill warn">利益見込み込み</span>
+              <span class="pill warn">1時間利益見込み</span>
             </div>
             <div id="sellTodayList" class="market-card-list"></div>
           </article>
@@ -899,7 +887,7 @@
 
           <article class="card market-add">
             <h2>監視アイテム追加</h2>
-            <div class="form-grid cols-2">
+            <div class="form-grid cols-3">
               <label>
                 <span>アイテム名</span>
                 <input id="watchName" type="text" placeholder="例：ダークチェスナット原木">
@@ -920,7 +908,7 @@
                 <input id="watchLevel" type="number" min="0" max="100" value="1">
               </label>
 
-              <label class="full-span">
+              <label>
                 <span>タイプ</span>
                 <select id="watchType">
                   <option value="user">ユーザー追加</option>
@@ -929,6 +917,11 @@
                   <option value="craft">製作</option>
                   <option value="future">将来用</option>
                 </select>
+              </label>
+
+              <label>
+                <span>素材費（製作のみ）</span>
+                <input id="watchMaterialCost" type="number" min="0" step="1" value="0">
               </label>
             </div>
 
@@ -942,8 +935,8 @@
               <h2>監視候補管理</h2>
               <span class="pill accent" id="watchCountPill">0件</span>
             </div>
-            <p class="muted">名前中心のコンパクト表示です。ユーザー追加だけ削除できます。</p>
-            <div id="watchItemList" class="compact-watch-list"></div>
+            <p class="muted">通常は名前中心のコンパクト表示です。必要な候補だけ「編集」を開いて、ItemID や必要条件を調整できます。</p>
+            <div id="watchItemList" class="watch-list"></div>
           </article>
         </div>
       </section>
@@ -1006,6 +999,7 @@
       addedSpots: "eorzea-pocket.addedSpots",
       doneTasks: "eorzea-pocket.doneTasks",
       customWatchItems: "eorzea-pocket.customWatchItems",
+      watchOverrides: "eorzea-pocket.watchOverrides",
       marketCache: "eorzea-pocket.marketCache"
     };
 
@@ -1074,56 +1068,62 @@
     ];
 
     const BASE_WATCH_ITEMS = [
-      { id: "watch-2", name: "ファイアシャード", itemId: 2, type: "shard", job: "採掘師/園芸師", requiredLevel: 1, custom: false },
-      { id: "watch-3", name: "アイスシャード", itemId: 3, type: "shard", job: "採掘師/園芸師", requiredLevel: 1, custom: false },
-      { id: "watch-4", name: "ウィンドシャード", itemId: 4, type: "shard", job: "採掘師/園芸師", requiredLevel: 1, custom: false },
-      { id: "watch-5", name: "アースシャード", itemId: 5, type: "shard", job: "採掘師/園芸師", requiredLevel: 1, custom: false },
-      { id: "watch-6", name: "ライトニングシャード", itemId: 6, type: "shard", job: "採掘師/園芸師", requiredLevel: 1, custom: false },
-      { id: "watch-7", name: "ウォーターシャード", itemId: 7, type: "shard", job: "採掘師/園芸師", requiredLevel: 1, custom: false },
-      { id: "watch-8", name: "ファイアクリスタル", itemId: 8, type: "shard", job: "採掘師/園芸師", requiredLevel: 26, custom: false },
-      { id: "watch-9", name: "アイスクリスタル", itemId: 9, type: "shard", job: "採掘師/園芸師", requiredLevel: 26, custom: false },
-      { id: "watch-10", name: "ウィンドクリスタル", itemId: 10, type: "shard", job: "採掘師/園芸師", requiredLevel: 26, custom: false },
-      { id: "watch-11", name: "アースクリスタル", itemId: 11, type: "shard", job: "採掘師/園芸師", requiredLevel: 26, custom: false },
-      { id: "watch-12", name: "ライトニングクリスタル", itemId: 12, type: "shard", job: "採掘師/園芸師", requiredLevel: 26, custom: false },
-      { id: "watch-13", name: "ウォータークリスタル", itemId: 13, type: "shard", job: "採掘師/園芸師", requiredLevel: 26, custom: false },
+      { id: "watch-fire-shard", nameJa: "ファイアシャード", itemId: 2, type: "shard", job: "採掘師/園芸師", requiredLevel: 1, materialCost: 0, custom: false },
+      { id: "watch-ice-shard", nameJa: "アイスシャード", itemId: 3, type: "shard", job: "採掘師/園芸師", requiredLevel: 1, materialCost: 0, custom: false },
+      { id: "watch-wind-shard", nameJa: "ウィンドシャード", itemId: 4, type: "shard", job: "採掘師/園芸師", requiredLevel: 1, materialCost: 0, custom: false },
+      { id: "watch-earth-shard", nameJa: "アースシャード", itemId: 5, type: "shard", job: "採掘師/園芸師", requiredLevel: 1, materialCost: 0, custom: false },
+      { id: "watch-lightning-shard", nameJa: "ライトニングシャード", itemId: 6, type: "shard", job: "採掘師/園芸師", requiredLevel: 1, materialCost: 0, custom: false },
+      { id: "watch-water-shard", nameJa: "ウォーターシャード", itemId: 7, type: "shard", job: "採掘師/園芸師", requiredLevel: 1, materialCost: 0, custom: false },
 
-      { id: "watch-5113", name: "銀鉱", itemId: 5113, type: "gather", job: "採掘師", requiredLevel: 25, custom: false },
-      { id: "watch-5064", name: "シルバーインゴット", itemId: 5064, type: "craft", job: "彫金師", requiredLevel: 23, materialCost: 680, custom: false },
-      { id: "watch-g18", name: "古ぼけた地図G18", itemId: null, type: "future", job: "採掘師/園芸師", requiredLevel: 100, custom: false },
+      { id: "watch-fire-crystal", nameJa: "ファイアクリスタル", itemId: 8, type: "shard", job: "採掘師/園芸師", requiredLevel: 26, materialCost: 0, custom: false },
+      { id: "watch-ice-crystal", nameJa: "アイスクリスタル", itemId: 9, type: "shard", job: "採掘師/園芸師", requiredLevel: 26, materialCost: 0, custom: false },
+      { id: "watch-wind-crystal", nameJa: "ウィンドクリスタル", itemId: 10, type: "shard", job: "採掘師/園芸師", requiredLevel: 26, materialCost: 0, custom: false },
+      { id: "watch-earth-crystal", nameJa: "アースクリスタル", itemId: 11, type: "shard", job: "採掘師/園芸師", requiredLevel: 26, materialCost: 0, custom: false },
+      { id: "watch-lightning-crystal", nameJa: "ライトニングクリスタル", itemId: 12, type: "shard", job: "採掘師/園芸師", requiredLevel: 26, materialCost: 0, custom: false },
+      { id: "watch-water-crystal", nameJa: "ウォータークリスタル", itemId: 13, type: "shard", job: "採掘師/園芸師", requiredLevel: 26, materialCost: 0, custom: false },
 
-      { id: "watch-extra-1", name: "鉄鉱", itemId: null, type: "gather", job: "採掘師", requiredLevel: 14, custom: false },
-      { id: "watch-extra-2", name: "銅鉱", itemId: null, type: "gather", job: "採掘師", requiredLevel: 1, custom: false },
-      { id: "watch-extra-3", name: "ミスリル鉱", itemId: null, type: "gather", job: "採掘師", requiredLevel: 40, custom: false },
-      { id: "watch-extra-4", name: "金鉱", itemId: null, type: "gather", job: "採掘師", requiredLevel: 50, custom: false },
-      { id: "watch-extra-5", name: "エレクトラム鉱", itemId: null, type: "gather", job: "採掘師", requiredLevel: 45, custom: false },
-      { id: "watch-extra-6", name: "ソーダ水", itemId: null, type: "gather", job: "漁師", requiredLevel: 1, custom: false },
-      { id: "watch-extra-7", name: "ラベンダー", itemId: null, type: "gather", job: "園芸師", requiredLevel: 16, custom: false },
-      { id: "watch-extra-8", name: "メープル原木", itemId: null, type: "gather", job: "園芸師", requiredLevel: 5, custom: false },
-      { id: "watch-extra-9", name: "オーク原木", itemId: null, type: "gather", job: "園芸師", requiredLevel: 25, custom: false },
-      { id: "watch-extra-10", name: "ダークチェスナット原木", itemId: null, type: "gather", job: "園芸師", requiredLevel: 50, custom: false },
+      { id: "watch-silver-ore", nameJa: "銀鉱", itemId: 5113, type: "gather", job: "採掘師", requiredLevel: 25, materialCost: 0, custom: false },
+      { id: "watch-silver-ingot", nameJa: "シルバーインゴット", itemId: 5064, type: "craft", job: "彫金師", requiredLevel: 23, materialCost: 680, custom: false },
+      { id: "watch-g18", nameJa: "古ぼけた地図G18", itemId: null, type: "future", job: "採掘師/園芸師", requiredLevel: 100, materialCost: 0, custom: false },
 
-      { id: "watch-extra-11", name: "ハードシルバー鉱", itemId: null, type: "gather", job: "採掘師", requiredLevel: 56, custom: false },
-      { id: "watch-extra-12", name: "チタン鉱", itemId: null, type: "gather", job: "採掘師", requiredLevel: 60, custom: false },
-      { id: "watch-extra-13", name: "霊銀鉱", itemId: null, type: "gather", job: "採掘師", requiredLevel: 70, custom: false },
-      { id: "watch-extra-14", name: "闇鉄鉱", itemId: null, type: "gather", job: "採掘師", requiredLevel: 80, custom: false },
-      { id: "watch-extra-15", name: "ガーネットコットンボール", itemId: null, type: "gather", job: "園芸師", requiredLevel: 90, custom: false },
+      { id: "watch-copper-ore", nameJa: "銅鉱", itemId: null, type: "gather", job: "採掘師", requiredLevel: 1, materialCost: 0, custom: false },
+      { id: "watch-iron-ore", nameJa: "鉄鉱", itemId: null, type: "gather", job: "採掘師", requiredLevel: 14, materialCost: 0, custom: false },
+      { id: "watch-mythril-ore", nameJa: "ミスリル鉱", itemId: null, type: "gather", job: "採掘師", requiredLevel: 40, materialCost: 0, custom: false },
+      { id: "watch-gold-ore", nameJa: "金鉱", itemId: null, type: "gather", job: "採掘師", requiredLevel: 50, materialCost: 0, custom: false },
+      { id: "watch-electrum-ore", nameJa: "エレクトラム鉱", itemId: null, type: "gather", job: "採掘師", requiredLevel: 45, materialCost: 0, custom: false },
+      { id: "watch-hard-silver-ore", nameJa: "ハードシルバー鉱", itemId: null, type: "gather", job: "採掘師", requiredLevel: 56, materialCost: 0, custom: false },
+      { id: "watch-titanium-ore", nameJa: "チタン鉱", itemId: null, type: "gather", job: "採掘師", requiredLevel: 60, materialCost: 0, custom: false },
+      { id: "watch-nightsteel-ore", nameJa: "闇鉄鉱", itemId: null, type: "gather", job: "採掘師", requiredLevel: 80, materialCost: 0, custom: false },
+      { id: "watch-molybdenum-ore", nameJa: "モリブデン鉱", itemId: null, type: "gather", job: "採掘師", requiredLevel: 90, materialCost: 0, custom: false },
 
-      { id: "watch-extra-16", name: "ハイポーション", itemId: null, type: "craft", job: "錬金術師", requiredLevel: 15, materialCost: 180, custom: false },
-      { id: "watch-extra-17", name: "コーディアル", itemId: null, type: "craft", job: "錬金術師", requiredLevel: 50, materialCost: 390, custom: false },
-      { id: "watch-extra-18", name: "マーマレード", itemId: null, type: "craft", job: "調理師", requiredLevel: 13, materialCost: 120, custom: false },
-      { id: "watch-extra-19", name: "アップルタルト", itemId: null, type: "craft", job: "調理師", requiredLevel: 33, materialCost: 260, custom: false },
-      { id: "watch-extra-20", name: "コーヒークッキー", itemId: null, type: "craft", job: "調理師", requiredLevel: 80, materialCost: 980, custom: false },
-      { id: "watch-extra-21", name: "焼成珪砂", itemId: null, type: "craft", job: "錬金術師", requiredLevel: 70, materialCost: 640, custom: false },
-      { id: "watch-extra-22", name: "硬銀砂", itemId: null, type: "gather", job: "採掘師", requiredLevel: 58, custom: false },
-      { id: "watch-extra-23", name: "クローヴ", itemId: null, type: "gather", job: "園芸師", requiredLevel: 53, custom: false },
-      { id: "watch-extra-24", name: "ガーデンビートシュガー", itemId: null, type: "craft", job: "調理師", requiredLevel: 84, materialCost: 430, custom: false },
-      { id: "watch-extra-25", name: "やわらかな粗皮", itemId: null, type: "gather", job: "漁師", requiredLevel: 60, custom: false },
+      { id: "watch-maple-log", nameJa: "メープル原木", itemId: null, type: "gather", job: "園芸師", requiredLevel: 5, materialCost: 0, custom: false },
+      { id: "watch-oak-log", nameJa: "オーク原木", itemId: null, type: "gather", job: "園芸師", requiredLevel: 25, materialCost: 0, custom: false },
+      { id: "watch-dark-chestnut-log", nameJa: "ダークチェスナット原木", itemId: null, type: "gather", job: "園芸師", requiredLevel: 50, materialCost: 0, custom: false },
+      { id: "watch-teak-log", nameJa: "チーク原木", itemId: null, type: "gather", job: "園芸師", requiredLevel: 60, materialCost: 0, custom: false },
+      { id: "watch-palm-log", nameJa: "パーム原木", itemId: null, type: "gather", job: "園芸師", requiredLevel: 90, materialCost: 0, custom: false },
+      { id: "watch-lavender", nameJa: "ラベンダー", itemId: null, type: "gather", job: "園芸師", requiredLevel: 16, materialCost: 0, custom: false },
+      { id: "watch-clove", nameJa: "クローヴ", itemId: null, type: "gather", job: "園芸師", requiredLevel: 53, materialCost: 0, custom: false },
 
-      { id: "watch-extra-26", name: "ルビー原石", itemId: null, type: "gather", job: "採掘師", requiredLevel: 50, custom: false },
-      { id: "watch-extra-27", name: "アメジスト原石", itemId: null, type: "gather", job: "採掘師", requiredLevel: 35, custom: false },
-      { id: "watch-extra-28", name: "砂鉄", itemId: null, type: "gather", job: "採掘師", requiredLevel: 70, custom: false },
-      { id: "watch-extra-29", name: "クラフター系中間素材候補", itemId: null, type: "future", job: "鍛冶師/甲冑師/木工師/裁縫師", requiredLevel: 50, custom: false },
-      { id: "watch-extra-30", name: "新式素材候補", itemId: null, type: "future", job: "採掘師/園芸師/漁師/各クラフター", requiredLevel: 100, custom: false }
+      { id: "watch-silver-sand", nameJa: "銀砂", itemId: null, type: "gather", job: "採掘師", requiredLevel: 23, materialCost: 0, custom: false },
+      { id: "watch-hard-silver-sand", nameJa: "硬銀砂", itemId: null, type: "gather", job: "採掘師", requiredLevel: 58, materialCost: 0, custom: false },
+      { id: "watch-soda-water", nameJa: "ソーダ水", itemId: null, type: "gather", job: "漁師", requiredLevel: 1, materialCost: 0, custom: false },
+      { id: "watch-common-fish", nameJa: "料理素材向けの魚", itemId: null, type: "future", job: "漁師", requiredLevel: 1, materialCost: 0, custom: false },
+
+      { id: "watch-hi-potion", nameJa: "ハイポーション", itemId: null, type: "craft", job: "錬金術師", requiredLevel: 15, materialCost: 180, custom: false },
+      { id: "watch-cordial", nameJa: "コーディアル", itemId: null, type: "craft", job: "錬金術師", requiredLevel: 50, materialCost: 390, custom: false },
+      { id: "watch-hi-cordial", nameJa: "ハイコーディアル", itemId: null, type: "craft", job: "錬金術師", requiredLevel: 54, materialCost: 780, custom: false },
+      { id: "watch-marmalade", nameJa: "マーマレード", itemId: null, type: "craft", job: "調理師", requiredLevel: 13, materialCost: 120, custom: false },
+      { id: "watch-apple-tart", nameJa: "アップルタルト", itemId: null, type: "craft", job: "調理師", requiredLevel: 33, materialCost: 260, custom: false },
+      { id: "watch-coffee-cookie", nameJa: "コーヒークッキー", itemId: null, type: "craft", job: "調理師", requiredLevel: 80, materialCost: 980, custom: false },
+      { id: "watch-baked-onion-soup", nameJa: "オニオンスープ", itemId: null, type: "craft", job: "調理師", requiredLevel: 28, materialCost: 230, custom: false },
+      { id: "watch-syrup", nameJa: "シュガーシロップ", itemId: null, type: "craft", job: "調理師", requiredLevel: 16, materialCost: 90, custom: false },
+      { id: "watch-glue", nameJa: "にかわ系素材", itemId: null, type: "craft", job: "錬金術師", requiredLevel: 12, materialCost: 140, custom: false },
+      { id: "watch-lumber", nameJa: "製作用木材候補", itemId: null, type: "craft", job: "木工師", requiredLevel: 20, materialCost: 220, custom: false },
+      { id: "watch-ingot", nameJa: "製作用インゴット候補", itemId: null, type: "craft", job: "鍛冶師/甲冑師/彫金師", requiredLevel: 20, materialCost: 260, custom: false },
+
+      { id: "watch-new-style-mat", nameJa: "新式素材候補", itemId: null, type: "future", job: "採掘師/園芸師/漁師/各クラフター", requiredLevel: 100, materialCost: 0, custom: false },
+      { id: "watch-map-future", nameJa: "将来向け高額地図候補", itemId: null, type: "future", job: "採掘師/園芸師", requiredLevel: 100, materialCost: 0, custom: false },
+      { id: "watch-rare-fish-future", nameJa: "高値魚の将来候補", itemId: null, type: "future", job: "漁師", requiredLevel: 90, materialCost: 0, custom: false }
     ];
 
     const CATEGORY_LABELS = {
@@ -1142,11 +1142,13 @@
       addedSpots: loadJSON(STORAGE_KEYS.addedSpots, []),
       doneTasks: loadJSON(STORAGE_KEYS.doneTasks, {}),
       customWatchItems: loadJSON(STORAGE_KEYS.customWatchItems, []),
+      watchOverrides: loadJSON(STORAGE_KEYS.watchOverrides, {}),
       marketCache: loadJSON(STORAGE_KEYS.marketCache, { world: "", fetchedAt: 0, items: {} }),
       activeTab: "self",
       selectedSpotId: null,
       marketCategory: "all",
       showOnlyPossible: false,
+      editingWatchId: null,
       cameraStream: null
     };
 
@@ -1289,10 +1291,12 @@
       state.addedSpots = [];
       state.doneTasks = {};
       state.customWatchItems = [];
+      state.watchOverrides = {};
       state.marketCache = { world: "", fetchedAt: 0, items: {} };
       state.marketCategory = "all";
       state.showOnlyPossible = false;
       state.selectedSpotId = null;
+      state.editingWatchId = null;
 
       document.getElementById("spotSearchInput").value = "";
       document.getElementById("showOnlyPossible").checked = false;
@@ -1578,7 +1582,16 @@
     }
 
     function getAllWatchItems() {
-      return [...BASE_WATCH_ITEMS, ...state.customWatchItems];
+      const baseMerged = BASE_WATCH_ITEMS.map((item) => ({
+        ...item,
+        ...(state.watchOverrides[item.id] || {})
+      }));
+
+      return [...baseMerged, ...state.customWatchItems];
+    }
+
+    function getWatchItemById(id) {
+      return getAllWatchItems().find((item) => item.id === id) || null;
     }
 
     function renderMarketFilters() {
@@ -1681,7 +1694,6 @@
         .filter(Boolean);
 
       if (!choices.length) return 0;
-
       return choices.reduce((maxLevel, jobName) => Math.max(maxLevel, Number(state.jobs[jobName] || 0)), 0);
     }
 
@@ -1689,23 +1701,52 @@
       return getJobLevelForRequirement(item.job) >= Number(item.requiredLevel || 0);
     }
 
-    function estimateProfit(item, market) {
-      if (!market || !market.lowestPrice) return null;
-      const price = Number(market.lowestPrice || 0);
-      const afterFee = Math.floor(price * 0.95);
+    function estimateUnitsPerHour(item) {
+      const req = Number(item.requiredLevel || 1);
+
+      if (item.type === "shard") return 1400;
+
+      if (item.type === "gather") {
+        if (req <= 10) return 420;
+        if (req <= 25) return 320;
+        if (req <= 50) return 220;
+        if (req <= 80) return 160;
+        return 110;
+      }
 
       if (item.type === "craft") {
-        return afterFee - Number(item.materialCost || 0);
+        if (req <= 20) return 180;
+        if (req <= 40) return 120;
+        if (req <= 60) return 84;
+        if (req <= 90) return 54;
+        return 36;
+      }
+
+      return 0;
+    }
+
+    function estimateHourlyProfit(item, market) {
+      if (!market || !market.lowestPrice) return null;
+
+      const unitPrice = Number(market.lowestPrice || 0);
+      const unitsPerHour = estimateUnitsPerHour(item);
+      const netUnitRevenue = Math.floor(unitPrice * 0.95);
+
+      if (!unitsPerHour) return null;
+
+      if (item.type === "craft") {
+        const materialCost = Number(item.materialCost || 0);
+        return unitsPerHour * Math.max(0, netUnitRevenue - materialCost);
       }
 
       if (item.type === "future") {
         return null;
       }
 
-      return afterFee;
+      return unitsPerHour * netUnitRevenue;
     }
 
-    function buildReasons(item, market, doable, profitEstimate) {
+    function buildReasons(item, market, doable, hourlyProfit) {
       const reasons = [];
 
       if (doable) reasons.push("今のLvで採れる/作れる");
@@ -1728,26 +1769,28 @@
         reasons.push("相場取得後に再評価");
       }
 
-      if (profitEstimate !== null) {
-        if (profitEstimate >= 1000) reasons.push("利益見込みが強い");
-        else if (profitEstimate >= 200) reasons.push("利益見込みあり");
+      if (hourlyProfit !== null) {
+        if (hourlyProfit >= 200000) reasons.push("1時間利益見込みが強い");
+        else if (hourlyProfit >= 50000) reasons.push("1時間利益見込みあり");
       }
 
       if (item.type === "shard") reasons.push("回転枠");
+
       return [...new Set(reasons)].slice(0, 5);
     }
 
     function scoreItem(item) {
       const doable = canDoItem(item);
       const market = getItemMarket(item);
-      const profitEstimate = estimateProfit(item, market);
+      const hourlyProfit = estimateHourlyProfit(item, market);
 
       let score = 0;
+
       if (doable) score += 42;
       else score -= 22;
 
-      if (profitEstimate !== null) {
-        score += Math.min(35, Math.max(-15, Math.floor(profitEstimate / 120)));
+      if (hourlyProfit !== null) {
+        score += Math.min(45, Math.max(-20, Math.floor(hourlyProfit / 8000)));
       }
 
       if (market) {
@@ -1755,6 +1798,7 @@
         const stock = Number.isFinite(Number(market.stock)) ? Number(market.stock) : null;
 
         score += Math.min(20, Math.floor(velocity * 12));
+
         if (stock !== null) {
           if (stock <= 20) score += 14;
           else if (stock <= 80) score += 7;
@@ -1768,9 +1812,9 @@
       return {
         score,
         market,
-        profitEstimate,
+        hourlyProfit,
         canDo: doable,
-        reasons: buildReasons(item, market, doable, profitEstimate)
+        reasons: buildReasons(item, market, doable, hourlyProfit)
       };
     }
 
@@ -1782,10 +1826,7 @@
     }
 
     function buildMarketEntries() {
-      return getAllWatchItems().map((item) => ({
-        item,
-        ...scoreItem(item)
-      }));
+      return getAllWatchItems().map((item) => ({ item, ...scoreItem(item) }));
     }
 
     function renderSellToday() {
@@ -1795,10 +1836,13 @@
       const ranked = buildMarketEntries()
         .filter((entry) => entry.canDo)
         .sort((a, b) => {
-          const profitA = b.profitEstimate ?? -999999;
-          const profitB = a.profitEstimate ?? -999999;
+          const profitA = Number.isFinite(b.hourlyProfit) ? b.hourlyProfit : -999999999;
+          const profitB = Number.isFinite(a.hourlyProfit) ? a.hourlyProfit : -999999999;
           if (profitA !== profitB) return profitA - profitB;
-          return b.score - a.score;
+          if (b.score !== a.score) return b.score - a.score;
+          const velocityA = Number(b.market?.velocity || 0);
+          const velocityB = Number(a.market?.velocity || 0);
+          return velocityA - velocityB;
         })
         .slice(0, 8);
 
@@ -1808,7 +1852,7 @@
       }
 
       ranked.forEach((entry, index) => {
-        list.appendChild(createMarketCard(entry.item, entry.market, entry.score, entry.reasons, entry.canDo, entry.profitEstimate, index + 1));
+        list.appendChild(createMarketCard(entry.item, entry.market, entry.score, entry.reasons, entry.canDo, entry.hourlyProfit, index + 1));
       });
     }
 
@@ -1822,7 +1866,12 @@
         items = items.filter((entry) => entry.canDo);
       }
 
-      items.sort((a, b) => b.score - a.score);
+      items.sort((a, b) => {
+        if (b.score !== a.score) return b.score - a.score;
+        const hourA = Number(b.hourlyProfit || 0);
+        const hourB = Number(a.hourlyProfit || 0);
+        return hourA - hourB;
+      });
 
       if (!items.length) {
         list.innerHTML = `<div class="empty-state">条件に合う候補がありません。</div>`;
@@ -1830,7 +1879,7 @@
       }
 
       items.slice(0, 16).forEach((entry) => {
-        list.appendChild(createMarketCard(entry.item, entry.market, entry.score, entry.reasons, entry.canDo, entry.profitEstimate, null));
+        list.appendChild(createMarketCard(entry.item, entry.market, entry.score, entry.reasons, entry.canDo, entry.hourlyProfit, null));
       });
     }
 
@@ -1841,42 +1890,157 @@
       const items = getAllWatchItems();
       document.getElementById("watchCountPill").textContent = `${items.length}件`;
 
+      if (!items.length) {
+        list.innerHTML = `<div class="empty-state">監視候補がありません。</div>`;
+        return;
+      }
+
       items.forEach((item) => {
         const row = document.createElement("div");
-        row.className = "compact-watch-item";
+        row.className = "watch-item";
         row.innerHTML = `
-          <div class="compact-watch-name" title="${escapeAttr(item.name)}">${escapeHtml(item.name)}</div>
-          <div class="compact-watch-actions">
-            ${item.custom ? `<span class="tiny-pill custom">追加</span><button class="delete-btn" type="button" data-delete-watch="${escapeAttr(item.id)}">削除</button>` : `<span class="tiny-pill">標準</span>`}
+          <div class="watch-row-top">
+            <div class="watch-name">${escapeHtml(item.nameJa || "名称未設定")}</div>
+            <div class="watch-actions">
+              ${item.custom ? `<span class="tiny-pill custom">追加</span>` : `<span class="tiny-pill">標準</span>`}
+              <button class="mini-btn" type="button" data-edit-watch="${escapeAttr(item.id)}">${state.editingWatchId === item.id ? "閉じる" : "編集"}</button>
+              ${item.custom ? `<button class="delete-btn" type="button" data-delete-watch="${escapeAttr(item.id)}">削除</button>` : ""}
+            </div>
           </div>
+          ${
+            state.editingWatchId === item.id
+              ? renderWatchEditPanel(item)
+              : `<div class="meta-line">ItemID: ${item.itemId ? escapeHtml(String(item.itemId)) : "未設定"} / ${escapeHtml(item.job)} / Lv ${escapeHtml(String(item.requiredLevel))}</div>`
+          }
         `;
         list.appendChild(row);
+      });
+
+      list.querySelectorAll("[data-edit-watch]").forEach((button) => {
+        button.addEventListener("click", () => {
+          state.editingWatchId = state.editingWatchId === button.dataset.editWatch ? null : button.dataset.editWatch;
+          renderWatchItemList();
+        });
       });
 
       list.querySelectorAll("[data-delete-watch]").forEach((button) => {
         button.addEventListener("click", () => {
           state.customWatchItems = state.customWatchItems.filter((item) => item.id !== button.dataset.deleteWatch);
           saveJSON(STORAGE_KEYS.customWatchItems, state.customWatchItems);
+          if (state.editingWatchId === button.dataset.deleteWatch) state.editingWatchId = null;
+          renderMarketSection();
+        });
+      });
+
+      list.querySelectorAll("[data-save-watch]").forEach((button) => {
+        button.addEventListener("click", () => saveWatchEdit(button.dataset.saveWatch));
+      });
+
+      list.querySelectorAll("[data-reset-watch]").forEach((button) => {
+        button.addEventListener("click", () => {
+          delete state.watchOverrides[button.dataset.resetWatch];
+          saveJSON(STORAGE_KEYS.watchOverrides, state.watchOverrides);
+          state.editingWatchId = null;
           renderMarketSection();
         });
       });
     }
 
-    function createMarketCard(item, market, score, reasons, doable, profitEstimate, rank) {
+    function renderWatchEditPanel(item) {
+      return `
+        <div class="watch-edit-panel">
+          <div class="form-grid cols-3">
+            <label>
+              <span>商品名</span>
+              <input id="edit-watch-name-${escapeAttr(item.id)}" type="text" value="${escapeAttr(item.nameJa || "")}">
+            </label>
+            <label>
+              <span>ItemID</span>
+              <input id="edit-watch-itemid-${escapeAttr(item.id)}" type="number" min="0" step="1" value="${item.itemId ?? ""}">
+            </label>
+            <label>
+              <span>必要ジョブ</span>
+              <input id="edit-watch-job-${escapeAttr(item.id)}" type="text" value="${escapeAttr(item.job || "")}">
+            </label>
+            <label>
+              <span>必要Lv</span>
+              <input id="edit-watch-level-${escapeAttr(item.id)}" type="number" min="0" max="100" value="${escapeAttr(String(item.requiredLevel ?? 1))}">
+            </label>
+            <label>
+              <span>タイプ</span>
+              <select id="edit-watch-type-${escapeAttr(item.id)}">
+                ${Object.entries(CATEGORY_LABELS)
+                  .filter(([key]) => !["all", "possible"].includes(key))
+                  .map(([key, label]) => `<option value="${escapeAttr(key)}" ${item.type === key ? "selected" : ""}>${escapeHtml(label)}</option>`)
+                  .join("")}
+              </select>
+            </label>
+            <label>
+              <span>素材費（製作のみ）</span>
+              <input id="edit-watch-cost-${escapeAttr(item.id)}" type="number" min="0" step="1" value="${escapeAttr(String(item.materialCost ?? 0))}">
+            </label>
+          </div>
+          <div class="button-row">
+            <button class="primary-btn" type="button" data-save-watch="${escapeAttr(item.id)}">保存</button>
+            ${item.custom ? "" : `<button class="ghost-btn" type="button" data-reset-watch="${escapeAttr(item.id)}">初期値に戻す</button>`}
+          </div>
+        </div>
+      `;
+    }
+
+    function saveWatchEdit(id) {
+      const original = getWatchItemById(id);
+      if (!original) return;
+
+      const next = {
+        id,
+        nameJa: document.getElementById(`edit-watch-name-${id}`).value.trim() || original.nameJa,
+        itemId: parseOptionalNumber(document.getElementById(`edit-watch-itemid-${id}`).value),
+        job: document.getElementById(`edit-watch-job-${id}`).value.trim() || original.job,
+        requiredLevel: clampNumber(document.getElementById(`edit-watch-level-${id}`).value, 0, 100, original.requiredLevel || 1),
+        type: document.getElementById(`edit-watch-type-${id}`).value || original.type,
+        materialCost: clampNumber(document.getElementById(`edit-watch-cost-${id}`).value, 0, 999999999, original.materialCost || 0)
+      };
+
+      if (original.custom) {
+        state.customWatchItems = state.customWatchItems.map((item) => {
+          if (item.id !== id) return item;
+          return { ...item, ...next };
+        });
+        saveJSON(STORAGE_KEYS.customWatchItems, state.customWatchItems);
+      } else {
+        state.watchOverrides[id] = {
+          nameJa: next.nameJa,
+          itemId: next.itemId,
+          job: next.job,
+          requiredLevel: next.requiredLevel,
+          type: next.type,
+          materialCost: next.materialCost
+        };
+        saveJSON(STORAGE_KEYS.watchOverrides, state.watchOverrides);
+      }
+
+      state.editingWatchId = null;
+      renderMarketSection();
+      setStatus("marketStatus", "監視候補を保存しました。", "ok");
+    }
+
+    function createMarketCard(item, market, score, reasons, doable, hourlyProfit, rank) {
       const wrapper = document.createElement("div");
       wrapper.className = `market-item ${doable ? "can-do" : "locked"}`;
 
       const lowestPrice = market?.lowestPrice ? `${formatNumber(market.lowestPrice)} ギル` : "未取得";
       const stock = Number.isFinite(Number(market?.stock)) ? formatNumber(market.stock) : "未取得";
       const velocity = Number.isFinite(Number(market?.velocity)) ? Number(market.velocity).toFixed(2) : "未取得";
-      const profitText = profitEstimate === null ? "未算出" : `${formatNumber(profitEstimate)} ギル`;
+      const hourlyProfitText = hourlyProfit === null ? "未算出" : `${formatNumber(hourlyProfit)} ギル`;
       const itemTypeText = CATEGORY_LABELS[item.type] || item.type;
       const actionState = doable ? "できる" : "まだ無理";
+      const unitsPerHour = estimateUnitsPerHour(item);
 
       wrapper.innerHTML = `
         <div class="market-title-row">
           <div>
-            <h3 class="market-name">${escapeHtml(item.name)}</h3>
+            <h3 class="market-name">${escapeHtml(item.nameJa)}</h3>
             <div class="meta-line">必要ジョブ：${escapeHtml(item.job)} / 必要Lv：${escapeHtml(String(item.requiredLevel))}</div>
           </div>
           <div class="tag-wrap">
@@ -1900,14 +2064,15 @@
             <span class="stat-value">${escapeHtml(velocity)}</span>
           </div>
           <div class="stat-box">
-            <span class="stat-label">見込み利益</span>
-            <span class="stat-value">${escapeHtml(profitText)}</span>
+            <span class="stat-label">1時間利益見込み</span>
+            <span class="stat-value">${escapeHtml(hourlyProfitText)}</span>
           </div>
         </div>
 
         <div class="tag-wrap">
           <span class="tag warn">おすすめ ${Math.round(score)}</span>
-          ${item.itemId ? `<span class="tag">ItemID ${escapeHtml(String(item.itemId))}</span>` : `<span class="tag">API対象外</span>`}
+          <span class="tag">想定個数 ${formatNumber(unitsPerHour)}/h</span>
+          ${item.itemId ? `<span class="tag">ItemID ${escapeHtml(String(item.itemId))}</span>` : `<span class="tag">ItemID 未設定</span>`}
           ${item.materialCost ? `<span class="tag">素材費 ${escapeHtml(String(item.materialCost))} ギル</span>` : ""}
           ${item.custom ? `<span class="tag">ユーザー追加</span>` : `<span class="tag">標準候補</span>`}
         </div>
@@ -1926,7 +2091,7 @@
         .map((item) => item.itemId);
 
       if (!itemIds.length) {
-        setStatus("marketStatus", "ItemID がある監視アイテムがありません。", "error");
+        setStatus("marketStatus", "ItemID が設定された監視候補がありません。監視候補管理から ItemID を入力してください。", "error");
         return;
       }
 
@@ -1956,7 +2121,7 @@
         setStatus("marketStatus", `${state.profile.world} の相場を取得しました。`, "ok");
       } catch (error) {
         console.error(error);
-        setStatus("marketStatus", "相場取得に失敗しました。通信状況・ワールド名・ブラウザ制限を確認してください。", "error");
+        setStatus("marketStatus", "相場取得に失敗しました。HTTPS・通信状況・ワールド名・ブラウザ制限を確認してください。", "error");
       }
     }
 
@@ -2011,6 +2176,7 @@
       const job = document.getElementById("watchJob").value.trim();
       const requiredLevel = clampNumber(document.getElementById("watchLevel").value, 0, 100, 1);
       const type = document.getElementById("watchType").value;
+      const materialCost = clampNumber(document.getElementById("watchMaterialCost").value, 0, 999999999, 0);
 
       if (!name || !job) {
         window.alert("アイテム名と必要ジョブを入力してください。");
@@ -2019,11 +2185,12 @@
 
       const item = {
         id: `custom-watch-${Date.now()}`,
-        name,
+        nameJa: name,
         itemId: itemIdText ? Number(itemIdText) : null,
         job,
         requiredLevel,
         type,
+        materialCost,
         custom: true
       };
 
@@ -2035,8 +2202,10 @@
       document.getElementById("watchJob").value = "";
       document.getElementById("watchLevel").value = "1";
       document.getElementById("watchType").value = "user";
+      document.getElementById("watchMaterialCost").value = "0";
 
       renderMarketSection();
+      setStatus("marketStatus", "監視アイテムを追加しました。", "ok");
     }
 
     function parseOcrInput() {
@@ -2051,7 +2220,7 @@
       }
 
       const parsed = lines.map((line) => {
-        const match = line.match(/^(.*?)[\\s\\t]+([0-9][0-9,]*)$/);
+        const match = line.match(/^(.*?)[\s\t]+([0-9][0-9,]*)$/);
         if (match) {
           return { name: match[1].trim(), price: Number(match[2].replace(/,/g, "")) };
         }
@@ -2173,11 +2342,9 @@
         for (let x = 0; x < size; x += 1) {
           const cell = document.createElement("div");
           cell.className = "qr-cell";
-
           const finderState = getFinderState(x, y, size);
           const bitIndex = (x + y * size) % bits.length;
           const dark = finderState === "dark" || (!finderState && bits[bitIndex] === "1");
-
           if (dark) cell.classList.add("dark");
           container.appendChild(cell);
         }
@@ -2332,6 +2499,12 @@
       const number = Number(value);
       if (!Number.isFinite(number)) return fallback;
       return Math.min(max, Math.max(min, Math.floor(number)));
+    }
+
+    function parseOptionalNumber(value) {
+      if (String(value).trim() === "") return null;
+      const num = Number(value);
+      return Number.isFinite(num) ? Math.floor(num) : null;
     }
 
     function formatNumber(value) {
