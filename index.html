@@ -8,8 +8,8 @@
 :root{
   --bg1:#050814;
   --bg2:#0b1636;
-  --panel:#101a38;
-  --panel2:#142452;
+  --panel:#111b3a;
+  --panel2:#152654;
   --line:rgba(255,255,255,.12);
   --text:#f6f8ff;
   --muted:#aeb8d6;
@@ -22,9 +22,7 @@
   --shadow:0 14px 36px rgba(0,0,0,.28);
   --font:-apple-system,BlinkMacSystemFont,"Segoe UI","Hiragino Sans","Noto Sans JP",Meiryo,sans-serif;
 }
-
 *{box-sizing:border-box}
-
 html,body{
   margin:0;
   min-height:100%;
@@ -34,56 +32,13 @@ html,body{
     radial-gradient(circle at top,rgba(63,127,255,.18),transparent 34%),
     linear-gradient(180deg,var(--bg2),var(--bg1));
 }
-
-body{
-  line-height:1.55;
-}
-
-button,input,select,textarea{
-  font:inherit;
-}
-
-button{
-  border:0;
-  cursor:pointer;
-  color:var(--text);
-}
-
-.app{
-  width:min(100%,1200px);
-  margin:0 auto;
-  padding:16px 14px 96px;
-}
-
-.topbar{
-  display:flex;
-  align-items:flex-start;
-  justify-content:space-between;
-  gap:12px;
-  margin-bottom:14px;
-}
-
-.brand h1{
-  margin:0;
-  font-size:1.8rem;
-}
-
-.brand p{
-  margin:4px 0 0;
-  color:var(--muted);
-}
-
-.badge{
-  display:inline-flex;
-  align-items:center;
-  min-height:28px;
-  padding:4px 10px;
-  border-radius:999px;
-  background:rgba(255,255,255,.07);
-  color:#dce6ff;
-  font-size:.82rem;
-}
-
+body{line-height:1.55}
+button,input,select,textarea{font:inherit}
+button{border:0;cursor:pointer;color:var(--text)}
+.app{width:min(100%,1200px);margin:0 auto;padding:16px 14px 96px}
+.topbar{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:14px}
+.brand h1{margin:0;font-size:1.8rem}
+.brand p{margin:4px 0 0;color:var(--muted)}
 .world-badge{
   min-height:38px;
   padding:8px 12px;
@@ -93,7 +48,6 @@ button{
   color:#d5e3ff;
   white-space:nowrap;
 }
-
 .tabs{
   position:sticky;
   top:0;
@@ -109,7 +63,6 @@ button{
   backdrop-filter:blur(14px);
   box-shadow:var(--shadow);
 }
-
 .tab-btn{
   min-height:48px;
   padding:10px 8px;
@@ -118,25 +71,13 @@ button{
   color:var(--muted);
   font-weight:800;
 }
-
 .tab-btn.active{
   color:#fff;
   background:linear-gradient(180deg,var(--blue),var(--blue2));
 }
-
-.panel{
-  display:none;
-}
-
-.panel.active{
-  display:block;
-}
-
-.grid{
-  display:grid;
-  gap:14px;
-}
-
+.panel{display:none}
+.panel.active{display:block}
+.grid{display:grid;gap:14px}
 .card{
   padding:16px;
   border-radius:var(--radius);
@@ -144,29 +85,10 @@ button{
   background:linear-gradient(180deg,rgba(18,33,75,.96),rgba(10,19,46,.96));
   box-shadow:var(--shadow);
 }
-
-.card h2{
-  margin:0 0 12px;
-  font-size:1.08rem;
-}
-
-.card h3{
-  margin:16px 0 10px;
-  font-size:1rem;
-}
-
-label{
-  display:block;
-  margin-bottom:12px;
-}
-
-label span{
-  display:block;
-  margin-bottom:7px;
-  color:#e2e9ff;
-  font-size:.92rem;
-}
-
+.card h2{margin:0 0 12px;font-size:1.08rem}
+.card h3{margin:16px 0 10px;font-size:1rem}
+label{display:block;margin-bottom:12px}
+label span{display:block;margin-bottom:7px;color:#e2e9ff;font-size:.92rem}
 input,select,textarea{
   width:100%;
   padding:13px 14px;
@@ -176,33 +98,14 @@ input,select,textarea{
   color:var(--text);
   outline:none;
 }
-
-input::placeholder,textarea::placeholder{
-  color:rgba(255,255,255,.42);
-}
-
+input::placeholder,textarea::placeholder{color:rgba(255,255,255,.42)}
 input:focus,select:focus,textarea:focus{
   border-color:rgba(63,127,255,.74);
   background:rgba(255,255,255,.08);
 }
-
-textarea{
-  min-height:110px;
-  resize:vertical;
-}
-
-.form-grid{
-  display:grid;
-  gap:12px;
-}
-
-.row{
-  display:flex;
-  flex-wrap:wrap;
-  gap:10px;
-  align-items:center;
-}
-
+textarea{min-height:110px;resize:vertical}
+.form-grid{display:grid;gap:12px}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
 .btn{
   min-height:44px;
   padding:10px 14px;
@@ -211,97 +114,22 @@ textarea{
   background:rgba(255,255,255,.08);
   border:1px solid var(--line);
 }
-
-.btn.primary{
-  background:linear-gradient(180deg,var(--blue),var(--blue2));
-}
-
-.btn.danger{
-  color:#ffdbe2;
-  background:rgba(255,142,162,.12);
-  border-color:rgba(255,142,162,.28);
-}
-
-.btn.small{
-  min-height:34px;
-  padding:7px 10px;
-  font-size:.84rem;
-}
-
-.switch{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  padding:12px 13px;
-  border-radius:14px;
-  background:rgba(255,255,255,.05);
-}
-
-.switch input{
-  width:20px;
-  height:20px;
-  margin:0;
-  accent-color:var(--blue);
-}
-
+.btn.primary{background:linear-gradient(180deg,var(--blue),var(--blue2))}
+.btn.danger{color:#ffdbe2;background:rgba(255,142,162,.12);border-color:rgba(255,142,162,.28)}
+.btn.small{min-height:34px;padding:7px 10px;font-size:.84rem}
+.switch{display:flex;align-items:center;gap:10px;padding:12px 13px;border-radius:14px;background:rgba(255,255,255,.05)}
+.switch input{width:20px;height:20px;margin:0;accent-color:var(--blue)}
 .item{
   padding:13px;
   border:1px solid var(--line);
   border-radius:16px;
   background:rgba(255,255,255,.05);
 }
-
-.item.ok{
-  border-color:rgba(29,178,103,.28);
-  background:rgba(29,178,103,.09);
-}
-
-.item.lock{
-  opacity:.72;
-}
-
-.item + .item{
-  margin-top:10px;
-}
-
-.meta{
-  margin-top:5px;
-  color:var(--muted);
-  font-size:.9rem;
-}
-
-.tags{
-  display:flex;
-  flex-wrap:wrap;
-  gap:7px;
-  margin-top:10px;
-}
-
-.tag{
-  display:inline-flex;
-  align-items:center;
-  min-height:26px;
-  padding:3px 9px;
-  border-radius:999px;
-  background:rgba(255,255,255,.07);
-  color:#dce6ff;
-  font-size:.78rem;
-}
-
-.tag.ok{
-  background:rgba(29,178,103,.14);
-  color:#c6ffe2;
-}
-
-.tag.warn{
-  background:rgba(243,195,77,.14);
-  color:#ffe7a7;
-}
-
-.muted{
-  color:var(--muted);
-}
-
+.item + .item{margin-top:10px}
+.item.ok{border-color:rgba(29,178,103,.30);background:rgba(29,178,103,.10)}
+.item.lock{opacity:.72}
+.meta{margin-top:5px;color:var(--muted);font-size:.9rem}
+.muted{color:var(--muted)}
 .status{
   margin-top:12px;
   padding:12px 13px;
@@ -310,51 +138,32 @@ textarea{
   background:rgba(255,255,255,.05);
   color:var(--muted);
 }
-
-.status.ok{
-  color:#c6ffe2;
-  border-color:rgba(29,178,103,.28);
-  background:rgba(29,178,103,.09);
+.status.ok{color:#c6ffe2;border-color:rgba(29,178,103,.28);background:rgba(29,178,103,.09)}
+.status.err{color:#ffd7dd;border-color:rgba(255,142,162,.28);background:rgba(255,142,162,.09)}
+.tags,.chips{display:flex;flex-wrap:wrap;gap:7px}
+.tags{margin-top:10px}
+.chips{margin:8px 0}
+.tag,.chip,.badge{
+  display:inline-flex;
+  align-items:center;
+  min-height:28px;
+  padding:4px 10px;
+  border-radius:999px;
+  background:rgba(255,255,255,.07);
+  color:#dce6ff;
+  font-size:.8rem;
 }
-
-.status.err{
-  color:#ffd7dd;
-  border-color:rgba(255,142,162,.28);
-  background:rgba(255,142,162,.09);
-}
-
-.chips{
-  display:flex;
-  flex-wrap:wrap;
-  gap:7px;
-}
-
 .chip{
   min-height:38px;
   padding:8px 11px;
-  border-radius:999px;
   border:1px solid var(--line);
-  background:rgba(255,255,255,.06);
-  color:#dce6ff;
   font-weight:700;
 }
-
-.chip.active{
-  background:rgba(63,127,255,.18);
-  border-color:rgba(63,127,255,.34);
-}
-
-.task{
-  display:flex;
-  align-items:center;
-  gap:12px;
-  cursor:pointer;
-}
-
-.task.done{
-  background:rgba(29,178,103,.12);
-}
-
+.chip.active{background:rgba(63,127,255,.18);border-color:rgba(63,127,255,.34)}
+.tag.ok{background:rgba(29,178,103,.14);color:#c6ffe2}
+.tag.warn{background:rgba(243,195,77,.14);color:#ffe7a7}
+.task{display:flex;align-items:center;gap:12px;cursor:pointer}
+.task.done{background:rgba(29,178,103,.12)}
 .checkmark{
   width:24px;
   height:24px;
@@ -364,67 +173,28 @@ textarea{
   place-items:center;
   font-weight:900;
 }
-
-.task.done .checkmark{
-  background:rgba(29,178,103,.18);
-  border-color:rgba(29,178,103,.64);
-}
-
-.summary{
-  display:grid;
-  gap:10px;
-  grid-template-columns:repeat(2,1fr);
-}
-
-.summary-box{
-  padding:12px;
-  border-radius:14px;
-  background:rgba(255,255,255,.05);
-}
-
-.summary-value{
-  margin-top:4px;
-  font-weight:900;
-  font-size:1.15rem;
-}
-
+.task.done .checkmark{background:rgba(29,178,103,.18);border-color:rgba(29,178,103,.64)}
+.summary{display:grid;gap:10px;grid-template-columns:repeat(2,1fr)}
+.summary-box{padding:12px;border-radius:14px;background:rgba(255,255,255,.05)}
+.summary-value{margin-top:4px;font-weight:900;font-size:1.15rem}
+.spot-line{cursor:pointer;transition:.15s ease}
+.spot-line:hover,.spot-line.active{border-color:rgba(63,127,255,.48);background:rgba(63,127,255,.12)}
+.search-row{margin-bottom:12px}
 @media(min-width:800px){
-  .app{
-    padding:20px 18px 48px;
-  }
-
-  .two-col{
-    grid-template-columns:1fr 1fr;
-  }
-
-  .three-col{
-    grid-template-columns:repeat(3,1fr);
-  }
-
-  .market-grid{
-    grid-template-columns:repeat(12,1fr);
-  }
-
+  .app{padding:20px 18px 48px}
+  .two-col{grid-template-columns:1fr 1fr}
+  .three-col{grid-template-columns:repeat(3,1fr)}
+  .market-grid{grid-template-columns:repeat(12,1fr)}
   .span-12{grid-column:span 12}
   .span-6{grid-column:span 6}
 }
-
 @media(max-width:799px){
-  .topbar{
-    display:block;
-  }
-
-  .world-badge{
-    margin-top:10px;
-  }
-
-  .summary{
-    grid-template-columns:1fr;
-  }
+  .topbar{display:block}
+  .world-badge{margin-top:10px}
+  .summary{grid-template-columns:1fr}
 }
 </style>
 </head>
-
 <body>
 <div class="app">
   <header class="topbar">
@@ -449,34 +219,13 @@ textarea{
           <h2>自分情報</h2>
 
           <div class="form-grid two-col">
-            <label>
-              <span>キャラ名</span>
-              <input id="profileCharacter">
-            </label>
-            <label>
-              <span>ワールド</span>
-              <input id="profileWorld">
-            </label>
-            <label>
-              <span>DC</span>
-              <input id="profileDc">
-            </label>
-            <label>
-              <span>メイン進行度</span>
-              <select id="profileProgress"></select>
-            </label>
-            <label>
-              <span>所持ギル</span>
-              <input id="profileGil" type="number" min="0">
-            </label>
-            <label>
-              <span>軍票</span>
-              <input id="profileSeals" type="number" min="0">
-            </label>
-            <label>
-              <span>ベンチャー</span>
-              <input id="profileVentures" type="number" min="0">
-            </label>
+            <label><span>キャラ名</span><input id="profileCharacter"></label>
+            <label><span>ワールド</span><input id="profileWorld"></label>
+            <label><span>DC</span><input id="profileDc"></label>
+            <label><span>メイン進行度</span><select id="profileProgress"></select></label>
+            <label><span>所持ギル</span><input id="profileGil" type="number" min="0"></label>
+            <label><span>軍票</span><input id="profileSeals" type="number" min="0"></label>
+            <label><span>ベンチャー</span><input id="profileVentures" type="number" min="0"></label>
           </div>
 
           <label class="switch">
@@ -487,10 +236,7 @@ textarea{
           <h3>PC / スマホ同期</h3>
           <p class="muted">SupabaseのURLとanon keyを設定すると、同じ同期キーで端末間同期できます。</p>
 
-          <label>
-            <span>同期キー</span>
-            <input id="syncKey" placeholder="例：yuzu-eorzea-pocket">
-          </label>
+          <label><span>同期キー</span><input id="syncKey" placeholder="例：yuzu-eorzea-pocket"></label>
 
           <div class="row">
             <button id="saveProfileBtn" class="btn primary">この端末に保存</button>
@@ -505,14 +251,8 @@ textarea{
           <h2>ジョブ / クラスLv</h2>
 
           <div class="form-grid two-col">
-            <label>
-              <span>ジョブ名</span>
-              <input id="jobNameInput" placeholder="例：ピクトマンサー">
-            </label>
-            <label>
-              <span>Lv</span>
-              <input id="jobLevelInput" type="number" min="0" max="100" value="1">
-            </label>
+            <label><span>ジョブ名</span><input id="jobNameInput" placeholder="例：ピクトマンサー"></label>
+            <label><span>Lv</span><input id="jobLevelInput" type="number" min="0" max="100" value="1"></label>
           </div>
 
           <button id="addJobBtn" class="btn primary">ジョブ追加</button>
@@ -530,7 +270,9 @@ textarea{
       <div class="grid two-col">
         <article class="card">
           <h2>散歩スポット</h2>
-          <input id="spotSearchInput" placeholder="夜景、雪、クガネ…">
+          <div class="search-row">
+            <input id="spotSearchInput" placeholder="夜景、雪、クガネ、花畑、海…">
+          </div>
 
           <div class="row">
             <button id="gachaSpotBtn" class="btn primary">散歩ガチャ</button>
@@ -632,8 +374,7 @@ textarea{
     </section>
   </main>
 </div>
-`
-  <script>
+<script>
 const SUPABASE_URL = "";
 const SUPABASE_ANON_KEY = "";
 
@@ -698,7 +439,25 @@ const baseSpots = [
   {id:"s3",name:"アジス・ラー浮遊島シルエット",area:"アジス・ラー",coord:"X:26.2 Y:11.4",progress:"hw",tags:["SF","廃墟","浮遊島"],filter:"Cinematic",memo:"背景の巨大構造物を入れる。暗めにして輪郭を強調。"},
   {id:"s4",name:"クガネ夜景・朱雀門前",area:"クガネ",coord:"X:10.8 Y:9.7",progress:"sb",tags:["夜景","和風","街灯"],filter:"Old Digicam",memo:"提灯背景が強い。縦構図向き。"},
   {id:"s5",name:"エルピス花畑・白昼夢",area:"エルピス",coord:"X:13.5 Y:7.8",progress:"ew",tags:["花畑","幻想","白"],filter:"Faded Print",memo:"明るく淡く。余白を活かす。"},
-  {id:"s6",name:"トライヨラ港・南国スナップ",area:"トライヨラ",coord:"X:12.0 Y:13.2",progress:"dt",tags:["南国","港","青空"],filter:"CCD Flash",memo:"青空と建物を強めに。"}
+  {id:"s6",name:"トライヨラ港・南国スナップ",area:"トライヨラ",coord:"X:12.0 Y:13.2",progress:"dt",tags:["南国","港","青空"],filter:"CCD Flash",memo:"青空と建物を強めに。"},
+  {id:"s7",name:"グリダニア雨上がり小径",area:"グリダニア：旧市街",coord:"X:7.8 Y:6.2",progress:"arr",tags:["森","雨上がり","緑"],filter:"Soft Glow",memo:"石畳の反射を活かすと雰囲気が出る。"},
+  {id:"s8",name:"リムサ夕暮れの下甲板",area:"リムサ・ロミンサ：下甲板層",coord:"X:9.6 Y:11.2",progress:"arr",tags:["港","夕暮れ","青"],filter:"Warm Street",memo:"海と街灯を一緒に入れるとコンデジ感が出る。"},
+  {id:"s9",name:"ウルダハ王政庁前の夜景",area:"ウルダハ：ナル回廊",coord:"X:10.8 Y:11.1",progress:"arr",tags:["夜景","街","ゴールド"],filter:"Gold Night",memo:"暗部を締めると人物の輪郭が映える。"},
+  {id:"s10",name:"クルザス西部高地・白銀の張り出し",area:"西部高地クルザス",coord:"X:16.4 Y:22.1",progress:"hw",tags:["雪山","高低差","白銀"],filter:"High Contrast",memo:"遠景を大きく入れてスケール感を出す。"},
+  {id:"s11",name:"高地ドラヴァニア星見の崖",area:"高地ドラヴァニア",coord:"X:22.6 Y:18.9",progress:"hw",tags:["夜空","崖","静けさ"],filter:"Cool Night",memo:"夜にすると青の階調がきれい。"},
+  {id:"s12",name:"ヤンサ竹林の逆光道",area:"ヤンサ",coord:"X:30.5 Y:15.3",progress:"sb",tags:["竹林","和風","逆光"],filter:"Faded Green",memo:"逆光で輪郭を出すと映える。"},
+  {id:"s13",name:"紅玉海・朝焼けの船着き場",area:"紅玉海",coord:"X:10.7 Y:31.6",progress:"sb",tags:["海","朝焼け","東方"],filter:"Warm Rise",memo:"水面と空の色差を強調。"},
+  {id:"s14",name:"アジムステップ草原の夕日",area:"アジムステップ",coord:"X:24.5 Y:21.0",progress:"sb",tags:["草原","夕日","広角"],filter:"Amber Field",memo:"地平線を低くして空を広く撮る。"},
+  {id:"s15",name:"クリスタリウム水晶街路",area:"クリスタリウム",coord:"X:9.4 Y:12.8",progress:"shb",tags:["水晶","都会","青"],filter:"Crystal Pop",memo:"青い光源と人物の配置が大事。"},
+  {id:"s16",name:"ラケティカ大森林・木漏れ日",area:"ラケティカ大森林",coord:"X:23.6 Y:11.8",progress:"shb",tags:["森","神秘","木漏れ日"],filter:"Soft Portrait",memo:"木漏れ日の下に立たせる。彩度を少し落としても綺麗。"},
+  {id:"s17",name:"テンペスト深海の光柱",area:"テンペスト",coord:"X:33.1 Y:24.8",progress:"shb",tags:["海底","幻想","光"],filter:"Dream Blue",memo:"広角気味にすると空間の密度が出る。"},
+  {id:"s18",name:"ラヴィリンソス温室回廊",area:"ラヴィリンソス",coord:"X:8.6 Y:28.4",progress:"ew",tags:["温室","未来","白基調"],filter:"Clean White",memo:"白背景で衣装の色を見せやすい。"},
+  {id:"s19",name:"ウルティマ・トゥーレ星屑の床",area:"ウルティマ・トゥーレ",coord:"X:21.4 Y:8.9",progress:"ew",tags:["宇宙","星屑","孤高"],filter:"Stardust",memo:"シルエットと余白で壮大さを出す。"},
+  {id:"s20",name:"オールド・シャーレアン白壁の朝",area:"オールド・シャーレアン",coord:"X:13.2 Y:10.8",progress:"ew",tags:["白壁","知的","朝"],filter:"Clean Film",memo:"朝の柔らかい光が似合う。"},
+  {id:"s21",name:"トライヨラ市場の昼下がり",area:"トライヨラ",coord:"X:14.2 Y:12.0",progress:"dt",tags:["市場","南国","日常"],filter:"CCD Street",memo:"人通りのある街角スナップ向き。"},
+  {id:"s22",name:"コザマル・カ港町石段",area:"コザマル・カ",coord:"X:14.0 Y:19.8",progress:"dt",tags:["石段","街並み","陽光"],filter:"Warm Street",memo:"階段を斜めに入れると立体感が出る。"},
+  {id:"s23",name:"シャーローニ荒野の赤土夕景",area:"シャーローニ荒野",coord:"X:28.8 Y:12.6",progress:"dt",tags:["荒野","夕景","赤土"],filter:"Desert Gold",memo:"地平線を低めにして空を大きく。"},
+  {id:"s24",name:"ヘリテージファウンド夜のネオン",area:"ヘリテージファウンド",coord:"X:17.7 Y:9.5",progress:"dt",tags:["ネオン","夜","近未来"],filter:"Cyber Night",memo:"光源を背景に置いて輪郭を強める。"}
 ];
 
 const baseWatch = [
@@ -718,9 +477,33 @@ const baseWatch = [
   {id:"w5064",name:"シルバーインゴット",itemId:5064,type:"craft",job:"彫金師",level:23,cost:680},
   {id:"wg18",name:"古ぼけた地図G18",itemId:null,type:"future",job:"採掘師/園芸師",level:100,cost:0},
   {id:"wcopper",name:"銅鉱",itemId:null,type:"gather",job:"採掘師",level:1,cost:0},
+  {id:"wtin",name:"錫鉱",itemId:null,type:"gather",job:"採掘師",level:6,cost:0},
   {id:"wiron",name:"鉄鉱",itemId:null,type:"gather",job:"採掘師",level:14,cost:0},
+  {id:"wsilver-sand",name:"銀砂",itemId:null,type:"gather",job:"採掘師",level:23,cost:0},
+  {id:"wmythril",name:"ミスリル鉱",itemId:null,type:"gather",job:"採掘師",level:40,cost:0},
+  {id:"welectrum",name:"エレクトラム鉱",itemId:null,type:"gather",job:"採掘師",level:45,cost:0},
+  {id:"wgold",name:"金鉱",itemId:null,type:"gather",job:"採掘師",level:50,cost:0},
+  {id:"whardsilver",name:"ハードシルバー鉱",itemId:null,type:"gather",job:"採掘師",level:56,cost:0},
+  {id:"wtitanium",name:"チタン鉱",itemId:null,type:"gather",job:"採掘師",level:60,cost:0},
+  {id:"wnightsteel",name:"闇鉄鉱",itemId:null,type:"gather",job:"採掘師",level:80,cost:0},
+  {id:"wmaple",name:"メープル原木",itemId:null,type:"gather",job:"園芸師",level:5,cost:0},
   {id:"woak",name:"オーク原木",itemId:null,type:"gather",job:"園芸師",level:25,cost:0},
-  {id:"wapple",name:"アップルタルト",itemId:null,type:"craft",job:"調理師",level:33,cost:260}
+  {id:"wwalnut",name:"ウォルナット原木",itemId:null,type:"gather",job:"園芸師",level:25,cost:0},
+  {id:"wdarkchestnut",name:"ダークチェスナット原木",itemId:null,type:"gather",job:"園芸師",level:50,cost:0},
+  {id:"wteak",name:"チーク原木",itemId:null,type:"gather",job:"園芸師",level:60,cost:0},
+  {id:"wpalm",name:"パーム原木",itemId:null,type:"gather",job:"園芸師",level:90,cost:0},
+  {id:"wlavender",name:"ラベンダー",itemId:null,type:"gather",job:"園芸師",level:16,cost:0},
+  {id:"wclove",name:"クローヴ",itemId:null,type:"gather",job:"園芸師",level:53,cost:0},
+  {id:"wcordial",name:"コーディアル",itemId:null,type:"craft",job:"錬金術師",level:50,cost:390},
+  {id:"whicordial",name:"ハイコーディアル",itemId:null,type:"craft",job:"錬金術師",level:54,cost:780},
+  {id:"wapple",name:"アップルタルト",itemId:null,type:"craft",job:"調理師",level:33,cost:260},
+  {id:"wmarmalade",name:"マーマレード",itemId:null,type:"craft",job:"調理師",level:13,cost:120},
+  {id:"wcoffee",name:"コーヒークッキー",itemId:null,type:"craft",job:"調理師",level:80,cost:980},
+  {id:"wglue",name:"にかわ系素材",itemId:null,type:"craft",job:"錬金術師",level:12,cost:140},
+  {id:"wlumber",name:"製作用木材候補",itemId:null,type:"craft",job:"木工師",level:20,cost:220},
+  {id:"wingot",name:"製作用インゴット候補",itemId:null,type:"craft",job:"鍛冶師/甲冑師/彫金師",level:20,cost:260},
+  {id:"wnewstyle",name:"新式素材候補",itemId:null,type:"future",job:"採掘師/園芸師/漁師/各クラフター",level:100,cost:0},
+  {id:"wrare-fish",name:"高値魚の将来候補",itemId:null,type:"future",job:"漁師",level:90,cost:0}
 ];
 
 let state = {
@@ -737,14 +520,12 @@ let state = {
 };
 
 const $ = id => document.getElementById(id);
-
-document.addEventListener("DOMContentLoaded", init);
+  document.addEventListener("DOMContentLoaded", init);
 
 function init(){
   Object.keys(progressLabels).forEach(k=>{
     $("profileProgress").insertAdjacentHTML("beforeend",`<option value="${k}">${progressLabels[k]}</option>`);
   });
-
   bind();
   renderAll();
 }
@@ -768,13 +549,13 @@ function bind(){
 
   $("addJobBtn").onclick=addJob;
   $("gachaSpotBtn").onclick=gachaSpot;
-  $("clearSpotSearchBtn").onclick=()=>{$("spotSearchInput").value="";renderWalk()};
+  $("clearSpotSearchBtn").onclick=()=>{$("spotSearchInput").value="";renderWalk();};
   $("spotSearchInput").oninput=renderWalk;
   $("addSpotBtn").onclick=addSpot;
 
   $("fetchMarketBtn").onclick=fetchMarket;
   $("clearCacheBtn").onclick=clearCache;
-  $("showOnlyPossible").onchange=e=>{state.showOnly=e.target.checked;renderMarket()};
+  $("showOnlyPossible").onchange=e=>{state.showOnly=e.target.checked;renderMarket();};
   $("addWatchBtn").onclick=addWatch;
   $("parseOcrBtn").onclick=parseOcr;
 }
@@ -783,22 +564,21 @@ function renderAll(){
   renderProfile();
   renderJobs();
   renderWalk();
-  renderMarketFilters();
   renderMarket();
   renderToday();
 }
 
 function renderProfile(){
-  $("profileCharacter").value=state.profile.character;
-  $("profileWorld").value=state.profile.world;
-  $("profileDc").value=state.profile.dc;
-  $("profileProgress").value=state.profile.progress;
-  $("profileGil").value=state.profile.gil;
-  $("profileSeals").value=state.profile.companySeals;
-  $("profileVentures").value=state.profile.ventures;
-  $("hideLockedSpots").checked=state.profile.hideLockedSpots;
+  $("profileCharacter").value=state.profile.character||"";
+  $("profileWorld").value=state.profile.world||"";
+  $("profileDc").value=state.profile.dc||"";
+  $("profileProgress").value=state.profile.progress||"hw";
+  $("profileGil").value=state.profile.gil||0;
+  $("profileSeals").value=state.profile.companySeals||0;
+  $("profileVentures").value=state.profile.ventures||0;
+  $("hideLockedSpots").checked=!!state.profile.hideLockedSpots;
   $("syncKey").value=localStorage.getItem(K.syncKey)||"";
-  $("worldBadge").textContent=`${state.profile.dc} / ${state.profile.world}`;
+  $("worldBadge").textContent=`${state.profile.dc||"Meteor"} / ${state.profile.world||"Shinryu"}`;
 }
 
 function saveProfile(){
@@ -870,8 +650,8 @@ function addJob(){
   renderToday();
 }
 
-function allSpots(){return [...baseSpots,...state.spots]}
-function progressOk(p){return progressOrder.indexOf(p)<=progressOrder.indexOf(state.profile.progress)}
+function allSpots(){return [...baseSpots,...state.spots];}
+function progressOk(p){return progressOrder.indexOf(p)<=progressOrder.indexOf(state.profile.progress);}
 
 function renderWalk(){
   const q=$("spotSearchInput").value.trim().toLowerCase();
@@ -884,7 +664,7 @@ function renderWalk(){
   if(!state.selectedSpot&&visible[0])state.selectedSpot=visible[0].id;
 
   $("spotList").innerHTML=visible.map(s=>`
-    <div class="item ${state.selectedSpot===s.id?"ok":""}" data-spot="${s.id}">
+    <div class="item spot-line ${state.selectedSpot===s.id?"active":""}" data-spot="${s.id}">
       <b>${progressOk(s.progress)?"🔓":"🔒"} ${esc(s.name)}</b>
       <div class="meta">${esc(s.area)} / ${esc(s.coord)} / ${progressLabels[s.progress]}</div>
       <div class="tags">${s.tags.map(t=>`<span class="tag">${esc(t)}</span>`).join("")}</div>
@@ -907,6 +687,7 @@ function renderWalk(){
       <p><b>必要進行：</b>${progressLabels[selected.progress]}</p>
       <p><b>加工：</b>${esc(selected.filter)}</p>
       <p>${esc(selected.memo)}</p>
+      <div class="tags">${selected.tags.map(t=>`<span class="tag">${esc(t)}</span>`).join("")}</div>
     </div>
   `:`<div class="item">未選択</div>`;
 }
@@ -938,15 +719,13 @@ function addSpot(){
   renderWalk();
 }
 
-function allWatch(){
-  return baseWatch.map(x=>({...x,...(state.overrides[x.id]||{})})).concat(state.customWatch);
-}
+function allWatch(){return baseWatch.map(x=>({...x,...(state.overrides[x.id]||{})})).concat(state.customWatch);}
 
 function jobLevel(req){
   return String(req).split("/").map(x=>state.jobs[x.trim()]||0).reduce((a,b)=>Math.max(a,b),0);
 }
 
-function canDo(item){return jobLevel(item.job)>=item.level}
+function canDo(item){return jobLevel(item.job)>=item.level;}
 
 function marketOf(item){
   if(!item.itemId)return null;
@@ -955,7 +734,7 @@ function marketOf(item){
 
 function hourly(item,m){
   if(!m||!m.lowest)return null;
-  const unit = item.type==="shard"?1400:item.type==="gather"?260:item.type==="craft"?80:0;
+  const unit=item.type==="shard"?1400:item.type==="gather"?260:item.type==="craft"?80:0;
   if(!unit)return null;
   return Math.max(0,Math.floor(m.lowest*.95)-Number(item.cost||0))*unit;
 }
@@ -1000,6 +779,22 @@ function filteredEntries(){
   }).map(score).sort((a,b)=>b.score-a.score);
 }
 
+function renderMarket(){
+  renderMarketFilters();
+  const all=allWatch();
+  $("marketSummary").innerHTML=`
+    <div class="summary-box"><div class="muted">監視総数</div><div class="summary-value">${all.length}</div></div>
+    <div class="summary-box"><div class="muted">今できる</div><div class="summary-value">${all.filter(canDo).length}</div></div>
+    <div class="summary-box"><div class="muted">API対応</div><div class="summary-value">${all.filter(x=>x.itemId).length}</div></div>
+    <div class="summary-box"><div class="muted">キャッシュ</div><div class="summary-value">${Object.keys(state.cache.items||{}).length}</div></div>
+  `;
+
+  const entries=filteredEntries();
+  $("sellTodayList").innerHTML=entries.filter(e=>canDo(e.item)).slice(0,8).map((e,i)=>marketCard(e,i+1)).join("")||`<div class="item">今できる候補がありません。</div>`;
+  $("discoverList").innerHTML=entries.slice(0,16).map(e=>marketCard(e,null)).join("")||`<div class="item">候補がありません。</div>`;
+  $("watchItemList").innerHTML=all.map(watchRow).join("");
+}
+
 function renderMarketFilters(){
   const cats=[
     ["all","全部"],
@@ -1017,22 +812,6 @@ function renderMarketFilters(){
       renderMarket();
     };
   });
-}
-
-function renderMarket(){
-  renderMarketFilters();
-  const all=allWatch();
-  $("marketSummary").innerHTML=`
-    <div class="summary-box"><div class="muted">監視総数</div><div class="summary-value">${all.length}</div></div>
-    <div class="summary-box"><div class="muted">今できる</div><div class="summary-value">${all.filter(canDo).length}</div></div>
-    <div class="summary-box"><div class="muted">API対応</div><div class="summary-value">${all.filter(x=>x.itemId).length}</div></div>
-    <div class="summary-box"><div class="muted">キャッシュ</div><div class="summary-value">${Object.keys(state.cache.items||{}).length}</div></div>
-  `;
-
-  const entries=filteredEntries();
-  $("sellTodayList").innerHTML=entries.filter(e=>canDo(e.item)).slice(0,8).map((e,i)=>marketCard(e,i+1)).join("")||`<div class="item">今できる候補がありません。</div>`;
-  $("discoverList").innerHTML=entries.slice(0,16).map(e=>marketCard(e,null)).join("")||`<div class="item">候補がありません。</div>`;
-  $("watchItemList").innerHTML=all.map(watchRow).join("");
 }
 
 function marketCard(e,rank){
@@ -1097,7 +876,8 @@ function addWatch(){
   });
   save(K.customWatch,state.customWatch);
   ["watchName","watchItemId","watchJob"].forEach(id=>$(id).value="");
-  $("watchLevel").value=1;$("watchMaterialCost").value=0;
+  $("watchLevel").value=1;
+  $("watchMaterialCost").value=0;
   renderMarket();
 }
 
@@ -1105,7 +885,9 @@ function parseOcr(){
   const lines=$("ocrInput").value.split(/\n/).map(x=>x.trim()).filter(Boolean);
   $("ocrCards").innerHTML=lines.map(line=>{
     const m=line.match(/^(.+?)\s+([\d,]+)$/);
-    return `<div class="item"><b>${esc(m?mline)}</b><div class="meta">${m?fmt(Number(m[2].replace(/,/g,"")))+" ギル":"価格未解析"}</div></div>`;
+    const name=m?mline;
+    const price=m?Number(m[2].replace(/,/g,"")):null;
+    return `<div class="item"><b>${esc(name)}</b><div class="meta">${price!==null?fmt(price)+" ギル":"価格未解析"}</div></div>`;
   }).join("")||`<div class="item">入力してください。</div>`;
 }
 
@@ -1191,6 +973,7 @@ async function cloudSave(){
   const key=$("syncKey").value.trim();
   if(!key)return setSync("同期キーを入力してください。","err");
   localStorage.setItem(K.syncKey,key);
+  saveProfile();
   if(!SUPABASE_URL||!SUPABASE_ANON_KEY)return setSync("Supabase URL / anon key が未設定です。","err");
 
   const data=exportData();
@@ -1273,12 +1056,20 @@ function setSync(text,mode){
 }
 
 function load(k,fallback){
-  try{return JSON.parse(localStorage.getItem(k))??structuredClone(fallback);}
-  catch{return structuredClone(fallback);}
+  try{
+    const v=localStorage.getItem(k);
+    return v?JSON.parse(v):clone(fallback);
+  }catch{
+    return clone(fallback);
+  }
 }
 
 function save(k,v){
   localStorage.setItem(k,JSON.stringify(v));
+}
+
+function clone(v){
+  return JSON.parse(JSON.stringify(v));
 }
 
 function num(v,min=0,max=999999999){
@@ -1298,57 +1089,6 @@ function esc(s){
 function escAttr(s){
   return esc(s).replace(/`/g,"&#96;");
 }
-</script>
-  <script>
-(function () {
-  function activateTab(tabName) {
-    const buttons = document.querySelectorAll(".tab-btn, .tabs button, nav button");
-    const panels = document.querySelectorAll(".tab-panel, .panel, .tab");
-
-    buttons.forEach(function (button) {
-      const buttonTab = button.dataset.tab;
-      button.classList.toggle("active", buttonTab === tabName);
-    });
-
-    panels.forEach(function (panel) {
-      const panelId = panel.id || "";
-      const matches =
-        panelId === "tab-" + tabName ||
-        panelId === tabName ||
-        panel.dataset.tab === tabName;
-
-      panel.classList.toggle("active", matches);
-    });
-  }
-
-  function setupTabs() {
-    const buttons = document.querySelectorAll(".tab-btn, .tabs button, nav button");
-
-    buttons.forEach(function (button) {
-      button.addEventListener("click", function () {
-        const tabName = button.dataset.tab;
-        if (!tabName) return;
-        activateTab(tabName);
-      });
-    });
-
-    const activeButton =
-      document.querySelector(".tab-btn.active") ||
-      document.querySelector(".tabs button.active") ||
-      document.querySelector("nav button.active") ||
-      buttons[0];
-
-    if (activeButton && activeButton.dataset.tab) {
-      activateTab(activeButton.dataset.tab);
-    }
-  }
-
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", setupTabs);
-  } else {
-    setupTabs();
-  }
-})();
 </script>
 </body>
 </html>
