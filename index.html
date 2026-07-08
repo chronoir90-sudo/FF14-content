@@ -882,13 +882,25 @@ function addWatch(){
 }
 
 function parseOcr(){
-  const lines=$("ocrInput").value.split(/\n/).map(x=>x.trim()).filter(Boolean);
-  $("ocrCards").innerHTML=lines.map(line=>{
-    const m=line.match(/^(.+?)\s+([\d,]+)$/);
-    const name=m?mline;
-    const price=m?Number(m[2].replace(/,/g,"")):null;
-    return `<div class="item"><b>${esc(name)}</b><div class="meta">${price!==null?fmt(price)+" ギル":"価格未解析"}</div></div>`;
-  }).join("")||`<div class="item">入力してください。</div>`;
+  const lines = $("ocrInput").value
+    .split(/\n/)
+    .map(x => x.trim())
+    .filter(Boolean);
+
+  $("ocrCards").innerHTML = lines.map(line => {
+    const m = line.match(/^(.+?)\s+([\d,]+)$/);
+    const name = m ? m[1].trim() : line;
+    const price = m ? Number(m[2].replace(/,/g, "")) : null;
+
+    return `
+      <div class="item">
+        <b>${esc(name)}</b>
+        <div class="meta">
+          ${price !== null ? fmt(price) + " ギル" : "価格未解析"}
+        </div>
+      </div>
+    `;
+  }).join("") || `<div class="item">入力してください。</div>`;
 }
 
 async function fetchMarket(){
