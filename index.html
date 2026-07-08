@@ -1299,5 +1299,56 @@ function escAttr(s){
   return esc(s).replace(/`/g,"&#96;");
 }
 </script>
+  <script>
+(function () {
+  function activateTab(tabName) {
+    const buttons = document.querySelectorAll(".tab-btn, .tabs button, nav button");
+    const panels = document.querySelectorAll(".tab-panel, .panel, .tab");
+
+    buttons.forEach(function (button) {
+      const buttonTab = button.dataset.tab;
+      button.classList.toggle("active", buttonTab === tabName);
+    });
+
+    panels.forEach(function (panel) {
+      const panelId = panel.id || "";
+      const matches =
+        panelId === "tab-" + tabName ||
+        panelId === tabName ||
+        panel.dataset.tab === tabName;
+
+      panel.classList.toggle("active", matches);
+    });
+  }
+
+  function setupTabs() {
+    const buttons = document.querySelectorAll(".tab-btn, .tabs button, nav button");
+
+    buttons.forEach(function (button) {
+      button.addEventListener("click", function () {
+        const tabName = button.dataset.tab;
+        if (!tabName) return;
+        activateTab(tabName);
+      });
+    });
+
+    const activeButton =
+      document.querySelector(".tab-btn.active") ||
+      document.querySelector(".tabs button.active") ||
+      document.querySelector("nav button.active") ||
+      buttons[0];
+
+    if (activeButton && activeButton.dataset.tab) {
+      activateTab(activeButton.dataset.tab);
+    }
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", setupTabs);
+  } else {
+    setupTabs();
+  }
+})();
+</script>
 </body>
 </html>
