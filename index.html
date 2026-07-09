@@ -519,6 +519,8 @@ let state = {
   showOnly:false
 };
 
+let editingWatchId = null;
+  
 const $ = id => document.getElementById(id);
   document.addEventListener("DOMContentLoaded", init);
 
@@ -836,25 +838,166 @@ function marketCard(e,rank){
 }
 
 function watchRow(item){
+  const isEditing = editingWatchId === item.id;
+  const itemIdValue = item.itemId ?? "";
+  const costValue = item.cost ?? 0;
+
   return `
   <div class="item">
     <div class="row">
       <b>${esc(item.name)}</b>
       <span class="tag">${typeLabel(item.type)}</span>
-      ${item.custom?`<button class="btn danger small" data-delwatch="${item.id}">削除</button>`:`<span class="tag">標準</span>`}
+      <button class="btn small" data-editwatch="${item.id}">
+        ${isEditing ? "閉じる" : "編集"}
+      </button>
+      ${item.custom ? `<button class="btn danger small" data-delwatch="${item.id}">削除</button>` : `<span class="tag">標準</span>`}
     </div>
-    <div class="meta">ItemID: ${item.itemId||"未設定"} / ${esc(item.job)} Lv${item.level}〜</div>
+
+    <div class="meta">
+      ItemID: ${item.itemId || "未設定"} / ${esc(item.job)} Lv${item.level}〜 / 素材費 ${fmt(item.cost || 0)}
+    </div>
+
+    ${isEditing ? `
+      <div style="margin-top:12px">
+        <div class="form-grid two-col">
+          <label>
+            <span>アイテム名</span>
+            <input id="edit-name-${escAttr(item.id)}" value="${escAttr(item.name)}">
+          </label>
+
+          <label>
+            <span>ItemID</span>
+            <input id="edit-itemid-${escAttr(item.id)}" type="number" value="${escAttr(itemIdValue)}" placeholder="未設定なら空欄">
+          </label>
+
+          <label>
+            <span>必要ジョブ</span>
+            <input id="edit-job-${escAttr(item.id)}" value="${escAttr(item.job)}">
+          </label>
+
+          <label>
+            <span>必要Lv</span>
+            <input id="edit-level-${escAttr(item.id)}" type="number" min="0" max="100" value="${escAttr(item.level)}">
+          </label>
+
+          <label>
+            <span>タイプ</span>
+            <select id="edit-type-${escAttr(item.id)}">
+              <option value="user" ${item.type==="user"?"selected":""}>ユーザー追加</option>
+              <option value="shard" ${item.type==="shard"?"selected":""}>シャード/クリスタル</option>
+              <option value="gather" ${item.type==="gather"?"selected":""}>採集</option>
+              <option value="craft" ${item.type==="craft"?"selected":""}>製作</option>
+              <option value="future" ${item.type==="future"?"selected":""}>将来用</option>
+            </select>
+          </label>
+
+          <label>
+            <span>素材費</span>
+            <input id="edit-cost-${escAttr(item.id)}" type="number" min="0" value="${escAttr(costValue)}">
+          </label>
+        </div>
+
+        <div class="row" style="margin-top:10px">
+          <button class="btn primary small" data-savewatch="${item.id}">保存</button>
+          <button class="btn small" data-cancelwatch="${item.id}">キャンセル</button>
+          ${item.custom ? "" : `<button class="btn danger small" data-resetwatch="${item.id}">標準候補を初期値に戻す</button>`}
+        </div>
+      </div>
+    ` : ""}
   </div>`;
 }
 
-document.addEventListener("click",e=>{
-  const id=e.target.dataset.delwatch;
-  if(id){
-    state.customWatch=state.customWatch.filter(x=>x.id!==id);
-    save(K.customWatch,state.customWatch);
+document.addEventListener("click", e => {
+  const editId = e.target.dataset.editwatch;
+  const saveId = e.target.dataset.savewatch;
+  const cancelId = e.target.dataset.cancelwatch;
+  const deleteId = e.target.dataset.delwatch;
+  const resetId = e.target.dataset.resetwatch;
+
+  if (editId) {
+    editingWatchId = editingWatchId === editId ? null : editId;
     renderMarket();
+    return;
+  }
+
+  if (cancelId) {
+    editingWatchId = null;
+    renderMarket();
+    return;
+  }
+
+  if (saveId) {
+    saveWatchEdit(saveId);
+    return;
+  }
+
+  if (deleteId) {
+    state.customWatch = state.customWatch.filter(x => x.id !== deleteId);
+    save(K.customWatch, state.customWatch);
+    editingWatchId = null;
+    renderMarket();
+    return;
+  }
+
+  if (resetId) {
+    delete state.overrides[resetId];
+    save(K.overrides, state.overrides);
+    editingWatchId = null;
+    renderMarket();
+    return;
   }
 });
+
+function saveWatchEdit(id){
+  const current = allWatch().find(x => x.id === id);
+  if (!current) return;
+
+  const name = $(`edit-name-${id}`).value.trim() || current.name;
+  const rawItemId = $(`edit-itemid-${id}`).value.trim();
+  const itemId = rawItemId === "" ? null : Number(rawItemId);
+  const job = $(`edit-job-${id}`).value.trim() || current.job;
+  const level = num($(`edit-level-${id}`).value, 0, 100);
+  const type = $(`edit-type-${id}`).value || current.type;
+  const cost = num($(`edit-cost-${id}`).value, 0);
+
+  const edited = {
+    name,
+    itemId,
+    job,
+    level,
+    type,
+    cost
+  };
+
+  if (current.custom) {
+    state.customWatch = state.customWatch.map(item => {
+      if (item.id !== id) return item;
+      return {
+        ...item,
+        ...edited,
+        custom: true
+      };
+    });
+
+    save(K.customWatch, state.customWatch);
+  } else {
+    state.overrides[id] = {
+      ...(state.overrides[id] || {}),
+      ...edited
+    };
+
+    save(K.overrides, state.overrides);
+  }
+
+  editingWatchId = null;
+
+  // ItemIDを変えた後は古い相場キャッシュがズレる可能性があるので消す
+  state.cache = {world:"",t:0,items:{}};
+  save(K.cache, state.cache);
+
+  setMarketStatus("監視候補を保存しました。必要なら相場を再取得してください。", "ok");
+  renderMarket();
+}
 
 function typeLabel(t){
   return {shard:"シャード/クリスタル",gather:"採集",craft:"製作",future:"将来用",user:"ユーザー追加"}[t]||t;
