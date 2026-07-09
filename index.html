@@ -318,6 +318,16 @@ textarea{min-height:110px;resize:vertical}
             <input id="showOnlyPossible" type="checkbox">
             <span>できるものだけ表示</span>
           </label>
+
+          <label>
+            <span>監視候補検索</span>
+            <input id="watchSearchInput" placeholder="アイテム名 / ジョブ / ItemID / メモで検索">
+          </label>
+
+          <label class="switch">
+            <input id="showOnlyFavorite" type="checkbox">
+            <span>お気に入りだけ表示</span>
+          </label>
         </article>
 
         <article class="card span-6">
@@ -558,6 +568,8 @@ function bind(){
   $("fetchMarketBtn").onclick=fetchMarket;
   $("clearCacheBtn").onclick=clearCache;
   $("showOnlyPossible").onchange=e=>{state.showOnly=e.target.checked;renderMarket();};
+  $("watchSearchInput").oninput = renderMarket;
+  $("showOnlyFavorite").onchange = renderMarket;
   $("addWatchBtn").onclick=addWatch;
   $("parseOcrBtn").onclick=parseOcr;
 }
@@ -721,7 +733,22 @@ function addSpot(){
   renderWalk();
 }
 
-function allWatch(){return baseWatch.map(x=>({...x,...(state.overrides[x.id]||{})})).concat(state.customWatch);}
+function allWatch(){
+  const base = baseWatch.map(x => ({
+    favorite:false,
+    note:"",
+    ...x,
+    ...(state.overrides[x.id] || {})
+  }));
+
+  const custom = state.customWatch.map(x => ({
+    favorite:false,
+    note:"",
+    ...x
+  }));
+
+  return base.concat(custom);
+}
 
 function jobLevel(req){
   return String(req).split("/").map(x=>state.jobs[x.trim()]||0).reduce((a,b)=>Math.max(a,b),0);
@@ -772,13 +799,36 @@ function score(item){
 }
 
 function filteredEntries(){
-  return allWatch().filter(item=>{
-    if(state.category==="possible"&&!canDo(item))return false;
-    if(state.category==="user"&&!item.custom)return false;
-    if(!["all","possible","user"].includes(state.category)&&item.type!==state.category)return false;
-    if(state.showOnly&&!canDo(item))return false;
+  const search = ($("watchSearchInput")?.value || "").trim().toLowerCase();
+  const favoriteOnly = $("showOnlyFavorite")?.checked || false;
+
+  return allWatch().filter(item => {
+    if(state.category === "possible" && !canDo(item)) return false;
+    if(state.category === "user" && !item.custom) return false;
+    if(!["all","possible","user"].includes(state.category) && item.type !== state.category) return false;
+    if(state.showOnly && !canDo(item)) return false;
+    if(favoriteOnly && !item.favorite) return false;
+
+    if(search){
+      const bundle = [
+        item.name,
+        item.itemId || "",
+        item.job,
+        item.type,
+        item.level,
+        item.note || ""
+      ].join(" ").toLowerCase();
+
+      if(!bundle.includes(search)) return false;
+    }
+
     return true;
-  }).map(score).sort((a,b)=>b.score-a.score);
+  }).map(score).sort((a,b) => {
+    if((b.item.favorite ? 1 : 0) !== (a.item.favorite ? 1 : 0)){
+      return (b.item.favorite ? 1 : 0) - (a.item.favorite ? 1 : 0);
+    }
+    return b.score - a.score;
+  });
 }
 
 function renderMarket(){
@@ -817,23 +867,51 @@ function renderMarketFilters(){
 }
 
 function marketCard(e,rank){
-  const item=e.item,m=e.m;
+  const item = e.item;
+  const m = e.m;
+
   return `
-  <div class="item ${canDo(item)?"ok":"lock"}">
+  <div class="item ${canDo(item) ? "ok" : "lock"}">
     <div class="row">
-      ${rank?`<span class="tag warn">#${rank}</span>`:""}
+      ${rank ? `<span class="tag warn">#${rank}</span>` : ""}
+      <button class="btn small" data-togglefavorite="${item.id}">
+        ${item.favorite ? "★" : "☆"}
+      </button>
       <b>${esc(item.name)}</b>
       <span class="tag">${typeLabel(item.type)}</span>
-      <span class="tag ${canDo(item)?"ok":""}">${canDo(item)?"できる":"Lv不足"}</span>
+      <span class="tag ${canDo(item) ? "ok" : ""}">
+        ${canDo(item) ? "できる" : "Lv不足"}
+      </span>
     </div>
-    <div class="meta">${esc(item.job)} Lv${item.level}〜 / ItemID: ${item.itemId||"未設定"}</div>
+
+    <div class="meta">
+      ${esc(item.job)} Lv${item.level}〜 / ItemID: ${item.itemId || "未設定"}
+    </div>
+
+    ${item.note ? `<div class="meta">メモ：${esc(item.note)}</div>` : ""}
+
     <div class="summary" style="margin-top:10px">
-      <div class="summary-box"><div class="muted">最安</div><div class="summary-value">${m?fmt(m.lowest)+" ギル":"未取得"}</div></div>
-      <div class="summary-box"><div class="muted">在庫</div><div class="summary-value">${m?fmt(m.stock):"未取得"}</div></div>
-      <div class="summary-box"><div class="muted">販売速度</div><div class="summary-value">${m?m.velocity.toFixed(2):"未取得"}</div></div>
-      <div class="summary-box"><div class="muted">1h利益</div><div class="summary-value">${e.h?fmt(e.h)+" ギル":"未算出"}</div></div>
+      <div class="summary-box">
+        <div class="muted">最安</div>
+        <div class="summary-value">${m ? fmt(m.lowest) + " ギル" : "未取得"}</div>
+      </div>
+      <div class="summary-box">
+        <div class="muted">在庫</div>
+        <div class="summary-value">${m ? fmt(m.stock) : "未取得"}</div>
+      </div>
+      <div class="summary-box">
+        <div class="muted">販売速度</div>
+        <div class="summary-value">${m ? m.velocity.toFixed(2) : "未取得"}</div>
+      </div>
+      <div class="summary-box">
+        <div class="muted">1h利益</div>
+        <div class="summary-value">${e.h ? fmt(e.h) + " ギル" : "未算出"}</div>
+      </div>
     </div>
-    <div class="tags">${e.reasons.map(r=>`<span class="tag">${esc(r)}</span>`).join("")}</div>
+
+    <div class="tags">
+      ${e.reasons.map(r => `<span class="tag">${esc(r)}</span>`).join("")}
+    </div>
   </div>`;
 }
 
@@ -841,10 +919,14 @@ function watchRow(item){
   const isEditing = editingWatchId === item.id;
   const itemIdValue = item.itemId ?? "";
   const costValue = item.cost ?? 0;
+  const noteValue = item.note || "";
 
   return `
   <div class="item">
     <div class="row">
+      <button class="btn small" data-togglefavorite="${item.id}">
+        ${item.favorite ? "★" : "☆"}
+      </button>
       <b>${esc(item.name)}</b>
       <span class="tag">${typeLabel(item.type)}</span>
       <button class="btn small" data-editwatch="${item.id}">
@@ -856,6 +938,8 @@ function watchRow(item){
     <div class="meta">
       ItemID: ${item.itemId || "未設定"} / ${esc(item.job)} Lv${item.level}〜 / 素材費 ${fmt(item.cost || 0)}
     </div>
+
+    ${item.note ? `<div class="meta">メモ：${esc(item.note)}</div>` : ""}
 
     ${isEditing ? `
       <div style="margin-top:12px">
@@ -897,6 +981,16 @@ function watchRow(item){
           </label>
         </div>
 
+        <label>
+          <span>出品メモ</span>
+          <textarea id="edit-note-${escAttr(item.id)}" placeholder="例：20個ずつ出品。200ギル以下なら待ち。">${esc(noteValue)}</textarea>
+        </label>
+
+        <label class="switch">
+          <input id="edit-favorite-${escAttr(item.id)}" type="checkbox" ${item.favorite ? "checked" : ""}>
+          <span>お気に入りにする</span>
+        </label>
+
         <div class="row" style="margin-top:10px">
           <button class="btn primary small" data-savewatch="${item.id}">保存</button>
           <button class="btn small" data-cancelwatch="${item.id}">キャンセル</button>
@@ -913,6 +1007,12 @@ document.addEventListener("click", e => {
   const cancelId = e.target.dataset.cancelwatch;
   const deleteId = e.target.dataset.delwatch;
   const resetId = e.target.dataset.resetwatch;
+  const favoriteId = e.target.dataset.togglefavorite;
+
+  if (favoriteId) {
+    toggleFavorite(favoriteId);
+    return;
+  }
 
   if (editId) {
     editingWatchId = editingWatchId === editId ? null : editId;
@@ -943,10 +1043,97 @@ document.addEventListener("click", e => {
     delete state.overrides[resetId];
     save(K.overrides, state.overrides);
     editingWatchId = null;
+
+    state.cache = {world:"",t:0,items:{}};
+    save(K.cache, state.cache);
+
     renderMarket();
+    setMarketStatus("標準候補を初期値に戻しました。", "ok");
     return;
   }
 });
+
+function toggleFavorite(id){
+  const current = allWatch().find(x => x.id === id);
+  if (!current) return;
+
+  const nextFavorite = !current.favorite;
+
+  if (current.custom) {
+    state.customWatch = state.customWatch.map(item => {
+      if (item.id !== id) return item;
+      return {
+        ...item,
+        favorite: nextFavorite
+      };
+    });
+
+    save(K.customWatch, state.customWatch);
+  } else {
+    state.overrides[id] = {
+      ...(state.overrides[id] || {}),
+      favorite: nextFavorite
+    };
+
+    save(K.overrides, state.overrides);
+  }
+
+  renderMarket();
+}
+
+function saveWatchEdit(id){
+  const current = allWatch().find(x => x.id === id);
+  if (!current) return;
+
+  const name = $(`edit-name-${id}`).value.trim() || current.name;
+  const rawItemId = $(`edit-itemid-${id}`).value.trim();
+  const itemId = rawItemId === "" ? null : Number(rawItemId);
+  const job = $(`edit-job-${id}`).value.trim() || current.job;
+  const level = num($(`edit-level-${id}`).value, 0, 100);
+  const type = $(`edit-type-${id}`).value || current.type;
+  const cost = num($(`edit-cost-${id}`).value, 0);
+  const note = $(`edit-note-${id}`).value.trim();
+  const favorite = $(`edit-favorite-${id}`).checked;
+
+  const edited = {
+    name,
+    itemId,
+    job,
+    level,
+    type,
+    cost,
+    note,
+    favorite
+  };
+
+  if (current.custom) {
+    state.customWatch = state.customWatch.map(item => {
+      if (item.id !== id) return item;
+      return {
+        ...item,
+        ...edited,
+        custom: true
+      };
+    });
+
+    save(K.customWatch, state.customWatch);
+  } else {
+    state.overrides[id] = {
+      ...(state.overrides[id] || {}),
+      ...edited
+    };
+
+    save(K.overrides, state.overrides);
+  }
+
+  editingWatchId = null;
+
+  state.cache = {world:"",t:0,items:{}};
+  save(K.cache, state.cache);
+
+  setMarketStatus("監視候補を保存しました。必要なら相場を再取得してください。", "ok");
+  renderMarket();
+}
 
 function saveWatchEdit(id){
   const current = allWatch().find(x => x.id === id);
@@ -1007,16 +1194,18 @@ function addWatch(){
   const name=$("watchName").value.trim();
   const job=$("watchJob").value.trim();
   if(!name||!job)return alert("アイテム名と必要ジョブを入力してください");
-  state.customWatch.push({
-    id:`cw-${Date.now()}`,
-    name,
-    itemId:$("watchItemId").value?Number($("watchItemId").value):null,
-    job,
-    level:num($("watchLevel").value,1,100),
-    type:$("watchType").value,
-    cost:num($("watchMaterialCost").value,0),
-    custom:true
-  });
+ state.customWatch.push({
+  id:`cw-${Date.now()}`,
+  name,
+  itemId:$("watchItemId").value?Number($("watchItemId").value):null,
+  job,
+  level:num($("watchLevel").value,1,100),
+  type:$("watchType").value,
+  cost:num($("watchMaterialCost").value,0),
+  favorite:false,
+  note:"",
+  custom:true
+});
   save(K.customWatch,state.customWatch);
   ["watchName","watchItemId","watchJob"].forEach(id=>$(id).value="");
   $("watchLevel").value=1;
