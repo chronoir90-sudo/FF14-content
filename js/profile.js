@@ -70,26 +70,31 @@ export function importData(data){
   renderAll();
 }
 
+// Supabaseダッシュボードで作成したEdge Functionの実際の名前は "dynamic-task"
+// (中身はリポジトリの supabase/functions/sync/index.ts と同じもの)
+const SYNC_FUNCTION_URL = `${SUPABASE_URL}/functions/v1/dynamic-task`;
+
 export async function cloudSave(){
   const key=$("syncKey").value.trim();
   if(!key)return setSync("同期キーを入力してください。","err");
+  if(key.length<4)return setSync("同期キーは4文字以上にしてください。","err");
   localStorage.setItem(K.syncKey,key);
   saveProfile();
   if(!SUPABASE_URL||!SUPABASE_ANON_KEY)return setSync("Supabase URL / anon key が未設定です。","err");
 
   const data=exportData();
   try{
-    const res=await fetch(`${SUPABASE_URL}/rest/v1/eorzea_pocket_data?on_conflict=user_key`,{
+    const res=await fetch(SYNC_FUNCTION_URL,{
       method:"POST",
       headers:{
         apikey:SUPABASE_ANON_KEY,
         Authorization:`Bearer ${SUPABASE_ANON_KEY}`,
-        "Content-Type":"application/json",
-        Prefer:"resolution=merge-duplicates"
+        "Content-Type":"application/json"
       },
-      body:JSON.stringify({user_key:key,data,updated_at:new Date().toISOString()})
+      body:JSON.stringify({action:"save",user_key:key,data})
     });
-    if(!res.ok)throw new Error("HTTP "+res.status);
+    const body=await res.json().catch(()=>({}));
+    if(!res.ok||body.error)throw new Error(body.error||("HTTP "+res.status));
     setSync("クラウドへ保存しました。","ok");
   }catch(e){
     console.error(e);
@@ -104,14 +109,19 @@ export async function cloudLoad(){
   if(!SUPABASE_URL||!SUPABASE_ANON_KEY)return setSync("Supabase URL / anon key が未設定です。","err");
 
   try{
-    const url=`${SUPABASE_URL}/rest/v1/eorzea_pocket_data?user_key=eq.${encodeURIComponent(key)}&select=data,updated_at`;
-    const res=await fetch(url,{
-      headers:{apikey:SUPABASE_ANON_KEY,Authorization:`Bearer ${SUPABASE_ANON_KEY}`}
+    const res=await fetch(SYNC_FUNCTION_URL,{
+      method:"POST",
+      headers:{
+        apikey:SUPABASE_ANON_KEY,
+        Authorization:`Bearer ${SUPABASE_ANON_KEY}`,
+        "Content-Type":"application/json"
+      },
+      body:JSON.stringify({action:"load",user_key:key})
     });
-    if(!res.ok)throw new Error("HTTP "+res.status);
-    const rows=await res.json();
-    if(!rows.length)return setSync("クラウドにデータがありません。","err");
-    importData(rows[0].data);
+    if(res.status===404)return setSync("クラウドにデータがありません。","err");
+    const body=await res.json().catch(()=>({}));
+    if(!res.ok||body.error)throw new Error(body.error||("HTTP "+res.status));
+    importData(body.data);
     setSync("クラウドから読み込みました。","ok");
   }catch(e){
     console.error(e);
